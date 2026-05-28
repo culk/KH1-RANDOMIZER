@@ -576,40 +576,13 @@ class FindReplaceGUI:
     # ─────────────────────────────────────────────────── button actions ──
 
     def _on_stamp_note(self) -> None:
-        """Open the Stamp Change Note dialog."""
-        dlg = tk.Toplevel(self.root)
-        dlg.title("Stamp Change Note")
-        dlg.geometry("640x420")
-        dlg.resizable(True, True)
-        dlg.transient(self.root)
-        dlg.grab_set()
+        """Auto-detect changes in matched files and stamp What's changed notes."""
+        globs     = self._get_globs()
+        root_path = Path(self.root_var.get())
 
-        ttk.Label(
-            dlg,
-            text=(
-                "Enter the change note text below.\n"
-                "Each line will be prefixed with \"; \" and inserted after the\n"
-                "KGR[0] stream header, before Script 0. An existing note is replaced."
-            ),
-            justify=tk.LEFT,
-        ).pack(anchor=tk.W, padx=12, pady=(10, 4))
-
-        box = scrolledtext.ScrolledText(dlg, font=("Consolas", 10), height=14, wrap=tk.WORD)
-        box.pack(fill=tk.BOTH, expand=True, padx=12, pady=4)
-
-        def _do_stamp() -> None:
-            raw = box.get("1.0", tk.END)
-            note_text = raw[:-1] if raw.endswith("\n") else raw
-            if not note_text.strip():
-                messagebox.showwarning("Empty note", "Please enter the change note content.", parent=dlg)
-                return
-            dlg.destroy()
-
-            globs = self._get_globs()
-            root_path = Path(self.root_var.get())
-
-            def _worker() -> None:
-                self.root.after(0, lambda: self._set_busy(True))
+        def _worker() -> None:
+            self.root.after(0, lambda: self._set_busy(True))
+            try:
                 try:
                     files = resolve_files(globs, root_path)
                 except Exception as e:
@@ -620,43 +593,56 @@ class FindReplaceGUI:
                     return
 
                 HR = "─" * 70
-                self._log(f"\n{HR}\n  STAMP NOTE\n{HR}\n", "header")
-                self._log(f"  Root:   {root_path}\n", "info")
-                self._log(f"  Globs:  {globs}\n\n", "info")
+                self._log(f"\n{HR}\n  STAMP NOTE  (auto-detect)\n{HR}\n", "header")
+                self._log(f"  Root:  {root_path}\n", "info")
+                self._log(f"  Globs: {globs}\n\n", "info")
 
-                snapshot: dict[Path, str] = {}
-                stamped = skipped = errors = 0
+                snapshot:    dict[Path, str] = {}
+                stamped = no_changes = no_header = 0
 
                 for filepath in files:
                     try:
                         content = filepath.read_text(encoding="utf-8", errors="replace")
                     except OSError as e:
-                        self._log(f"  ERROR {filepath}: {e}\n", "error")
-                        errors += 1
+                        self._log(f"  ERROR reading {filepath}: {e}\n", "error")
                         continue
-                    new_content, changed = stamp_change_note(content, note_text)
-                    if not changed:
-                        skipped += 1
+
+                    changes   = detect_script_changes(content)
+                    note_text = generate_change_note(changes)
+
+                    if note_text is None:
+                        no_changes += 1
                         continue
+
+                    new_content, ok = stamp_change_note(content, note_text)
+                    if not ok:
+                        no_header += 1
+                        continue
+
                     try:
                         rel = filepath.relative_to(root_path)
                     except ValueError:
                         rel = filepath
+
+                    self._log(f"  {rel}\n", "file")
+                    for kgr, script, descs in changes:
+                        self._log(f"    KGR[{kgr}] Script {script}:\n", "lineno")
+                        for desc in descs:
+                            self._log(f"      - {desc}\n", "added")
+
                     snapshot[filepath] = content
                     try:
                         filepath.write_text(new_content, encoding="utf-8")
-                        self._log(f"  Stamped: {rel}\n", "file")
                         stamped += 1
                     except OSError as e:
                         self._log(f"  ERROR writing {filepath}: {e}\n", "error")
-                        errors += 1
 
                 self._log(f"\n{HR}\n", "header")
                 parts = [f"Stamped {stamped} file(s)."]
-                if skipped:
-                    parts.append(f"Skipped {skipped} (no KGR[0] header).")
-                if errors:
-                    parts.append(f"{errors} error(s).")
+                if no_changes:
+                    parts.append(f"{no_changes} skipped (no detectable changes).")
+                if no_header:
+                    parts.append(f"{no_header} skipped (no KGR[0] header).")
                 summary = "  " + "  ".join(parts)
                 self._log(f"{summary}\n{HR}\n", "success")
 
@@ -666,16 +652,10 @@ class FindReplaceGUI:
                     if snapshot:
                         self.btn_undo.configure(state=tk.NORMAL)
                 self.root.after(0, _finish)
+            finally:
+                self.root.after(0, lambda: self._set_busy(False))
 
-            threading.Thread(target=_worker, daemon=True).start()
-
-        btn_frame = ttk.Frame(dlg)
-        btn_frame.pack(fill=tk.X, padx=12, pady=(4, 10))
-        ttk.Button(btn_frame, text="Cancel",         command=dlg.destroy).pack(side=tk.RIGHT, padx=4)
-        ttk.Button(btn_frame, text="Stamp All Files", command=_do_stamp).pack(side=tk.RIGHT, padx=4)
-
-        box.focus_set()
-        dlg.wait_window()
+        threading.Thread(target=_worker, daemon=True).start()
 
     def _on_find(self) -> None:
         regex = self._compile_regex()
