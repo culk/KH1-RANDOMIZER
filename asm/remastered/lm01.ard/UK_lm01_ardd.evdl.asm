@@ -9,6 +9,37 @@
 ; Stream @ 0x4811  (4240 instructions)
 ; ────────────────────────────────────────────────────────────────────────
 
+; What's changed:
+; - KGR[0] Script 3:
+;   - New Mega-Potion Clam reward push
+;   - Old Mega-Potion Clam reward push
+;   - Give reward always (don't check for 99 Mega-Potions)
+; - KGR[0] Script 4:
+;   - New Elixir Clam reward push
+;   - Old Elixir Clam reward push
+;   - Give reward always (don't check for 99 Elixirs)
+; - KGR[0] Script 5:
+;   - New Cottage Clam reward push
+;   - Old Cottage Clam reward push
+;   - Give reward always (don't check for 99 Cottages)
+; - KGR[0] Script 6:
+;   - New Mythril Clam reward push
+;   - Old Mythril Clam reward push
+;   - Give reward always (don't check for 99 Mythril)
+; - KGR[0] Script 7:
+;   - New Mega-Ether Clam reward push
+;   - Old Mega-Ether Clam reward push
+;   - Give reward always (don't check for 99 Mega-Ether)
+; - KGR[0] Script 8:
+;   - New Mythril Shard Clam reward push
+;   - Old Mythril Shard Clam reward push
+;   - Give reward always (don't check for 99 Mythril Shard)
+; - KGR[0] Script 9:
+;   - Handle SE in below code
+;   - Handle item get in below code
+;   - New Clam show prompt and get item code
+;   - Below code should be uncommented if we want the window centered
+;   - Old clam show prompt code
 
 ; ────────────────────────────────────────────────────────────────────────
 ; Script 0  |  11 subscript(s)  |  PC 0  |  file 0x4811  |  KGR 0

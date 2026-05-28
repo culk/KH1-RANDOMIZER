@@ -14,6 +14,247 @@
 ; Stream @ 0x9F7B1  (6055 instructions)
 ; ────────────────────────────────────────────────────────────────────────
 
+; What's changed:
+; - KGR[0] Script 12:
+;   - New Mega-Potion Clam reward push
+;   - Old Mega-Potion Clam reward push
+;   - Give reward always (don't check for 99 Mega-Potions)
+; - KGR[0] Script 13:
+;   - New Elixir Clam reward push
+;   - Old Elixir Clam reward push
+;   - Give reward always (don't check for 99 Elixirs)
+; - KGR[0] Script 14:
+;   - New Cottage Clam reward push
+;   - Old Cottage Clam reward push
+;   - Give reward always (don't check for 99 Cottages)
+; - KGR[0] Script 15:
+;   - New Mythril Clam reward push
+;   - Old Mythril Clam reward push
+;   - Give reward always (don't check for 99 Mythril)
+; - KGR[0] Script 16:
+;   - New Mega-Ether Clam reward push
+;   - Old Mega-Ether Clam reward push
+;   - Give reward always (don't check for 99 Mega-Ether)
+; - KGR[0] Script 17:
+;   - New Mythril Shard Clam reward push
+;   - Old Mythril Shard Clam reward push
+;   - Give reward always (don't check for 99 Mythril Shard)
+; - KGR[0] Script 18:
+;   - Handle SE in below code
+;   - Handle item get in below code
+;   - New Clam show prompt and get item code
+;   - Below code should be uncommented if we want the window centered
+;   - Old clam show prompt code
+; - KGR[1] Script 3:
+;   - New Mega-Potion Clam reward push
+;   - Old Mega-Potion Clam reward push
+;   - Give reward always (don't check for 99 Mega-Potions)
+; - KGR[1] Script 4:
+;   - New Elixir Clam reward push
+;   - Old Elixir Clam reward push
+;   - Give reward always (don't check for 99 Elixirs)
+; - KGR[1] Script 5:
+;   - New Cottage Clam reward push
+;   - Old Cottage Clam reward push
+;   - Give reward always (don't check for 99 Cottages)
+; - KGR[1] Script 6:
+;   - New Mythril Clam reward push
+;   - Old Mythril Clam reward push
+;   - Give reward always (don't check for 99 Mythril)
+; - KGR[1] Script 7:
+;   - New Mega-Ether Clam reward push
+;   - Old Mega-Ether Clam reward push
+;   - Give reward always (don't check for 99 Mega-Ether)
+; - KGR[1] Script 8:
+;   - New Mythril Shard Clam reward push
+;   - Old Mythril Shard Clam reward push
+;   - Give reward always (don't check for 99 Mythril Shard)
+; - KGR[1] Script 9:
+;   - Handle SE in below code
+;   - Handle item get in below code
+;   - New Clam show prompt and get item code
+;   - Below code should be uncommented if we want the window centered
+;   - Old clam show prompt code
+; - KGR[2] Script 10:
+;   - New Mega-Potion Clam reward push
+;   - Old Mega-Potion Clam reward push
+;   - Give reward always (don't check for 99 Mega-Potions)
+; - KGR[2] Script 11:
+;   - New Elixir Clam reward push
+;   - Old Elixir Clam reward push
+;   - Give reward always (don't check for 99 Elixirs)
+; - KGR[2] Script 12:
+;   - New Cottage Clam reward push
+;   - Old Cottage Clam reward push
+;   - Give reward always (don't check for 99 Cottages)
+; - KGR[2] Script 13:
+;   - New Mythril Clam reward push
+;   - Old Mythril Clam reward push
+;   - Give reward always (don't check for 99 Mythril)
+; - KGR[2] Script 14:
+;   - New Mega-Ether Clam reward push
+;   - Old Mega-Ether Clam reward push
+;   - Give reward always (don't check for 99 Mega-Ether)
+; - KGR[2] Script 15:
+;   - New Mythril Shard Clam reward push
+;   - Old Mythril Shard Clam reward push
+;   - Give reward always (don't check for 99 Mythril Shard)
+; - KGR[2] Script 16:
+;   - Handle SE in below code
+;   - Handle item get in below code
+;   - New Clam show prompt and get item code
+;   - Below code should be uncommented if we want the window centered
+;   - Old clam show prompt code
+; - KGR[3] Script 10:
+;   - New Mega-Potion Clam reward push
+;   - Old Mega-Potion Clam reward push
+;   - Give reward always (don't check for 99 Mega-Potions)
+; - KGR[3] Script 11:
+;   - New Elixir Clam reward push
+;   - Old Elixir Clam reward push
+;   - Give reward always (don't check for 99 Elixirs)
+; - KGR[3] Script 12:
+;   - New Cottage Clam reward push
+;   - Old Cottage Clam reward push
+;   - Give reward always (don't check for 99 Cottages)
+; - KGR[3] Script 13:
+;   - New Mythril Clam reward push
+;   - Old Mythril Clam reward push
+;   - Give reward always (don't check for 99 Mythril)
+; - KGR[3] Script 14:
+;   - New Mega-Ether Clam reward push
+;   - Old Mega-Ether Clam reward push
+;   - Give reward always (don't check for 99 Mega-Ether)
+; - KGR[3] Script 15:
+;   - New Mythril Shard Clam reward push
+;   - Old Mythril Shard Clam reward push
+;   - Give reward always (don't check for 99 Mythril Shard)
+; - KGR[3] Script 16:
+;   - Handle SE in below code
+;   - Handle item get in below code
+;   - New Clam show prompt and get item code
+;   - Below code should be uncommented if we want the window centered
+;   - Old clam show prompt code
+; - KGR[4] Script 10:
+;   - New Mega-Potion Clam reward push
+;   - Old Mega-Potion Clam reward push
+;   - Give reward always (don't check for 99 Mega-Potions)
+; - KGR[4] Script 11:
+;   - New Elixir Clam reward push
+;   - Old Elixir Clam reward push
+;   - Give reward always (don't check for 99 Elixirs)
+; - KGR[4] Script 12:
+;   - New Cottage Clam reward push
+;   - Old Cottage Clam reward push
+;   - Give reward always (don't check for 99 Cottages)
+; - KGR[4] Script 13:
+;   - New Mythril Clam reward push
+;   - Old Mythril Clam reward push
+;   - Give reward always (don't check for 99 Mythril)
+; - KGR[4] Script 14:
+;   - New Mega-Ether Clam reward push
+;   - Old Mega-Ether Clam reward push
+;   - Give reward always (don't check for 99 Mega-Ether)
+; - KGR[4] Script 15:
+;   - New Mythril Shard Clam reward push
+;   - Old Mythril Shard Clam reward push
+;   - Give reward always (don't check for 99 Mythril Shard)
+; - KGR[4] Script 16:
+;   - Handle SE in below code
+;   - Handle item get in below code
+;   - New Clam show prompt and get item code
+;   - Below code should be uncommented if we want the window centered
+;   - Old clam show prompt code
+; - KGR[5] Script 10:
+;   - New Mega-Potion Clam reward push
+;   - Old Mega-Potion Clam reward push
+;   - Give reward always (don't check for 99 Mega-Potions)
+; - KGR[5] Script 11:
+;   - New Elixir Clam reward push
+;   - Old Elixir Clam reward push
+;   - Give reward always (don't check for 99 Elixirs)
+; - KGR[5] Script 12:
+;   - New Cottage Clam reward push
+;   - Old Cottage Clam reward push
+;   - Give reward always (don't check for 99 Cottages)
+; - KGR[5] Script 13:
+;   - New Mythril Clam reward push
+;   - Old Mythril Clam reward push
+;   - Give reward always (don't check for 99 Mythril)
+; - KGR[5] Script 14:
+;   - New Mega-Ether Clam reward push
+;   - Old Mega-Ether Clam reward push
+;   - Give reward always (don't check for 99 Mega-Ether)
+; - KGR[5] Script 15:
+;   - New Mythril Shard Clam reward push
+;   - Old Mythril Shard Clam reward push
+;   - Give reward always (don't check for 99 Mythril Shard)
+; - KGR[5] Script 16:
+;   - Handle SE in below code
+;   - Handle item get in below code
+;   - New Clam show prompt and get item code
+;   - Below code should be uncommented if we want the window centered
+;   - Old clam show prompt code
+; - KGR[6] Script 3:
+;   - New Mega-Potion Clam reward push
+;   - Old Mega-Potion Clam reward push
+;   - Give reward always (don't check for 99 Mega-Potions)
+; - KGR[6] Script 4:
+;   - New Elixir Clam reward push
+;   - Old Elixir Clam reward push
+;   - Give reward always (don't check for 99 Elixirs)
+; - KGR[6] Script 5:
+;   - New Cottage Clam reward push
+;   - Old Cottage Clam reward push
+;   - Give reward always (don't check for 99 Cottages)
+; - KGR[6] Script 6:
+;   - New Mythril Clam reward push
+;   - Old Mythril Clam reward push
+;   - Give reward always (don't check for 99 Mythril)
+; - KGR[6] Script 7:
+;   - New Mega-Ether Clam reward push
+;   - Old Mega-Ether Clam reward push
+;   - Give reward always (don't check for 99 Mega-Ether)
+; - KGR[6] Script 8:
+;   - New Mythril Shard Clam reward push
+;   - Old Mythril Shard Clam reward push
+;   - Give reward always (don't check for 99 Mythril Shard)
+; - KGR[6] Script 9:
+;   - Handle SE in below code
+;   - Handle item get in below code
+;   - New Clam show prompt and get item code
+;   - Below code should be uncommented if we want the window centered
+;   - Old clam show prompt code
+; - KGR[7] Script 13:
+;   - New Mega-Potion Clam reward push
+;   - Old Mega-Potion Clam reward push
+;   - Give reward always (don't check for 99 Mega-Potions)
+; - KGR[7] Script 14:
+;   - New Elixir Clam reward push
+;   - Old Elixir Clam reward push
+;   - Give reward always (don't check for 99 Elixirs)
+; - KGR[7] Script 15:
+;   - New Cottage Clam reward push
+;   - Old Cottage Clam reward push
+;   - Give reward always (don't check for 99 Cottages)
+; - KGR[7] Script 16:
+;   - New Mythril Clam reward push
+;   - Old Mythril Clam reward push
+;   - Give reward always (don't check for 99 Mythril)
+; - KGR[7] Script 17:
+;   - New Mega-Ether Clam reward push
+;   - Old Mega-Ether Clam reward push
+;   - Give reward always (don't check for 99 Mega-Ether)
+; - KGR[7] Script 18:
+;   - New Mythril Shard Clam reward push
+;   - Old Mythril Shard Clam reward push
+;   - Give reward always (don't check for 99 Mythril Shard)
+; - KGR[7] Script 19:
+;   - Handle SE in below code
+;   - Handle item get in below code
+;   - New Clam show prompt and get item code
+;   - Below code should be uncommented if we want the window centered
+;   - Old clam show prompt code
 
 ; ────────────────────────────────────────────────────────────────────────
 ; Script 0  |  11 subscript(s)  |  PC 0  |  file 0x9F7B1  |  KGR 0
