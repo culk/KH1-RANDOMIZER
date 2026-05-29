@@ -6376,10 +6376,11 @@
   1600000A  load_local      [22]            
   00000009  push            0x0             
   06000001  alu             eq              
-  ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_9  ; → PC 235
+  ????????  beqz            @GuardArmorEnd
   01000009  push            0x1             
   08000018  syscall         8                 ; Set_wait_timer
   21000018  syscall         33                ; Wait_message_end
+@GuardArmorEnd:
 
   10000005  yield           0x10            
   10000005  yield           0x10            
