@@ -6273,6 +6273,114 @@
   06000009  push            0x6             
   01000015  push_cond       0x1             
   0B000017  await_call      0xB               ; → Script 11 (outside KGR)
+
+; Moved Guard Armor Reward here so it can't be skipped
+  00020018  syscall         512               ; Exit_event_mode
+  430D000C  read_byte       [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
+  01000009  push            0x1             
+  06000001  alu             eq              
+  ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_2  ; → PC 146
+  02000009  push            0x2             
+  430D000D  write_byte      [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
+  07000009  push            0x7             
+  02000018  syscall         2                 ; Close_window
+@UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_2:
+  07000009  push            0x7             
+  11000009  push            0x11              ; 17
+  01000009  push            0x1             
+  04000018  syscall         4                 ; Set_window_size
+  07000009  push            0x7             
+  01000009  push            0x1             
+  05000018  syscall         5                 ; Set_window_type
+  07000009  push            0x7             
+  00000009  push            0x0             
+  06000018  syscall         6                 ; Set_window_opening_speed
+  07000009  push            0x7             
+  00000009  push            0x0             
+  53000018  syscall         83                ; Set_window_close_speed
+  07000009  push            0x7             
+  00000009  push            0x0             
+  50000018  syscall         80                ; Set_window_tail_type
+  07000009  push            0x7             
+  00000009  push            0x0             
+  01000009  push            0x1             
+  03000018  syscall         3                 ; Set_window_position
+  E8020018  syscall         744               ; Check_shared_ability_taken
+  1600000B  store_local     [22]            
+  07000009  push            0x7             
+  B1000018  syscall         177               ; Open_window_no_close
+  07000009  push            0x7             
+  38000009  push            0x38              ; 56
+  5D020018  syscall         605               ; Display_message_from_gift_table
+  08000009  push            0x8             
+  08000018  syscall         8                 ; Set_wait_timer
+  1F000009  push            0x1F              ; 31
+  00000009  push            0x0             
+  61010018  syscall         353               ; Play_SE2
+  AD000018  syscall         173               ; Get_pad_trigger
+  1800000B  store_local     [24]            
+  00000009  push            0x0             
+  1900000B  store_local     [25]            
+@UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_3:
+  1900000A  load_local      [25]            
+  5A000009  push            0x5A              ; 90
+  09000001  alu             lt              
+  ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_5  ; → PC 203
+  AD000018  syscall         173               ; Get_pad_trigger
+  1800000B  store_local     [24]            
+  1800000A  load_local      [24]            
+  01000009  push            0x1             
+  0C000001  alu             and             
+  00000009  push            0x0             
+  06000001  alu             eq              
+  ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_4  ; → PC 198
+  1900000A  load_local      [25]            
+  1700000B  store_local     [23]            
+  5A000009  push            0x5A              ; 90
+  1900000B  store_local     [25]            
+@UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_4:
+  1900000A  load_local      [25]            
+  01000009  push            0x1             
+  00000001  alu             add             
+  1900000B  store_local     [25]            
+  ????????  jmp             @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_3  ; → PC 182
+@UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_5:
+  1700000A  load_local      [23]            
+  3C000009  push            0x3C              ; 60
+  00000001  alu             add             
+  1700000B  store_local     [23]            
+  1700000A  load_local      [23]            
+  1900000B  store_local     [25]            
+@UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_6:
+  1900000A  load_local      [25]            
+  5A000009  push            0x5A              ; 90
+  09000001  alu             lt              
+  ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_7  ; → PC 218
+  1900000A  load_local      [25]            
+  01000009  push            0x1             
+  00000001  alu             add             
+  1900000B  store_local     [25]            
+  ????????  jmp             @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_6  ; → PC 209
+@UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_7:
+  07000009  push            0x7             
+  6B000018  syscall         107               ; Wait_message_end_ID
+  07000009  push            0x7             
+  02000018  syscall         2                 ; Close_window
+  430D000C  read_byte       [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
+  02000009  push            0x2             
+  06000001  alu             eq              
+  ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_8  ; → PC 228
+  03000009  push            0x3             
+  430D000D  write_byte      [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
+@UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_8:
+  1600000A  load_local      [22]            
+  00000009  push            0x0             
+  06000001  alu             eq              
+  ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_9  ; → PC 235
+  01000009  push            0x1             
+  08000018  syscall         8                 ; Set_wait_timer
+  21000018  syscall         33                ; Wait_message_end
+
   10000005  yield           0x10            
   10000005  yield           0x10            
   10000005  yield           0x10            
@@ -6404,110 +6512,113 @@
   6A000018  syscall         106               ; Wait_event_camera_end
   1E000009  push            0x1E              ; 30
   08000018  syscall         8                 ; Set_wait_timer
-  430D000C  read_byte       [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
-  01000009  push            0x1             
-  06000001  alu             eq              
-  ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_2  ; → PC 146
-  02000009  push            0x2             
-  430D000D  write_byte      [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
-  07000009  push            0x7             
-  02000018  syscall         2                 ; Close_window
-@UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_2:
-  07000009  push            0x7             
-  11000009  push            0x11              ; 17
-  01000009  push            0x1             
-  04000018  syscall         4                 ; Set_window_size
-  07000009  push            0x7             
-  01000009  push            0x1             
-  05000018  syscall         5                 ; Set_window_type
-  07000009  push            0x7             
-  00000009  push            0x0             
-  06000018  syscall         6                 ; Set_window_opening_speed
-  07000009  push            0x7             
-  00000009  push            0x0             
-  53000018  syscall         83                ; Set_window_close_speed
-  07000009  push            0x7             
-  00000009  push            0x0             
-  50000018  syscall         80                ; Set_window_tail_type
-  07000009  push            0x7             
-  00000009  push            0x0             
-  01000009  push            0x1             
-  03000018  syscall         3                 ; Set_window_position
-  E8020018  syscall         744               ; Check_shared_ability_taken
-  1600000B  store_local     [22]            
-  07000009  push            0x7             
-  B1000018  syscall         177               ; Open_window_no_close
-  07000009  push            0x7             
-  38000009  push            0x38              ; 56
-  5D020018  syscall         605               ; Display_message_from_gift_table
-  08000009  push            0x8             
-  08000018  syscall         8                 ; Set_wait_timer
-  1F000009  push            0x1F              ; 31
-  00000009  push            0x0             
-  61010018  syscall         353               ; Play_SE2
-  AD000018  syscall         173               ; Get_pad_trigger
-  1800000B  store_local     [24]            
-  00000009  push            0x0             
-  1900000B  store_local     [25]            
-@UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_3:
-  1900000A  load_local      [25]            
-  5A000009  push            0x5A              ; 90
-  09000001  alu             lt              
-  ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_5  ; → PC 203
-  AD000018  syscall         173               ; Get_pad_trigger
-  1800000B  store_local     [24]            
-  1800000A  load_local      [24]            
-  01000009  push            0x1             
-  0C000001  alu             and             
-  00000009  push            0x0             
-  06000001  alu             eq              
-  ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_4  ; → PC 198
-  1900000A  load_local      [25]            
-  1700000B  store_local     [23]            
-  5A000009  push            0x5A              ; 90
-  1900000B  store_local     [25]            
-@UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_4:
-  1900000A  load_local      [25]            
-  01000009  push            0x1             
-  00000001  alu             add             
-  1900000B  store_local     [25]            
-  ????????  jmp             @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_3  ; → PC 182
-@UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_5:
-  1700000A  load_local      [23]            
-  3C000009  push            0x3C              ; 60
-  00000001  alu             add             
-  1700000B  store_local     [23]            
-  1700000A  load_local      [23]            
-  1900000B  store_local     [25]            
-@UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_6:
-  1900000A  load_local      [25]            
-  5A000009  push            0x5A              ; 90
-  09000001  alu             lt              
-  ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_7  ; → PC 218
-  1900000A  load_local      [25]            
-  01000009  push            0x1             
-  00000001  alu             add             
-  1900000B  store_local     [25]            
-  ????????  jmp             @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_6  ; → PC 209
-@UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_7:
-  07000009  push            0x7             
-  6B000018  syscall         107               ; Wait_message_end_ID
-  07000009  push            0x7             
-  02000018  syscall         2                 ; Close_window
-  430D000C  read_byte       [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
-  02000009  push            0x2             
-  06000001  alu             eq              
-  ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_8  ; → PC 228
-  03000009  push            0x3             
-  430D000D  write_byte      [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
-@UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_8:
-  1600000A  load_local      [22]            
-  00000009  push            0x0             
-  06000001  alu             eq              
-  ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_9  ; → PC 235
-  01000009  push            0x1             
-  08000018  syscall         8                 ; Set_wait_timer
-  21000018  syscall         33                ; Wait_message_end
+
+; Removed Guard Armor reward prompt here and moved it up so it can't be skipped
+;   430D000C  read_byte       [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
+;   01000009  push            0x1             
+;   06000001  alu             eq              
+;   ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_2  ; → PC 146
+;   02000009  push            0x2             
+;   430D000D  write_byte      [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
+;   07000009  push            0x7             
+;   02000018  syscall         2                 ; Close_window
+; @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_2:
+;   07000009  push            0x7             
+;   11000009  push            0x11              ; 17
+;   01000009  push            0x1             
+;   04000018  syscall         4                 ; Set_window_size
+;   07000009  push            0x7             
+;   01000009  push            0x1             
+;   05000018  syscall         5                 ; Set_window_type
+;   07000009  push            0x7             
+;   00000009  push            0x0             
+;   06000018  syscall         6                 ; Set_window_opening_speed
+;   07000009  push            0x7             
+;   00000009  push            0x0             
+;   53000018  syscall         83                ; Set_window_close_speed
+;   07000009  push            0x7             
+;   00000009  push            0x0             
+;   50000018  syscall         80                ; Set_window_tail_type
+;   07000009  push            0x7             
+;   00000009  push            0x0             
+;   01000009  push            0x1             
+;   03000018  syscall         3                 ; Set_window_position
+;   E8020018  syscall         744               ; Check_shared_ability_taken
+;   1600000B  store_local     [22]            
+;   07000009  push            0x7             
+;   B1000018  syscall         177               ; Open_window_no_close
+;   07000009  push            0x7             
+;   38000009  push            0x38              ; 56
+;   5D020018  syscall         605               ; Display_message_from_gift_table
+;   08000009  push            0x8             
+;   08000018  syscall         8                 ; Set_wait_timer
+;   1F000009  push            0x1F              ; 31
+;   00000009  push            0x0             
+;   61010018  syscall         353               ; Play_SE2
+;   AD000018  syscall         173               ; Get_pad_trigger
+;   1800000B  store_local     [24]            
+;   00000009  push            0x0             
+;   1900000B  store_local     [25]            
+; @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_3:
+;   1900000A  load_local      [25]            
+;   5A000009  push            0x5A              ; 90
+;   09000001  alu             lt              
+;   ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_5  ; → PC 203
+;   AD000018  syscall         173               ; Get_pad_trigger
+;   1800000B  store_local     [24]            
+;   1800000A  load_local      [24]            
+;   01000009  push            0x1             
+;   0C000001  alu             and             
+;   00000009  push            0x0             
+;   06000001  alu             eq              
+;   ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_4  ; → PC 198
+;   1900000A  load_local      [25]            
+;   1700000B  store_local     [23]            
+;   5A000009  push            0x5A              ; 90
+;   1900000B  store_local     [25]            
+; @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_4:
+;   1900000A  load_local      [25]            
+;   01000009  push            0x1             
+;   00000001  alu             add             
+;   1900000B  store_local     [25]            
+;   ????????  jmp             @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_3  ; → PC 182
+; @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_5:
+;   1700000A  load_local      [23]            
+;   3C000009  push            0x3C              ; 60
+;   00000001  alu             add             
+;   1700000B  store_local     [23]            
+;   1700000A  load_local      [23]            
+;   1900000B  store_local     [25]            
+; @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_6:
+;   1900000A  load_local      [25]            
+;   5A000009  push            0x5A              ; 90
+;   09000001  alu             lt              
+;   ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_7  ; → PC 218
+;   1900000A  load_local      [25]            
+;   01000009  push            0x1             
+;   00000001  alu             add             
+;   1900000B  store_local     [25]            
+;   ????????  jmp             @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_6  ; → PC 209
+; @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_7:
+;   07000009  push            0x7             
+;   6B000018  syscall         107               ; Wait_message_end_ID
+;   07000009  push            0x7             
+;   02000018  syscall         2                 ; Close_window
+;   430D000C  read_byte       [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
+;   02000009  push            0x2             
+;   06000001  alu             eq              
+;   ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_8  ; → PC 228
+;   03000009  push            0x3             
+;   430D000D  write_byte      [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
+; @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_8:
+;   1600000A  load_local      [22]            
+;   00000009  push            0x0             
+;   06000001  alu             eq              
+;   ????????  beqz            @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_9  ; → PC 235
+;   01000009  push            0x1             
+;   08000018  syscall         8                 ; Set_wait_timer
+;   21000018  syscall         33                ; Wait_message_end
+
 @UK_tw03_ard2_evdl_asm_KGR_3_SCRIPT_1_9:
   38000009  push            0x38              ; 56
   47020018  syscall         583               ; Get_item_from_gift_table
