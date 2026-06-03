@@ -8306,7 +8306,7 @@
   16000018  syscall         22                ; Hide_char
 
 ; New Blue Trinity reward code
-  10000009  push            0x11              ; 17
+  11000009  push            0x11              ; 17
   04110011  write_dword     [0x1104]          ; save_data2[0x3C4]  (GIFT_TABLE_ITEM)
   04110010  read_dword      [0x1104]          ; save_data2[0x3C4]  (GIFT_TABLE_ITEM)
   47020018  syscall         583               ; Get_item_from_gift_table
