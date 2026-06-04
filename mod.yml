@@ -1090,6 +1090,10 @@ assets:
   method: copy
   source:
   - name: mod/remastered/tz15.ard/UK_tz15_ard0.evdl
+- name: tw12.ard
+  method: copy
+  source:
+  - name: mod/tw12.ard
 - name: tw25.ard
   method: copy
   source:
