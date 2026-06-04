@@ -42,7 +42,7 @@ def main():
     lines = [HEADER]
     for f in files:
         rel = relative_posix(f)
-        lines.append(f"- name: {rel}\n  method: copy\n  source:\n  - name: {rel}\n")
+        lines.append(f"- name: {rel}\n  method: copy\n  source:\n  - name: mod/{rel}\n")
 
     OUTPUT.write_text("".join(lines), encoding="utf-8")
     print(f"Generated {OUTPUT} with {len(files)} entries.")
