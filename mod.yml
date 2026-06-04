@@ -994,6 +994,18 @@ assets:
   method: copy
   source:
   - name: mod/remastered/tw18.ard/UK_tw18_arde.evdl
+- name: remastered/tw20.ard/UK_tw20_ard0.evdl
+  method: copy
+  source:
+  - name: mod/remastered/tw20.ard/UK_tw20_ard0.evdl
+- name: remastered/tw20.ard/UK_tw20_ard19.evdl
+  method: copy
+  source:
+  - name: mod/remastered/tw20.ard/UK_tw20_ard19.evdl
+- name: remastered/tw20.ard/UK_tw20_ardc.evdl
+  method: copy
+  source:
+  - name: mod/remastered/tw20.ard/UK_tw20_ardc.evdl
 - name: remastered/tw23.ard/UK_tw23_ard3.evdl
   method: copy
   source:
