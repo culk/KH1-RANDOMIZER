@@ -998,6 +998,30 @@ assets:
   method: copy
   source:
   - name: mod/remastered/tw23.ard/UK_tw23_ard3.evdl
+- name: remastered/tw25.ard/UK_tw25_ard0.evdl
+  method: copy
+  source:
+  - name: mod/remastered/tw25.ard/UK_tw25_ard0.evdl
+- name: remastered/tw25.ard/UK_tw25_ard10.evdl
+  method: copy
+  source:
+  - name: mod/remastered/tw25.ard/UK_tw25_ard10.evdl
+- name: remastered/tw25.ard/UK_tw25_ard19.evdl
+  method: copy
+  source:
+  - name: mod/remastered/tw25.ard/UK_tw25_ard19.evdl
+- name: remastered/tw25.ard/UK_tw25_ard2.evdl
+  method: copy
+  source:
+  - name: mod/remastered/tw25.ard/UK_tw25_ard2.evdl
+- name: remastered/tw25.ard/UK_tw25_ard3.evdl
+  method: copy
+  source:
+  - name: mod/remastered/tw25.ard/UK_tw25_ard3.evdl
+- name: remastered/tw25.ard/UK_tw25_ardc.evdl
+  method: copy
+  source:
+  - name: mod/remastered/tw25.ard/UK_tw25_ardc.evdl
 - name: remastered/tz01.ard/UK_tz01_ard3.evdl
   method: copy
   source:
@@ -1066,3 +1090,7 @@ assets:
   method: copy
   source:
   - name: mod/remastered/tz15.ard/UK_tz15_ard0.evdl
+- name: tw25.ard
+  method: copy
+  source:
+  - name: mod/tw25.ard
