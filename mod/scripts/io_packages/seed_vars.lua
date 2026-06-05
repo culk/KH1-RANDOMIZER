@@ -25,14 +25,7 @@ local function load_json_dir(dir_path)
     return tables
 end
 
-local json_dir = SCRIPT_PATH .. "json"
-ConsolePrint("json_dir: " .. json_dir)
-local handle = io.popen('dir /b "' .. json_dir .. '\\*.json" 2>nul')
-ConsolePrint(handle and "popen ok" or "popen returned nil")
-if handle then
-    for line in handle:lines() do ConsolePrint("file: " .. line) end
-    handle:close()
-end
+local json_dir = SCRIPT_PATH .. "/json"
 
 local loaded = load_json_dir(json_dir)
 
