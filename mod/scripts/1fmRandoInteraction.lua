@@ -61,7 +61,7 @@ function _OnFrame()
                 end
             end
         end
-        if seed_vars["settings"]["interactinbattle"] then
+        if seed_vars["settings"]["interact_in_battle"] then
             if not interactset then
                 WriteByte(examine_interaction, 0x70)
                 WriteByte(talk_interaction, 0x70)
