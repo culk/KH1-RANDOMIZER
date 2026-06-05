@@ -9,6 +9,13 @@
 ; Stream @ 0x11C1  (1166 instructions)
 ; ────────────────────────────────────────────────────────────────────────
 
+; What's changed:
+; - KGR[0] Script 7:
+;   - Give reward always (don't check for 99 AP Ups)
+;   - Handle item get in below code
+;   - New AP Up Chest reward code
+;   - Below code should be uncommented if we want the window centered
+;   - Old AP Up Chest reward code
 
 ; ────────────────────────────────────────────────────────────────────────
 ; Script 0  |  11 subscript(s)  |  PC 0  |  file 0x11C1  |  KGR 0
