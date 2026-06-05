@@ -27,8 +27,6 @@ end
 
 local json_dir = SCRIPT_PATH .. "/io_packages/json/"
 
-ConsolePrint("Loading JSON files from: " .. json_dir)
-
 local loaded = load_json_dir(json_dir)
 
 local result = {}
@@ -39,6 +37,8 @@ for name, tbl in pairs(loaded) do
     end
 end
 
-ConsolePrint(json.encode(result, { indent = true }))
+for name, _ in pairs(result) do
+    ConsolePrint("Loaded " .. name .. " from JSON")
+end
 
 return result
