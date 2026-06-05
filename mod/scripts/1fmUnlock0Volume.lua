@@ -8,7 +8,7 @@ local ok = false
 function _OnInit()
 	if GAME_ID == 0xAF71841E and ENGINE_TYPE == "BACKEND" then
 		require("VersionCheck")
-		ok = canExecute and seed_vars.settings["unlock_0_volume"]
+		ok = canExecute and seed_vars["settings"]["unlock_0_volume"]
 		if ok then
 			WriteFloat(volumeZero, 0)
 		end

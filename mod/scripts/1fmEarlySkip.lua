@@ -10,7 +10,7 @@ local lastFade = 0
 function _OnInit()
     if GAME_ID == 0xAF71841E and ENGINE_TYPE == "BACKEND" then
         require("VersionCheck")
-        ok = canExecute and seed_vars.settings["early_skip"]
+        ok = canExecute and seed_vars["settings"]["early_skip"]
         if ok then
             WriteInt(skipArray1 - 0x04, 0xFF)
             WriteArray(skipArray1, { 0x0F, 0x9E, 0xC0, 0xC3 })

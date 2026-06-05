@@ -53,7 +53,7 @@ local function allow_progress(raft_materials_item)
     local finished_race_with_riku = world_flags_address[game_version] + 0x315
     if (ReadByte(world[game_version]) == 1) then --On DI
         if ReadByte(room_flags_address[game_version]+7) == 0 then --Day 1
-            if raft_materials_item >= seed_vars.day_2_materials then
+            if raft_materials_item >= seed_vars["settings"]["day_2_materials"] then
                 WriteByte(can_progress_day_1, 2)
             else
                 WriteByte(can_progress_day_1, 0)
@@ -61,7 +61,7 @@ local function allow_progress(raft_materials_item)
         end
         if ReadByte(room_flags_address[game_version]+7) == 2 then --Day 2
             WriteByte(finished_race_with_riku, 1)
-            if raft_materials_item >= seed_vars.homecoming_materials and ReadByte(can_progress_day_2) > 0 then --Given Empty Bottle
+            if raft_materials_item >= seed_vars["settings"]["homecoming_materials"] and ReadByte(can_progress_day_2) > 0 then --Given Empty Bottle
                 WriteByte(can_progress_day_2, 2)
             end
         end
@@ -125,12 +125,12 @@ function _OnInit()
         if ReadByte(IsEpicGLVersion) == 0xF0 then
             ConsolePrint("Epic Version Detected")
             game_version = 1
-            ok = seed_vars.settings["destiny_islands"]
+            ok = seed_vars["settings"]["destiny_islands"]
         end
         if ReadByte(IsSteamGLVersion) == 0xF0 then
             ConsolePrint("Steam Version Detected")
             game_version = 2
-            ok = seed_vars.settings["destiny_islands"]
+            ok = seed_vars["settings"]["destiny_islands"]
         end
     end
 end

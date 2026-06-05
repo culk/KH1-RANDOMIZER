@@ -8,7 +8,7 @@ local ok = false
 function _OnInit()
 	if GAME_ID == 0xAF71841E and ENGINE_TYPE == "BACKEND" then
 		require("VersionCheck")
-		ok = canExecute and seed_vars.settings["beep_hack"]
+		ok = canExecute and seed_vars["settings"]["beep_hack"]
 		if ok then
 			WriteByte(beepHack, 1)
 		end

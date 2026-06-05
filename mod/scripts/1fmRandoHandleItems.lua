@@ -91,7 +91,7 @@ local function handle_worlds(stock)
     write_world_lines()
     
     -- Add stacking world item handling
-    if seed_vars.stacking_worlds then
+    if seed_vars["settings"]["stacking_world_items"] then
         -- Wonderland
         if worlds_unlocked_items[2] > 1 then
             if stock[223] == 0 then -- If not footprints
@@ -241,7 +241,7 @@ local function handle_olympus_cups(stock)
 end
 
 local function handle_forget_me_not(stock)
-    if seed_vars.stacking_forget_me_not and stock[227] > 0 and stock[228] == 0 then
+    if seed_vars["settings"]["stacking_forget_me_not"] and stock[227] > 0 and stock[228] == 0 then
         WriteByte(stock_address[game_version] + 228 - 1, 1)
     end
 end

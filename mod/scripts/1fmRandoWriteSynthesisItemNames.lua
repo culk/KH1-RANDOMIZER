@@ -7,10 +7,10 @@ local seed_vars = require("seed_vars")
 
 local function write_synth_item_name()
     local synth_item_selected_index = ReadByte(synthItemSelected)
-    for k,v in pairs(seed_vars.synth_item_bytes[synth_item_selected_index+1]) do
+    for k,v in pairs(seed_vars["settings"]["synthesis_item_name_byte_arrays"][synth_item_selected_index+1]) do
         WriteByte(language + 0x2593 + k - 1, v)
     end
-    WriteByte(language + 0x2593 + #seed_vars.synthesis_item_name_byte_arrays[synth_item_selected_index+1], 0)
+    WriteByte(language + 0x2593 + #seed_vars["settings"]["synthesis_item_name_byte_arrays"][synth_item_selected_index+1], 0)
 end
 
 function _OnInit()

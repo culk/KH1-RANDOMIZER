@@ -43,12 +43,12 @@ function _OnInit()
         if ReadByte(IsEpicGLVersion) == 0xF0 then
             ConsolePrint("Epic Version Detected")
             game_version = 1
-            ok = canExecute and not seed_vars.settings["world_version"] and seed_vars.settings["interact_in_battle"]
+            ok = canExecute and seed_vars["settings"]["world_version"] == nil and seed_vars["settings"]["interact_in_battle"]
         end
         if ReadByte(IsSteamGLVersion) == 0xF0 then
             ConsolePrint("Steam Version Detected")
             game_version = 2
-            ok = canExecute and not seed_vars.settings["world_version"] and seed_vars.settings["interact_in_battle"]
+            ok = canExecute and seed_vars["settings"]["world_version"] == nil and seed_vars["settings"]["interact_in_battle"]
         end
     end
 end
@@ -57,16 +57,16 @@ function _OnFrame()
     if ok then
         local chests_address = {0x2B3904, 0x2B5AA4} --changed BOTH 1.0.0.10
         local chests = ReadByte(chests_address[game_version])
-        if (seed_vars.chestslocked and has_correct_keyblade() and chests == 0x72) or not seed_vars.chestslocked then
-            if seed_vars.interactinbattle then
+        if (seed_vars["settings"]["keyblades_unlock_chests"] and has_correct_keyblade() and chests == 0x72) or not seed_vars["settings"]["keyblades_unlock_chests"] then
+            if seed_vars["settings"]["interact_in_battle"] then
                 WriteByte(chests_address[game_version], 0x73)
             else
                 WriteByte(chests_address[game_version], 0x74)
             end
-        elseif seed_vars.chestslocked and not has_correct_keyblade() and chests ~= 0x72 then
+        elseif seed_vars["settings"]["keyblades_unlock_chests"] and not has_correct_keyblade() and chests ~= 0x72 then
             WriteByte(chests_address[game_version], 0x72)
         end
-        if seed_vars.interactinbattle then
+        if seed_vars["settings"]["interact_in_battle"] then
             if not interactset then
                 Examine = {0x2929F9, 0x294B89} --changed BOTH 1.0.0.10
                 Talk = {0x292A39, 0x294BC9} --changed BOTH 1.0.0.10

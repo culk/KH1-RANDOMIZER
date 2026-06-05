@@ -84,12 +84,12 @@ function _OnInit()
         if ReadByte(IsEpicGLVersion) == 0xF0 then
             ConsolePrint("Epic Version Detected")
             game_version = 1
-            ok = seed_vars.settings["extra_shared_abilities"]
+            ok = seed_vars["settings"]["extra_shared_abilities"]
         end
         if ReadByte(IsSteamGLVersion) == 0xF0 then
             ConsolePrint("Steam Version Detected")
             game_version = 2
-            ok = seed_vars.settings["extra_shared_abilities"]
+            ok = seed_vars["settings"]["extra_shared_abilities"]
         end
     end
 end

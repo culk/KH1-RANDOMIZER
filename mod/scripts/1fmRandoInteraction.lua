@@ -40,7 +40,7 @@ end
 function _OnInit()
     if GAME_ID == 0xAF71841E and ENGINE_TYPE == "BACKEND" then
         require("VersionCheck")
-        ok = canExecute and seed_vars.settings["world_version"] ~= nil and seed_vars.settings["interact_in_battle"]
+        ok = canExecute and seed_vars["settings"]["world_version"] ~= nil and seed_vars["settings"]["interact_in_battle"]
     else
         ConsolePrint("KH1 not detected, not running script")
     end

@@ -39,7 +39,7 @@ end
 function _OnInit()
     if GAME_ID == 0xAF71841E and ENGINE_TYPE == "BACKEND" then
         require("VersionCheck")
-        ok = canExecute and seed_vars.settings["auto_save"]
+        ok = canExecute and seed_vars["settings"]["auto_save"]
     else
         ConsolePrint("KH1 not detected, not running script")
     end

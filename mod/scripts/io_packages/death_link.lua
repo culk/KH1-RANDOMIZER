@@ -50,13 +50,13 @@ local function death_link_frame()
         revertCode = false
     end
     
-    if seed_vars.goofy_death_link then
+    if seed_vars["settings"]["goofy_death_link"] then
         if ReadByte(goofys_hp_address) == 0 and ReadByte(maxHP - 0x1) > 0 then
             ConsolePrint("Goofy was defeated!")
             ko_sora()
         end
     end
-    if seed_vars.donald_death_link then
+    if seed_vars["settings"]["donald_death_link"] then
         if ReadByte(donalds_hp_address) == 0 and ReadByte(maxHP - 0x1) > 0 then
             ConsolePrint("Donald was defeated!")
             ko_sora()

@@ -15,7 +15,7 @@ local deaccelerationSpeed = -0.0016
 function _OnInit()
 	if GAME_ID == 0xAF71841E and ENGINE_TYPE == "BACKEND" then
 		require("VersionCheck")
-		ok = canExecute and seed_vars.settings["fast_camera"]
+		ok = canExecute and seed_vars["settings"]["fast_camera"]
 	else
 		ConsolePrint("KH1 not detected, not running script")
 	end
