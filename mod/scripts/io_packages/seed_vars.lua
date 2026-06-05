@@ -37,8 +37,4 @@ for name, tbl in pairs(loaded) do
     end
 end
 
-for name, _ in pairs(result) do
-    ConsolePrint("Loaded " .. name .. " from JSON")
-end
-
 return result
