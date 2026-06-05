@@ -40,7 +40,7 @@ end
 function _OnInit()
     if GAME_ID == 0xAF71841E and ENGINE_TYPE == "BACKEND" then
         require("VersionCheck")
-        ok = canExecute and seed_vars.settings["world_version"] and seed_vars.settings["interact_in_battle"]
+        ok = canExecute and seed_vars.settings["world_version"] ~= nil and seed_vars.settings["interact_in_battle"]
     else
         ConsolePrint("KH1 not detected, not running script")
     end
@@ -48,7 +48,7 @@ end
 
 function _OnFrame()
     if ok then
-        if seed_vars.chestslocked then
+        if seed_vars["settings"]["keyblades_unlock_chests"] then
             for cmd_idx, cmd in pairs(open_cmds) do
                 if has_correct_keyblade() then
                     kh1_lua_library.set_command_data(cmd_idx, cmd)
@@ -61,7 +61,7 @@ function _OnFrame()
                 end
             end
         end
-        if seed_vars.interactinbattle then
+        if seed_vars["settings"]["interactinbattle"] then
             if not interactset then
                 WriteByte(examine_interaction, 0x70)
                 WriteByte(talk_interaction, 0x70)
