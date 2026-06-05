@@ -239,7 +239,7 @@ end
 
 function _OnFrame()
     if canExecute then
-        if seed_vars.chests[0] ~= nil and not chests_written then
+        if not chests_written then
             randomize_chests()
         end
     end
