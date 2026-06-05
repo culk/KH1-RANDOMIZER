@@ -2,6 +2,8 @@ LUAGUI_NAME = "1fm0Volume"
 LUAGUI_AUTH = "denhonator (edited by deathofall84)"
 LUAGUI_DESC = "Volume 1 mutes the audio channel"
 
+local seed_vars = require("seed_vars")
+
 function _OnInit()
 	if GAME_ID == 0xAF71841E and ENGINE_TYPE == "BACKEND" then
 		require("VersionCheck")

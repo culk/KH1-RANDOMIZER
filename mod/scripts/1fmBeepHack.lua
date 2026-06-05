@@ -2,6 +2,8 @@ LUAGUI_NAME = "1fmBeepHack"
 LUAGUI_AUTH = "deathofall84"
 LUAGUI_DESC = "Removes low health beeping noise, works up to max health of 41"
 
+local seed_vars = require("seed_vars")
+
 function _OnInit()
 	if GAME_ID == 0xAF71841E and ENGINE_TYPE == "BACKEND" then
 		require("VersionCheck")

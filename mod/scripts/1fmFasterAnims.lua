@@ -2,6 +2,8 @@ LUAGUI_NAME = "1fmFasterAnims"
 LUAGUI_AUTH = "denhonator (edited by deathofall84)"
 LUAGUI_DESC = "Speeds up animations during which you can't play"
 
+local seed_vars = require("seed_vars")
+
 local summonSpeedup = true
 local speedMult = 2.0
 

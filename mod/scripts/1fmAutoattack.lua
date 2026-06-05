@@ -2,6 +2,8 @@ LUAGUI_NAME = "1fmAutoattack"
 LUAGUI_AUTH = "denhonator (edited by deathofall84)"
 LUAGUI_DESC = "Hold attack to combo"
 
+local seed_vars = require("seed_vars")
+
 local cooldown = 0
 
 function _OnInit()

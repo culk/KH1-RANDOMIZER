@@ -2,6 +2,8 @@ LUAGUI_NAME = "1fmRandoAutoSave"
 LUAGUI_AUTH = "denhonator (edited by deathofall84 and Gicu)"
 LUAGUI_DESC = "Read readme for button combinations"
 
+local seed_vars = require("seed_vars")
+
 local lastInput = 0
 local prevHUD = 0
 local autosave_count = 9

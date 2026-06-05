@@ -2,6 +2,8 @@ LUAGUI_NAME = "1fmConsistentFinishers"
 LUAGUI_AUTH = "denhonator (edited by deathofall84)"
 LUAGUI_DESC = "30% chance finishers are now 100%"
 
+local seed_vars = require("seed_vars")
+
 function _OnInit()
 	if GAME_ID == 0xAF71841E and ENGINE_TYPE == "BACKEND" then
 		require("VersionCheck")

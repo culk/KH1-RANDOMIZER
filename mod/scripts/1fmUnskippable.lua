@@ -2,6 +2,8 @@ LUAGUI_NAME = "1fmUnskippable"
 LUAGUI_AUTH = "denhonator (edited by deathofall84)"
 LUAGUI_DESC = "Makes unskippable cutscenes skippable"
 
+local seed_vars = require("seed_vars")
+
 function _OnInit()
 	if GAME_ID == 0xAF71841E and ENGINE_TYPE == "BACKEND" then
 		require("VersionCheck")

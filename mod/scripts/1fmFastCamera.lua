@@ -2,6 +2,8 @@ LUAGUI_NAME = "1fmFastCamera"
 LUAGUI_AUTH = "denhonator (edited by deathofall84)"
 LUAGUI_DESC = "Speeds up camera movement and camera centering"
 
+local seed_vars = require("seed_vars")
+
 local centerSpeed = 2
 local overallSpeed = 1.2
 local accelerationSpeed = 0.001

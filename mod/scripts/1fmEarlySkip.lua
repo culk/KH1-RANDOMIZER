@@ -2,6 +2,8 @@ LUAGUI_NAME = "1fmEarlySkip"
 LUAGUI_AUTH = "denhonator/TopazTK (edited by deathofall84)"
 LUAGUI_DESC = "Allows skipping cutscenes without waiting for them."
 
+local seed_vars = require("seed_vars")
+
 local lastFade = 0
 
 function _OnInit()
