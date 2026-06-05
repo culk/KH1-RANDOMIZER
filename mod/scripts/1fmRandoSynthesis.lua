@@ -12,8 +12,8 @@ local game_version = nil
 local synth_items = {}
 
 local function get_synth_items()
-    for i = 0, 33 do
-        local synth_item_id = seed_vars["item_location_map"][2656400 + i] % 2641000
+    for i = 0, 32 do
+        local synth_item_id = seed_vars["item_location_map"][tostring(2656400 + i)] % 2641000
         if synth_item_id > 255 then -- If not a regular item
             synth_item_id = 230 -- Make it an AP Item
         end
@@ -23,7 +23,7 @@ end
 
 local function write_synth_items()
     local synth_items_offset = 0x1E0
-    for k,item_value in pairs(seed_vars.synth_items) do
+    for k,item_value in pairs(synth_items) do
         local base_address = synth_address[game_version] + synth_items_offset + ((k-1)*10)
         WriteByte(base_address, item_value) --Item
         if k % 2 == 1 then
@@ -34,7 +34,7 @@ local function write_synth_items()
         WriteByte(base_address + 0x3, 0x1) --Number of Requirements
         WriteByte(base_address + 0x4, 0x1) --Unique Synth
     end
-    local i = #seed_vars.synth_items + 1
+    local i = #synth_items + 1
     while i <= 33 do
         local base_address = synth_address[game_version] + synth_items_offset + ((i-1)*10)
         WriteByte(base_address, 0x0) --Item
@@ -71,7 +71,7 @@ end
 
 function _OnFrame()
     if canExecute then
-        if seed_vars.synth_items[1] ~= nil and not synth_written then
+        if synth_items[1] ~= nil and not synth_written then
             write_synth_items()
             write_synth_requirements()
             synth_written = true
