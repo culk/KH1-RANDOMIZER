@@ -9,6 +9,17 @@ local canExecute = false
 local synth_written = false
 local synth_address = {0x5483A0, 0x5476C0}
 local game_version = nil
+local synth_items = {}
+
+local function get_synth_items()
+    for i = 1, 34 do
+        local synth_item_id = seed_vars["item_location_map"][2656400 + i] % 2641000
+        if synth_item_id > 255 then -- If not a regular item
+            synth_item_id = 230 -- Make it an AP Item
+        end
+        table.insert(synth_items, synth_item_id)
+    end
+end
 
 local function write_synth_items()
     local synth_items_offset = 0x1E0
@@ -47,11 +58,13 @@ function _OnInit()
             ConsolePrint("Epic Version Detected")
             game_version = 1
             canExecute = true
+            get_synth_items()
         end
         if ReadByte(IsSteamGLVersion) == 0xF0 then
             ConsolePrint("Steam Version Detected")
             game_version = 2
             canExecute = true
+            get_synth_items()
         end
     end
 end
