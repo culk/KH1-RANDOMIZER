@@ -6,7 +6,7 @@ local kh1_lua_library = require("kh1_lua_library")
 local seed_vars = require("seed_vars")
 
 local function handle_item_descriptions()
-    kh1_lua_library.set_absolute_item_description_at_idx_memory_address(0, "test")
+    kh1_lua_library.set_absolute_item_description_at_idx_memory_address(0, "Let's try something SUPER long.")
 end
 
 function _OnInit()
