@@ -16,7 +16,7 @@ local init_offsets = {
 local function write_keyblade_stats()
     for keyblade, stats in pairs(seed_vars["keyblade_stats"]) do
         for stat, value in pairs(stats) do
-            WriteByte(jumpHeights - 0xAC + init_offsets[stat] + 0x58 * keyblade, value)
+            WriteByte(jumpHeights - 0xAC + init_offsets[stat] + (0x58 * (keyblade-1)), value)
         end
     end
 end
