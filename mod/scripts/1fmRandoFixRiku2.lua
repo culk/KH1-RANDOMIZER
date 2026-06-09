@@ -2,12 +2,9 @@ LUAGUI_NAME = "1fmRandoFixRiku2"
 LUAGUI_AUTH = "Gicu"
 LUAGUI_DESC = "Kingdom Hearts 1FM Randomizer Fix Post Riku Ansem World States"
 
-game_version = 1 --1 for EGS 1.0.0.10, 2 for Steam 1.0.0.10
-local canExecute = false
 frame_count = 0
 corrected = false
 second_visit = {false,false,false,false}
-local inGummi = {0x50832D, 0x5075A8}
 
 function toBits(num)
     -- returns a table of bits, least significant first.
@@ -25,16 +22,13 @@ function read_world_progress_array()
     each world.  The order of worlds are as follows:
     Traverse Town, Deep Jungle, Olympus Coliseum, Wonderland, Agrabah, Monstro,
     Atlantica, Unused, Halloween Town, Neverland, Hollow Bastion, End of the World]]
-    world_progress_address = {0x2DEB264, 0x2DEA864} --changed for EGS 1.0.0.10
-    world_progress_array = ReadArray(world_progress_address[game_version], 12)
-    extra_traverse_town_progress_address = world_progress_address[game_version] + 0xE
-    world_progress_array[13] = ReadByte(extra_traverse_town_progress_address)
+    world_progress_array = ReadArray(cutsceneFlagBase - 1, 12)
+    world_progress_array[13] = ReadByte(cutsceneFlagBase - 1 + 0xE)
     return world_progress_array
 end
 
 function write_world_progress_byte(world_index, progress_byte)
-    world_progress_address = {0x2DEB264, 0x2DEA864} --changed for EGS 1.0.0.10
-    WriteByte(world_progress_address[game_version] + (world_index-1), progress_byte)
+    WriteByte(cutsceneFlagBase - 1 + (world_index-1), progress_byte)
 end
 
 function define_world_progress_reset_array()
@@ -132,30 +126,25 @@ end
 world_progress_reset_array = define_world_progress_reset_array()
 
 function correct_world_flags(world_offset, corrected_world_flag_array)
-    world_flags_address = {0x2DEBDCC, 0x2DEB3CC} --changed for EGS 1.0.0.10
-    WriteArray(world_flags_address[game_version] + world_offset, corrected_world_flag_array)
+    WriteArray(worldFlagBase - 0xE4 + world_offset, corrected_world_flag_array)
 end
 
 function read_world_flags(world_offset)
-    world_flags_address = {0x2DEBDCC, 0x2DEB3CC} --changed for EGS 1.0.0.10
-    return ReadArray(world_flags_address[game_version] + world_offset, 16)
+    return ReadArray(worldFlagBase - 0xE4 + world_offset, 16)
 end
 
 function turn_on_kurt_zisa()
-    carpet_takes_you_to_kurt_zisa_address = {0x2DEB260, 0x2DEA860} --changed for EGS 1.0.0.10
-    if ReadByte(carpet_takes_you_to_kurt_zisa_address[game_version]) < 0xF0 then
-        WriteByte(carpet_takes_you_to_kurt_zisa_address[game_version], 0xF0)
+    if ReadByte(cutsceneFlagBase - 5) < 0xF0 then
+        WriteByte(cutsceneFlagBase - 5, 0xF0)
     end
 end
 
 function handle_phantom(neverland_progress)
-    world = {0x2340E5C, 0x233FE84}
-    if (neverland_progress == 0x78 or neverland_progress == 0x6E) and ReadByte(world[game_version]) ~= 0xD then -- Neverland finished but not post Phantom, and we're not in Neverland
+    if (neverland_progress == 0x78 or neverland_progress == 0x6E) and ReadByte(world) ~= 0xD then -- Neverland finished but not post Phantom, and we're not in Neverland
         clock_tower_doors_opened = false
         clock_tower_chest_opened = false
-        
-        clock_tower_door_address = {0x2DEBBC2, 0x2DEB1C2}
-        clock_tower_door_byte = ReadByte(clock_tower_door_address[game_version])
+
+        clock_tower_door_byte = ReadByte(cutsceneFlagBase + 0x95D)
         clock_tower_door_bits = toBits(clock_tower_door_byte)
         if clock_tower_door_bits[5] == nil then
             clock_tower_door_bits[5] = 0
@@ -163,9 +152,8 @@ function handle_phantom(neverland_progress)
         if clock_tower_door_bits[5] == 1 then
             clock_tower_doors_opened = true
         end
-        
-        clock_tower_chest_address = {0x2DEA4BC, 0x2DE9ABC}
-        clock_tower_chest_byte = ReadByte(clock_tower_chest_address[game_version])
+
+        clock_tower_chest_byte = ReadByte(cutsceneFlagBase - 0xDA9)
         clock_tower_chest_bits = toBits(clock_tower_chest_byte)
         if clock_tower_chest_bits[4] == nil then
             clock_tower_chest_bits[4] = 0
@@ -173,11 +161,10 @@ function handle_phantom(neverland_progress)
         if clock_tower_chest_bits[4] == 1 then
             clock_tower_chest_opened = true
         end
-        
-        world_flags_address = {0x2DEBDCC, 0x2DEB3CC}
-        clock_tower_room_address = world_flags_address[game_version] + 0xA0 + 0xE
+
+        clock_tower_room_address = worldFlagBase - 0xE4 + 0xA0 + 0xE
         clock_tower_room_state = ReadByte(clock_tower_room_address)
-        
+
         if not (clock_tower_chest_opened and clock_tower_doors_opened) and clock_tower_room_state == 0x1 then
             --Something isn't opened but Phantom is set
             WriteByte(clock_tower_room_address, 0x2) -- Back to calm state
@@ -189,9 +176,7 @@ function handle_phantom(neverland_progress)
 end
 
 function fix_library()
-    world_flag_base_address = {0x2DEBDCC, 0x2DEB3CC} --changed for EGS 1.0.0.10
-    hollow_bastion_world_flag_base_address = world_flag_base_address[game_version] + 0xB0
-    library_address = hollow_bastion_world_flag_base_address + 0x7
+    library_address = worldFlagBase - 0xE4 + 0xB0 + 0x7
     if ReadByte(library_address) ~= 0x02 then
         WriteByte(library_address, 0x02)
     end
@@ -207,8 +192,8 @@ function main()
     world_progress_indexes = {4,2,5,10}
     check_byte_num = {8, 3, 3, 6}
     world_offset = {0x30, 0x40, 0x60, 0xA0}
-    
-    
+
+
     if hollow_bastion_progress >= 0x82 then --Riku 2 Defeated
         specific_worlds_progress_array[1] = world_progress_array[4]
         specific_worlds_progress_array[2] = world_progress_array[2]
@@ -225,7 +210,7 @@ function main()
             end
         end
         for i=1,#second_visit_test_bytes do
-            if i ~= 2 or ReadByte(inGummi[game_version]) > 0 then -- Don't do anything for Deep Jungle unless you're in the Gummi Ship
+            if i ~= 2 or ReadByte(inGummi) > 0 then -- Don't do anything for Deep Jungle unless you're in the Gummi Ship
                 if not second_visit[i] and specific_worlds_progress_array[i] >= second_visit_test_bytes[i] then
                     if not (i == 4 and specific_worlds_progress_array[i] == 0x96) then --Ignore if Neverland is already post Phantom
                         write_world_progress_byte(world_progress_indexes[i], final_bytes[i])
@@ -243,18 +228,10 @@ function main()
 end
 
 function _OnInit()
-    IsEpicGLVersion  = 0x3A2B86
-    IsSteamGLVersion = 0x3A29A6
     if GAME_ID == 0xAF71841E and ENGINE_TYPE == "BACKEND" then
-        if ReadByte(IsEpicGLVersion) == 0xF0 then
-            ConsolePrint("Epic Version Detected")
-            game_version = 1
-        end
-        if ReadByte(IsSteamGLVersion) == 0xF0 then
-            ConsolePrint("Steam Version Detected")
-            game_version = 2
-        end
-        canExecute = true
+        require("VersionCheck")
+    else
+        ConsolePrint("KH1 not detected, not running script")
     end
 end
 

@@ -4,25 +4,19 @@ LUAGUI_DESC = "Kingdom Hearts 1FM Handle Special Cases with Key Items"
 
 local seed_vars = require("seed_vars")
 
-local canExecute = false
-local stock_address = {0x2DEA1FA, 0x2DE97FA}
-local game_version = nil
-
 local function handle_slides(stock)
     if stock[217] > 0 and stock[218] == 0 then
-        WriteByte(stock_address[game_version] + 218-1, 1)
-        WriteByte(stock_address[game_version] + 219-1, 1)
-        WriteByte(stock_address[game_version] + 220-1, 1)
-        WriteByte(stock_address[game_version] + 221-1, 1)
-        WriteByte(stock_address[game_version] + 222-1, 1)
+        WriteByte(inventory + 218-1, 1)
+        WriteByte(inventory + 219-1, 1)
+        WriteByte(inventory + 220-1, 1)
+        WriteByte(inventory + 221-1, 1)
+        WriteByte(inventory + 222-1, 1)
         local slides_picked_up_array = {1,1,1,1,1,1}
-        local slides_picked_up_array_address = {0x2DEAF67, 0x2DEA567}
-        WriteArray(slides_picked_up_array_address[game_version], slides_picked_up_array)
+        WriteArray(evidence + 0x3FF, slides_picked_up_array)
     end
 end
 
 local function handle_magic(stock)
-    local magic_unlocked_address = {0x2DE9DD4, 0x2DE93D4}
     local donald_magic_unlocked_bits_offset = 0x74
     local magic_levels_offset = 0x41E
     local magic_levels_array = {}
@@ -45,19 +39,18 @@ local function handle_magic(stock)
             magic_levels_array[k] = 3
         end
     end
-    WriteByte(magic_unlocked_address[game_version],
+    WriteByte(magicUnlock,
         (1 * magic_unlocked_bits[1]) + (2 * magic_unlocked_bits[2]) + (4 * magic_unlocked_bits[3]) + (8 * magic_unlocked_bits[4])
         + (16 * magic_unlocked_bits[5]) + (32 * magic_unlocked_bits[6]) + (64 * magic_unlocked_bits[7]))
-    WriteByte(magic_unlocked_address[game_version] + donald_magic_unlocked_bits_offset,
+    WriteByte(magicUnlock + donald_magic_unlocked_bits_offset,
         (1 * magic_unlocked_bits[1]) + (2 * magic_unlocked_bits[2]) + (4 * magic_unlocked_bits[3]) + (8 * magic_unlocked_bits[4])
         + (16 * magic_unlocked_bits[5]) + (32 * magic_unlocked_bits[6]) + (64 * magic_unlocked_bits[7]))
-    WriteArray(magic_unlocked_address[game_version] + magic_levels_offset, magic_levels_array)
+    WriteArray(magicUnlock + magic_levels_offset, magic_levels_array)
 end
 
 local function write_world_lines()
     --[[Opens all world connections on the world map]]
-    local world_map_lines_address = {0x2DEBC72, 0x2DEB272}
-    WriteArray(world_map_lines_address[game_version], {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF})
+    WriteArray(worldMapLines, {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF})
 end
 
 local function handle_worlds(stock)
@@ -86,51 +79,50 @@ local function handle_worlds(stock)
             unlocked_worlds_array[k] = 3
         end
     end
-    local world_status_address = {0x2DEBC50, 0x2DEB250}
-    WriteArray(world_status_address[game_version], unlocked_worlds_array)
+    WriteArray(gummiFlagBase, unlocked_worlds_array)
     write_world_lines()
-    
+
     -- Add stacking world item handling
     if seed_vars["settings"]["stacking_world_items"] then
         -- Wonderland
         if worlds_unlocked_items[2] > 1 then
             if stock[223] == 0 then -- If not footprints
-                WriteByte(stock_address[game_version] + 223-1, 1) -- Give footprints
+                WriteByte(inventory + 223-1, 1) -- Give footprints
             end
         end
         -- Olympus Coliseum
         if worlds_unlocked_items[3] > 1 then
             if stock[229] == 0 then -- If not entry pass
-                WriteByte(stock_address[game_version] + 229-1, 1) -- Give entry pass
+                WriteByte(inventory + 229-1, 1) -- Give entry pass
             end
         end
         -- Deep Jungle
         if worlds_unlocked_items[4] > 1 then
             if stock[217] == 0 then -- If not slides
-                WriteByte(stock_address[game_version] + 217-1, 1) -- Give slides
+                WriteByte(inventory + 217-1, 1) -- Give slides
             end
         end
         -- Halloween Town
         if worlds_unlocked_items[6] > 1 then
             if stock[227] == 0 then -- If not forget-me-not
-                WriteByte(stock_address[game_version] + 227-1, 1) -- Give forget-me-not
+                WriteByte(inventory + 227-1, 1) -- Give forget-me-not
             end
         end
         if worlds_unlocked_items[6] > 2 then
             if stock[228] == 0 then -- If not jack-in-the-box
-                WriteByte(stock_address[game_version] + 228-1, 1) -- Give jack-in-the-box
+                WriteByte(inventory + 228-1, 1) -- Give jack-in-the-box
             end
         end
         -- Atlantica
         if worlds_unlocked_items[7] > 1 then
             if stock[210] == 0 then -- If not crystal trident
-                WriteByte(stock_address[game_version] + 210-1, 1) -- Give crystal trident
+                WriteByte(inventory + 210-1, 1) -- Give crystal trident
             end
         end
         -- Hollow Bastion
         if worlds_unlocked_items[9] > 1 then
             if stock[183] == 0 then -- If not theon vol. 6
-                WriteByte(stock_address[game_version] + 183-1, 1) -- Give theon vol. 6
+                WriteByte(inventory + 183-1, 1) -- Give theon vol. 6
             end
         end
     end
@@ -138,7 +130,6 @@ end
 
 local function handle_trinities(stock)
     --[[Writes the players unlocked trinities]]
-    local trinities_unlocked_address = {0x2DEB97B, 0x2DEAF7B}
     local trinity_items = {}
     trinity_items[1] = stock[170]
     trinity_items[2] = stock[171]
@@ -151,7 +142,7 @@ local function handle_trinities(stock)
             trinity_bits[k] = 1
         end
     end
-    WriteByte(trinities_unlocked_address[game_version], (1 * trinity_bits[1]) + (2 * trinity_bits[2]) + (4 * trinity_bits[3]) + (8 * trinity_bits[4]) + (16 * trinity_bits[5]))
+    WriteByte(trinityUnlock, (1 * trinity_bits[1]) + (2 * trinity_bits[2]) + (4 * trinity_bits[3]) + (8 * trinity_bits[4]) + (16 * trinity_bits[5]))
 end
 
 local function handle_summons(stock)
@@ -171,12 +162,10 @@ local function handle_summons(stock)
             summon_index = summon_index + 1
         end
     end
-    local summons_address = {0x2DEA530, 0x2DE9B30}
-    WriteArray(summons_address[game_version], summons_array)
+    WriteArray(summons, summons_array)
 end
 
 local function handle_puppies(stock)
-    local puppy_array_address = {0x2DEB463, 0x2DEAA63}
     local puppies_item = stock[167] * seed_vars["settings"]["puppy_value"]
     local puppies_array = {0x0}
     local i = 0
@@ -197,28 +186,25 @@ local function handle_puppies(stock)
         end
         i = i + 1
     end
-    WriteArray(puppy_array_address[game_version], puppies_array)
+    WriteArray(cutsceneFlags + 0x203, puppies_array)
 end
 
 local function handle_torn_pages(stock)
-    local torn_pages_available_address = {0x2DEB160, 0x2DEA760}
-    WriteByte(torn_pages_available_address[game_version], math.min(stock[9],5))
+    WriteByte(cutsceneFlags - 0x100, math.min(stock[9],5))
 end
 
 local function handle_final_door(stock)
-    local final_rest = {0x2DEBEAC, 0x2DEB4AC}
     if stock[10] > 0 then
-        WriteByte(final_rest[game_version], 0)
+        WriteByte(worldFlagBase - 4, 0)
     else
-        WriteByte(final_rest[game_version], 1)
+        WriteByte(worldFlagBase - 4, 1)
     end
 end
 
 local function read_olympus_cups_array()
     --[[Reads an array of the bytes which correspond to which Olympus Coliseum
     cups have been unlocked.]]
-    local olympus_cups_address = {0x2DEBB60, 0x2DEB160} --changed for EGS 1.0.0.10
-    return ReadArray(olympus_cups_address[game_version], 4)
+    return ReadArray(OCCupUnlock, 4)
 end
 
 local function handle_olympus_cups(stock)
@@ -230,32 +216,30 @@ local function handle_olympus_cups(stock)
     if olympus_cups_array[1] == 10 and olympus_cups_array[2] == 10 and olympus_cups_array[3] == 10 then
         olympus_cups_array[4] = 10
     end
-    local olympus_cups_address = {0x2DEBB60, 0x2DEB160}
     local current_olympus_cups_array = read_olympus_cups_array()
     for k,v in pairs(current_olympus_cups_array) do
         if v == 1 then
             olympus_cups_array[k] = v
         end
     end
-    WriteArray(olympus_cups_address[game_version], olympus_cups_array)
+    WriteArray(OCCupUnlock, olympus_cups_array)
 end
 
 local function handle_forget_me_not(stock)
     if seed_vars["settings"]["stacking_forget_me_not"] and stock[227] > 0 and stock[228] == 0 then
-        WriteByte(stock_address[game_version] + 228 - 1, 1)
+        WriteByte(inventory + 228 - 1, 1)
     end
 end
 
 local function handle_ap_item(stock)
     --[[Removes any received "AP Items"]]
     if stock[230] > 0 then
-        WriteByte(stock_address[game_version] + 230 - 1, 0)
+        WriteByte(inventory + 230 - 1, 0)
     end
 end
 
 local function read_soras_stats_array()
     --[[Reads an array of Sora's stats]]
-    local soras_stats_address         = {0x2DE9D66, 0x2DE9366}
     local sora_hp_offset              = 0x0
     local sora_mp_offset              = 0x2
     local sora_ap_offset              = 0x3
@@ -263,18 +247,17 @@ local function read_soras_stats_array()
     local sora_defense_offset         = 0x5
     local sora_item_slots_offset      = 0x1F
     local sora_accessory_slots_offset = 0x16
-    return {ReadByte(soras_stats_address[game_version] + sora_hp_offset)
-          , ReadByte(soras_stats_address[game_version] + sora_mp_offset)
-          , ReadByte(soras_stats_address[game_version] + sora_ap_offset)
-          , ReadByte(soras_stats_address[game_version] + sora_strength_offset)
-          , ReadByte(soras_stats_address[game_version] + sora_defense_offset)
-          , ReadByte(soras_stats_address[game_version] + sora_item_slots_offset)
-          , ReadByte(soras_stats_address[game_version] + sora_accessory_slots_offset)}
+    return {ReadByte(maxHP + sora_hp_offset)
+          , ReadByte(maxHP + sora_mp_offset)
+          , ReadByte(maxHP + sora_ap_offset)
+          , ReadByte(maxHP + sora_strength_offset)
+          , ReadByte(maxHP + sora_defense_offset)
+          , ReadByte(maxHP + sora_item_slots_offset)
+          , ReadByte(maxHP + sora_accessory_slots_offset)}
 end
 
 local function write_soras_stats(soras_stats_array)
     --[[Writes Sora's calculated stats back to memory]]
-    local soras_stats_address         = {0x2DE9D66, 0x2DE9366}
     local sora_hp_offset              = 0x00
     local sora_mp_offset              = 0x02
     local sora_ap_offset              = 0x03
@@ -282,13 +265,13 @@ local function write_soras_stats(soras_stats_array)
     local sora_defense_offset         = 0x05
     local sora_item_slots_offset      = 0x1F
     local sora_accessory_slots_offset = 0x16
-    WriteByte(soras_stats_address[game_version] + sora_hp_offset              , soras_stats_array[1])
-    WriteByte(soras_stats_address[game_version] + sora_mp_offset              , soras_stats_array[2])
-    WriteByte(soras_stats_address[game_version] + sora_ap_offset              , soras_stats_array[3])
-    WriteByte(soras_stats_address[game_version] + sora_strength_offset        , soras_stats_array[4])
-    WriteByte(soras_stats_address[game_version] + sora_defense_offset         , soras_stats_array[5])
-    WriteByte(soras_stats_address[game_version] + sora_item_slots_offset      , soras_stats_array[6])
-    WriteByte(soras_stats_address[game_version] + sora_accessory_slots_offset , soras_stats_array[7])
+    WriteByte(maxHP + sora_hp_offset              , soras_stats_array[1])
+    WriteByte(maxHP + sora_mp_offset              , soras_stats_array[2])
+    WriteByte(maxHP + sora_ap_offset              , soras_stats_array[3])
+    WriteByte(maxHP + sora_strength_offset        , soras_stats_array[4])
+    WriteByte(maxHP + sora_defense_offset         , soras_stats_array[5])
+    WriteByte(maxHP + sora_item_slots_offset      , soras_stats_array[6])
+    WriteByte(maxHP + sora_accessory_slots_offset , soras_stats_array[7])
 end
 
 local function add_to_soras_stats(value)
@@ -304,31 +287,22 @@ local function handle_stat_ups(stock)
     for k,v in pairs(stat_increase_indexes) do
         if stock[v] > 0 then
             add_to_soras_stats(k)
-            WriteByte(stock_address[game_version] + v - 1, stock[v]-1)
+            WriteByte(inventory + v - 1, stock[v]-1)
         end
     end
 end
 
 function _OnInit()
-    IsEpicGLVersion  = 0x3A2B86
-    IsSteamGLVersion = 0x3A29A6
     if GAME_ID == 0xAF71841E and ENGINE_TYPE == "BACKEND" then
-        if ReadByte(IsEpicGLVersion) == 0xF0 then
-            ConsolePrint("Epic Version Detected")
-            game_version = 1
-            canExecute = true
-        end
-        if ReadByte(IsSteamGLVersion) == 0xF0 then
-            ConsolePrint("Steam Version Detected")
-            game_version = 2
-            canExecute = true
-        end
+        require("VersionCheck")
+    else
+        ConsolePrint("KH1 not detected, not running script")
     end
 end
 
 function _OnFrame()
     if canExecute then
-        local stock = ReadArray(stock_address[game_version], 255)
+        local stock = ReadArray(inventory, 255)
         handle_slides(stock)
         handle_magic(stock)
         handle_worlds(stock)

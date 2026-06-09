@@ -14,6 +14,16 @@ assets:
 MOD_DIR = Path(__file__).parent / "mod"
 OUTPUT = Path(__file__).parent / "mod.yml"
 
+BLACKLIST = {
+    "scripts/io_packages/json.lua",
+    "scripts/io_packages/EGSGlobal_1_0_0_10.lua",
+    "scripts/io_packages/SteamGlobal_1_0_0_2.lua",
+    "scripts/io_packages/kh1_lua_library.lua",
+}
+BLACKLIST_DIRS = {
+    "scripts/io_packages/json",
+}
+
 
 def relative_posix(path: Path) -> str:
     return path.relative_to(MOD_DIR).as_posix()
@@ -34,6 +44,14 @@ def main():
 
     if args.no_scripts:
         files = [f for f in files if f.relative_to(MOD_DIR).parts[0] != "scripts"]
+
+    def is_blacklisted(f: Path) -> bool:
+        rel = f.relative_to(MOD_DIR).as_posix()
+        if rel in BLACKLIST:
+            return True
+        return any(rel.startswith(d + "/") for d in BLACKLIST_DIRS)
+
+    files = [f for f in files if not is_blacklisted(f)]
 
     if not files:
         print("No files found in mod/")
