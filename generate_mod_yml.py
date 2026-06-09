@@ -19,6 +19,7 @@ BLACKLIST = {
     "scripts/io_packages/EGSGlobal_1_0_0_10.lua",
     "scripts/io_packages/SteamGlobal_1_0_0_2.lua",
     "scripts/io_packages/kh1_lua_library.lua",
+    "scripts/io_packages/VersionCheck.lua",
 }
 BLACKLIST_DIRS = {
     "scripts/io_packages/json",
