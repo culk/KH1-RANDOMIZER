@@ -4,7 +4,7 @@ LUAGUI_DESC = "Kingdom Hearts 1FM EXP Multiplier"
 
 local seed_vars = require("seed_vars")
 
-local SORA_MIDDAY_LV2_REQUIRED_EXP = 18
+local exp_mult_applied = false
 
 local EXP_CHART_OFFSETS = {
     0x3C60, -- Sora Midday
@@ -30,10 +30,6 @@ local function apply_exp_mult()
     end
 end
 
-local function exp_mult_applied()
-    return ReadShort(jumpHeights - 0xAC + EXP_CHART_OFFSETS[1]) ~= SORA_MIDDAY_LV2_REQUIRED_EXP
-end
-
 function _OnInit()
     if GAME_ID == 0xAF71841E and ENGINE_TYPE == "BACKEND" then
         require("VersionCheck")
@@ -51,4 +47,9 @@ function _OnInit()
 end
 
 function _OnFrame()
+    if not canExecute then return end
+    if exp_mult_applied then return end
+    if ReadByte(jumpHeights - 0xAC) == 0x0 then return end -- btltbl.bin not loaded yet
+    apply_exp_mult()
+    exp_mult_applied = true
 end
