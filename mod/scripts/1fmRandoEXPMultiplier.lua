@@ -23,9 +23,9 @@ local EXP_CHART_OFFSETS = {
 local function apply_exp_mult()
     for _, offset in pairs(EXP_CHART_OFFSETS) do
         for i=0,99 do
-            local vanilla_req_exp = ReadShort(jumpHeights - 0xAC + offset)
+            local vanilla_req_exp = ReadShort(jumpHeights - 0xAC + offset + i*2)
             local new_req_exp = vanilla_req_exp // seed_vars["settings"]["exp_multiplier"]
-            WriteShort(jumpHeights - 0xAC + offset + i, new_req_exp)
+            WriteShort(jumpHeights - 0xAC + offset + i*2, new_req_exp)
         end
     end
 end
@@ -41,8 +41,8 @@ end
 function _OnFrame()
     if not canExecute then return end
     if exp_mult_applied then return end
-    if seed_vars["settings"]["exp_multiplier"] == 1.0 then return end
     if seed_vars["settings"]["exp_multiplier"] == nil then return end
+    if seed_vars["settings"]["exp_multiplier"] == 1.0 then return end
     if ReadByte(jumpHeights - 0xAC) == 0x0 then return end -- btltbl.bin not loaded yet
     apply_exp_mult()
     exp_mult_applied = true
