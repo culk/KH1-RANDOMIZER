@@ -13,7 +13,8 @@
       "Bash(git -C \"c:\\\\Users\\\\gaith\\\\Documents\\\\GitHub\\\\KH1-RANDOMIZER\" show d5d3fe4 --stat)",
       "Bash(git -C \"c:\\\\Users\\\\gaith\\\\Documents\\\\GitHub\\\\KH1-RANDOMIZER\" show 4279241 --no-stat -p)",
       "Bash(git -C \"c:\\\\Users\\\\gaith\\\\Documents\\\\GitHub\\\\KH1-RANDOMIZER\" show 4279241)",
-      "Bash(git -C \"c:\\\\Users\\\\gaith\\\\Documents\\\\GitHub\\\\KH1-RANDOMIZER\" show 73705c0)"
+      "Bash(git -C \"c:\\\\Users\\\\gaith\\\\Documents\\\\GitHub\\\\KH1-RANDOMIZER\" show 73705c0)",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d[:3], indent=2\\)\\)\")"
     ],
     "additionalDirectories": [
       "C:\\Users\\gaith\\.claude\\skills"

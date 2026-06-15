@@ -9,7 +9,7 @@ local canExecute = false
 local costsWritten = false
 
 local function write_ap_costs()
-    local treasureMagnetAddress = soraAbilityTable - 0x7F0
+    local treasureMagnetAddress = jumpHeights - 0xAC + 0x3408
     for k,v in pairs(seed_vars["ap_costs"]) do
         WriteByte(treasureMagnetAddress + (12 * (k-1)), v["AP Cost"])
     end
