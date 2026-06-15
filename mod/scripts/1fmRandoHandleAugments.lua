@@ -366,22 +366,15 @@ local function handle_magic_costs(acc_equipped)
         ["Aeroga"]   = {aug_acc["aug_aero_cost_up_acc"],     aug_acc["aug_aero_cost_down_acc"]}
     }
     
-    local cost_tiers = {15, 30, 100, 200, 300}
     for spell, acc_values in pairs(acc_values_lib) do
-        local base_cost = seed_vars["mp_costs"][kh1_lua_library.get_index(spell_order, spell)]
-        local tier = nil
-        for i, v in ipairs(cost_tiers) do
-            if v == base_cost then tier = i; break end
+        local new_spell_cost = seed_vars["mp_costs"][kh1_lua_library.get_index(spell_order, spell)]
+        if kh1_lua_library.contains(acc_equipped, acc_values[1]) then
+            new_spell_cost = math.min(new_spell_cost + 1, 5)
         end
-        if tier then
-            if kh1_lua_library.contains(acc_equipped, acc_values[1]) then
-                tier = math.min(tier + 1, #cost_tiers)
-            end
-            if kh1_lua_library.contains(acc_equipped, acc_values[2]) then
-                tier = math.max(tier - 1, 1)
-            end
-            kh1_lua_library.set_spell_cost(spell, tier)
+        if kh1_lua_library.contains(acc_equipped, acc_values[2]) then
+            new_spell_cost = math.max(new_spell_cost - 1, 1)
         end
+        kh1_lua_library.set_spell_cost(spell, new_spell_cost)
     end
 end
 

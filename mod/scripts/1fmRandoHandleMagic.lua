@@ -50,7 +50,7 @@ function _OnFrame()
     if seed_vars["settings"]["randomize_spell_mp_costs"] == "off" then return end
     if ReadByte(jumpHeights - 0xAC) == 0x0 then return end -- btltbl.bin not loaded yet
     apply_costs()
-    keyblade_stats_written = true
+    costs_and_effc_applied = true
     if not seed_vars["settings"]["scaling_spell_potency"] then return end
     apply_effectiveness()
 end
