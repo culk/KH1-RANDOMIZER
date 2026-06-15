@@ -5,7 +5,7 @@ import argparse
 from pathlib import Path
 
 HEADER = """\
-title: KH1 Randomizer Core
+title: KH1 Randomizer Core.  Put this below your seed.
 originalAuthor: Gicu
 description: KH1 Randomizer Mod
 assets:
