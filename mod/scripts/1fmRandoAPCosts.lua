@@ -5,7 +5,6 @@ LUAGUI_DESC = "Kingdom Hearts 1FM Randomizer Randomize AP Costs"
 local seed_vars = require("seed_vars")
 local ok = false
 
-local canExecute = false
 local costsWritten = false
 
 local function write_ap_costs()
