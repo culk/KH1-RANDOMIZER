@@ -7,6 +7,88 @@ local kh1_lua_library = require("kh1_lua_library")
 local seed_vars = require("seed_vars")
 local ok = false
 
+local augment_item_to_key = {
+    [2643010] = "aug_scan_acc",
+    [2643011] = "aug_sonic_blade_acc",
+    [2643012] = "aug_ars_arcanum_acc",
+    [2643013] = "aug_strike_raid_acc",
+    [2643014] = "aug_ragnarok_acc",
+    [2643015] = "aug_trinity_limit_acc",
+    [2643016] = "aug_cheer_acc",
+    [2643017] = "aug_vortex_acc",
+    [2643018] = "aug_aerial_sweep_acc",
+    [2643019] = "aug_counterattack_acc",
+    [2643020] = "aug_blitz_acc",
+    [2643021] = "aug_guard_acc",
+    [2643022] = "aug_dodge_roll_acc",
+    [2643023] = "aug_mp_haste_acc",
+    [2643024] = "aug_mp_rage_acc",
+    [2643025] = "aug_second_chance_acc",
+    [2643026] = "aug_berserk_acc",
+    [2643053] = "aug_slapshot_acc",
+    [2643054] = "aug_sliding_dash_acc",
+    [2643055] = "aug_hurricane_blast_acc",
+    [2643056] = "aug_ripple_drive_acc",
+    [2643057] = "aug_stun_impact_acc",
+    [2643058] = "aug_gravity_break_acc",
+    [2643059] = "aug_zantetsuken_acc",
+    [2643062] = "aug_leaf_bracer_acc",
+    [2643065] = "aug_combo_master_acc",
+    [2644000] = "aug_finisher_lock_acc",
+    [2644001] = "aug_air_finisher_lock_acc",
+    [2644002] = "aug_haste_acc",
+    [2644003] = "aug_hastera_acc",
+    [2644004] = "aug_hastega_acc",
+    [2644005] = "aug_slow_acc",
+    [2644006] = "aug_slowra_acc",
+    [2644007] = "aug_slowga_acc",
+    [2644008] = "aug_air_guard_dodge_roll_acc",
+    [2644009] = "aug_air_items_acc",
+    [2644010] = "aug_fire_cost_up_acc",
+    [2644011] = "aug_blizzard_cost_up_acc",
+    [2644012] = "aug_thunder_cost_up_acc",
+    [2644013] = "aug_cure_cost_up_acc",
+    [2644014] = "aug_gravity_cost_up_acc",
+    [2644015] = "aug_stop_cost_up_acc",
+    [2644016] = "aug_aero_cost_up_acc",
+    [2644017] = "aug_fire_cost_down_acc",
+    [2644018] = "aug_blizzard_cost_down_acc",
+    [2644019] = "aug_thunder_cost_down_acc",
+    [2644020] = "aug_cure_cost_down_acc",
+    [2644021] = "aug_gravity_cost_down_acc",
+    [2644022] = "aug_stop_cost_down_acc",
+    [2644023] = "aug_aero_cost_down_acc",
+    [2644024] = "aug_fire_boost_acc",
+    [2644025] = "aug_blizzard_boost_acc",
+    [2644026] = "aug_thunder_boost_acc",
+    [2644027] = "aug_cure_boost_acc",
+    [2644028] = "aug_gravity_boost_acc",
+    [2644029] = "aug_stop_boost_acc",
+    [2644030] = "aug_aero_boost_acc",
+    [2644031] = "aug_fire_down_acc",
+    [2644032] = "aug_blizzard_down_acc",
+    [2644033] = "aug_thunder_down_acc",
+    [2644034] = "aug_cure_down_acc",
+    [2644035] = "aug_gravity_down_acc",
+    [2644036] = "aug_stop_down_acc",
+    [2644037] = "aug_aero_down_acc",
+    [2644038] = "aug_summon_anywhere_acc",
+    [2644039] = "aug_summon_boost_acc",
+    [2644040] = "aug_grounded_acc",
+    [2644041] = "aug_finishing_plus_acc",
+}
+
+local aug_acc = {}
+for loc_id_str, aug_val in pairs(seed_vars["item_location_map"]) do
+    local loc_id = tonumber(loc_id_str)
+    if loc_id and loc_id >= 2659100 and loc_id <= 2659154 then
+        local aug_str = augment_item_to_key[aug_val]
+        if aug_str then
+            aug_acc[aug_str] = loc_id - 2659100 + 17
+        end
+    end
+end
+
 local ground_starter_attack_data = {}
 ground_starter_attack_data[9]  = {0xD0, 0x00, 0x05, 0xFF, 0xB8, 0x50, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x05, 0x06, 0x04, 0x00, 0x00, 0x00, 0x00}
 ground_starter_attack_data[10] = {0xD3, 0x00, 0x05, 0xFF, 0x58, 0x5A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x04, 0x05, 0x06, 0xFF, 0x00, 0x00, 0x00, 0x00}
@@ -116,7 +198,7 @@ local function handle_walk_and_animation_speed(acc_equipped)
 end
 
 local function handle_scan(acc_equipped)
-    if kh1_lua_library.contains(acc_equipped, seed_vars.aug_acc["aug_scan_acc"]) then
+    if kh1_lua_library.contains(acc_equipped, aug_acc["aug_scan_acc"]) then
         kh1_lua_library.force_scan(true)
     else
         kh1_lua_library.force_scan(false)
@@ -124,7 +206,7 @@ local function handle_scan(acc_equipped)
 end
 
 local function handle_combo_master(acc_equipped)
-    if kh1_lua_library.contains(acc_equipped, seed_vars.aug_acc["aug_combo_master_acc"]) then
+    if kh1_lua_library.contains(acc_equipped, aug_acc["aug_combo_master_acc"]) then
         kh1_lua_library.force_combo_master(true)
     else
         kh1_lua_library.force_combo_master(false)
@@ -132,7 +214,7 @@ local function handle_combo_master(acc_equipped)
 end
 
 local function handle_summon_anywhere(acc_equipped)
-    if kh1_lua_library.contains(acc_equipped, seed_vars.aug_acc["aug_summon_anywhere_acc"]) then
+    if kh1_lua_library.contains(acc_equipped, aug_acc["aug_summon_anywhere_acc"]) then
         kh1_lua_library.allow_summon_anywhere(true)
     else
         kh1_lua_library.allow_summon_anywhere(false)
@@ -140,7 +222,7 @@ local function handle_summon_anywhere(acc_equipped)
 end
 
 local function handle_midair_dodge_roll_guard(acc_equipped)
-    if kh1_lua_library.contains(acc_equipped, seed_vars.aug_acc["aug_air_guard_dodge_roll_acc"]) then
+    if kh1_lua_library.contains(acc_equipped, aug_acc["aug_air_guard_dodge_roll_acc"]) then
         kh1_lua_library.allow_midair_dodge_roll_guard(true)
     else
         kh1_lua_library.allow_midair_dodge_roll_guard(false)
@@ -148,7 +230,7 @@ local function handle_midair_dodge_roll_guard(acc_equipped)
 end
 
 local function handle_midair_items(acc_equipped)
-    if kh1_lua_library.contains(acc_equipped, seed_vars.aug_acc["aug_air_items_acc"]) then
+    if kh1_lua_library.contains(acc_equipped, aug_acc["aug_air_items_acc"]) then
         kh1_lua_library.allow_air_items(true)
     else
         kh1_lua_library.allow_air_items(false)
@@ -157,27 +239,27 @@ end
 
 local function handle_magic_boosts(acc_equipped)
     local acc_values_lib = {
-        ["Fire"]     = {seed_vars.aug_acc["aug_fire_boost_acc"],     seed_vars.aug_acc["aug_fire_down_acc"]},
-        ["Fira"]     = {seed_vars.aug_acc["aug_fire_boost_acc"],     seed_vars.aug_acc["aug_fire_down_acc"]},
-        ["Firaga"]   = {seed_vars.aug_acc["aug_fire_boost_acc"],     seed_vars.aug_acc["aug_fire_down_acc"]},
-        ["Blizzard"] = {seed_vars.aug_acc["aug_blizzard_boost_acc"], seed_vars.aug_acc["aug_blizzard_down_acc"]},
-        ["Blizzara"] = {seed_vars.aug_acc["aug_blizzard_boost_acc"], seed_vars.aug_acc["aug_blizzard_down_acc"]},
-        ["Blizzaga"] = {seed_vars.aug_acc["aug_blizzard_boost_acc"], seed_vars.aug_acc["aug_blizzard_down_acc"]},
-        ["Thunder"]  = {seed_vars.aug_acc["aug_thunder_boost_acc"],  seed_vars.aug_acc["aug_thunder_down_acc"]},
-        ["Thundara"] = {seed_vars.aug_acc["aug_thunder_boost_acc"],  seed_vars.aug_acc["aug_thunder_down_acc"]},
-        ["Thundaga"] = {seed_vars.aug_acc["aug_thunder_boost_acc"],  seed_vars.aug_acc["aug_thunder_down_acc"]},
-        ["Cure"]     = {seed_vars.aug_acc["aug_cure_boost_acc"],     seed_vars.aug_acc["aug_cure_down_acc"]},
-        ["Cura"]     = {seed_vars.aug_acc["aug_cure_boost_acc"],     seed_vars.aug_acc["aug_cure_down_acc"]},
-        ["Curaga"]   = {seed_vars.aug_acc["aug_cure_boost_acc"],     seed_vars.aug_acc["aug_cure_down_acc"]},
-        ["Gravity"]  = {seed_vars.aug_acc["aug_gravity_boost_acc"],  seed_vars.aug_acc["aug_gravity_down_acc"]},
-        ["Gravira"]  = {seed_vars.aug_acc["aug_gravity_boost_acc"],  seed_vars.aug_acc["aug_gravity_down_acc"]},
-        ["Graviga"]  = {seed_vars.aug_acc["aug_gravity_boost_acc"],  seed_vars.aug_acc["aug_gravity_down_acc"]},
-        ["Stop"]     = {seed_vars.aug_acc["aug_stop_boost_acc"],     seed_vars.aug_acc["aug_stop_down_acc"]},
-        ["Stopra"]   = {seed_vars.aug_acc["aug_stop_boost_acc"],     seed_vars.aug_acc["aug_stop_down_acc"]},
-        ["Stopga"]   = {seed_vars.aug_acc["aug_stop_boost_acc"],     seed_vars.aug_acc["aug_stop_down_acc"]},
-        ["Aero"]     = {seed_vars.aug_acc["aug_aero_boost_acc"],     seed_vars.aug_acc["aug_aero_down_acc"]},
-        ["Aerora"]   = {seed_vars.aug_acc["aug_aero_boost_acc"],     seed_vars.aug_acc["aug_aero_down_acc"]},
-        ["Aeroga"]   = {seed_vars.aug_acc["aug_aero_boost_acc"],     seed_vars.aug_acc["aug_aero_down_acc"]}
+        ["Fire"]     = {aug_acc["aug_fire_boost_acc"],     aug_acc["aug_fire_down_acc"]},
+        ["Fira"]     = {aug_acc["aug_fire_boost_acc"],     aug_acc["aug_fire_down_acc"]},
+        ["Firaga"]   = {aug_acc["aug_fire_boost_acc"],     aug_acc["aug_fire_down_acc"]},
+        ["Blizzard"] = {aug_acc["aug_blizzard_boost_acc"], aug_acc["aug_blizzard_down_acc"]},
+        ["Blizzara"] = {aug_acc["aug_blizzard_boost_acc"], aug_acc["aug_blizzard_down_acc"]},
+        ["Blizzaga"] = {aug_acc["aug_blizzard_boost_acc"], aug_acc["aug_blizzard_down_acc"]},
+        ["Thunder"]  = {aug_acc["aug_thunder_boost_acc"],  aug_acc["aug_thunder_down_acc"]},
+        ["Thundara"] = {aug_acc["aug_thunder_boost_acc"],  aug_acc["aug_thunder_down_acc"]},
+        ["Thundaga"] = {aug_acc["aug_thunder_boost_acc"],  aug_acc["aug_thunder_down_acc"]},
+        ["Cure"]     = {aug_acc["aug_cure_boost_acc"],     aug_acc["aug_cure_down_acc"]},
+        ["Cura"]     = {aug_acc["aug_cure_boost_acc"],     aug_acc["aug_cure_down_acc"]},
+        ["Curaga"]   = {aug_acc["aug_cure_boost_acc"],     aug_acc["aug_cure_down_acc"]},
+        ["Gravity"]  = {aug_acc["aug_gravity_boost_acc"],  aug_acc["aug_gravity_down_acc"]},
+        ["Gravira"]  = {aug_acc["aug_gravity_boost_acc"],  aug_acc["aug_gravity_down_acc"]},
+        ["Graviga"]  = {aug_acc["aug_gravity_boost_acc"],  aug_acc["aug_gravity_down_acc"]},
+        ["Stop"]     = {aug_acc["aug_stop_boost_acc"],     aug_acc["aug_stop_down_acc"]},
+        ["Stopra"]   = {aug_acc["aug_stop_boost_acc"],     aug_acc["aug_stop_down_acc"]},
+        ["Stopga"]   = {aug_acc["aug_stop_boost_acc"],     aug_acc["aug_stop_down_acc"]},
+        ["Aero"]     = {aug_acc["aug_aero_boost_acc"],     aug_acc["aug_aero_down_acc"]},
+        ["Aerora"]   = {aug_acc["aug_aero_boost_acc"],     aug_acc["aug_aero_down_acc"]},
+        ["Aeroga"]   = {aug_acc["aug_aero_boost_acc"],     aug_acc["aug_aero_down_acc"]}
     }
     local mag_mods = {
         ["Fire"]     = 1.0,
@@ -227,27 +309,27 @@ end
 
 local function handle_magic_costs(acc_equipped)
     local acc_values_lib = {
-        ["Fire"]     = {seed_vars.aug_acc["aug_fire_cost_up_acc"],     seed_vars.aug_acc["aug_fire_cost_down_acc"]},
-        ["Fira"]     = {seed_vars.aug_acc["aug_fire_cost_up_acc"],     seed_vars.aug_acc["aug_fire_cost_down_acc"]},
-        ["Firaga"]   = {seed_vars.aug_acc["aug_fire_cost_up_acc"],     seed_vars.aug_acc["aug_fire_cost_down_acc"]},
-        ["Blizzard"] = {seed_vars.aug_acc["aug_blizzard_cost_up_acc"], seed_vars.aug_acc["aug_blizzard_cost_down_acc"]},
-        ["Blizzara"] = {seed_vars.aug_acc["aug_blizzard_cost_up_acc"], seed_vars.aug_acc["aug_blizzard_cost_down_acc"]},
-        ["Blizzaga"] = {seed_vars.aug_acc["aug_blizzard_cost_up_acc"], seed_vars.aug_acc["aug_blizzard_cost_down_acc"]},
-        ["Thunder"]  = {seed_vars.aug_acc["aug_thunder_cost_up_acc"],  seed_vars.aug_acc["aug_thunder_cost_down_acc"]},
-        ["Thundara"] = {seed_vars.aug_acc["aug_thunder_cost_up_acc"],  seed_vars.aug_acc["aug_thunder_cost_down_acc"]},
-        ["Thundaga"] = {seed_vars.aug_acc["aug_thunder_cost_up_acc"],  seed_vars.aug_acc["aug_thunder_cost_down_acc"]},
-        ["Cure"]     = {seed_vars.aug_acc["aug_cure_cost_up_acc"],     seed_vars.aug_acc["aug_cure_cost_down_acc"]},
-        ["Cura"]     = {seed_vars.aug_acc["aug_cure_cost_up_acc"],     seed_vars.aug_acc["aug_cure_cost_down_acc"]},
-        ["Curaga"]   = {seed_vars.aug_acc["aug_cure_cost_up_acc"],     seed_vars.aug_acc["aug_cure_cost_down_acc"]},
-        ["Gravity"]  = {seed_vars.aug_acc["aug_gravity_cost_up_acc"],  seed_vars.aug_acc["aug_gravity_cost_down_acc"]},
-        ["Gravira"]  = {seed_vars.aug_acc["aug_gravity_cost_up_acc"],  seed_vars.aug_acc["aug_gravity_cost_down_acc"]},
-        ["Graviga"]  = {seed_vars.aug_acc["aug_gravity_cost_up_acc"],  seed_vars.aug_acc["aug_gravity_cost_down_acc"]},
-        ["Stop"]     = {seed_vars.aug_acc["aug_stop_cost_up acc"],     seed_vars.aug_acc["aug_stop_cost_down acc"]},
-        ["Stopra"]   = {seed_vars.aug_acc["aug_stop_cost_up_acc"],     seed_vars.aug_acc["aug_stop_cost_down_acc"]},
-        ["Stopga"]   = {seed_vars.aug_acc["aug_stop_cost_up_acc"],     seed_vars.aug_acc["aug_stop_cost_down_acc"]},
-        ["Aero"]     = {seed_vars.aug_acc["aug_aero_cost_up_acc"],     seed_vars.aug_acc["aug_aero_cost_down_acc"]},
-        ["Aerora"]   = {seed_vars.aug_acc["aug_aero_cost_up_acc"],     seed_vars.aug_acc["aug_aero_cost_down_acc"]},
-        ["Aeroga"]   = {seed_vars.aug_acc["aug_aero_cost_up_acc"],     seed_vars.aug_acc["aug_aero_cost_down_acc"]}
+        ["Fire"]     = {aug_acc["aug_fire_cost_up_acc"],     aug_acc["aug_fire_cost_down_acc"]},
+        ["Fira"]     = {aug_acc["aug_fire_cost_up_acc"],     aug_acc["aug_fire_cost_down_acc"]},
+        ["Firaga"]   = {aug_acc["aug_fire_cost_up_acc"],     aug_acc["aug_fire_cost_down_acc"]},
+        ["Blizzard"] = {aug_acc["aug_blizzard_cost_up_acc"], aug_acc["aug_blizzard_cost_down_acc"]},
+        ["Blizzara"] = {aug_acc["aug_blizzard_cost_up_acc"], aug_acc["aug_blizzard_cost_down_acc"]},
+        ["Blizzaga"] = {aug_acc["aug_blizzard_cost_up_acc"], aug_acc["aug_blizzard_cost_down_acc"]},
+        ["Thunder"]  = {aug_acc["aug_thunder_cost_up_acc"],  aug_acc["aug_thunder_cost_down_acc"]},
+        ["Thundara"] = {aug_acc["aug_thunder_cost_up_acc"],  aug_acc["aug_thunder_cost_down_acc"]},
+        ["Thundaga"] = {aug_acc["aug_thunder_cost_up_acc"],  aug_acc["aug_thunder_cost_down_acc"]},
+        ["Cure"]     = {aug_acc["aug_cure_cost_up_acc"],     aug_acc["aug_cure_cost_down_acc"]},
+        ["Cura"]     = {aug_acc["aug_cure_cost_up_acc"],     aug_acc["aug_cure_cost_down_acc"]},
+        ["Curaga"]   = {aug_acc["aug_cure_cost_up_acc"],     aug_acc["aug_cure_cost_down_acc"]},
+        ["Gravity"]  = {aug_acc["aug_gravity_cost_up_acc"],  aug_acc["aug_gravity_cost_down_acc"]},
+        ["Gravira"]  = {aug_acc["aug_gravity_cost_up_acc"],  aug_acc["aug_gravity_cost_down_acc"]},
+        ["Graviga"]  = {aug_acc["aug_gravity_cost_up_acc"],  aug_acc["aug_gravity_cost_down_acc"]},
+        ["Stop"]     = {aug_acc["aug_stop_cost_up acc"],     aug_acc["aug_stop_cost_down acc"]},
+        ["Stopra"]   = {aug_acc["aug_stop_cost_up_acc"],     aug_acc["aug_stop_cost_down_acc"]},
+        ["Stopga"]   = {aug_acc["aug_stop_cost_up_acc"],     aug_acc["aug_stop_cost_down_acc"]},
+        ["Aero"]     = {aug_acc["aug_aero_cost_up_acc"],     aug_acc["aug_aero_cost_down_acc"]},
+        ["Aerora"]   = {aug_acc["aug_aero_cost_up_acc"],     aug_acc["aug_aero_cost_down_acc"]},
+        ["Aeroga"]   = {aug_acc["aug_aero_cost_up_acc"],     aug_acc["aug_aero_cost_down_acc"]}
     }
     
     for spell, acc_values in pairs(acc_values_lib) do
@@ -263,7 +345,7 @@ local function handle_magic_costs(acc_equipped)
 end
 
 local function handle_grounded(acc_equipped, haste_mod)
-    if kh1_lua_library.contains(acc_equipped, seed_vars.aug_acc["aug_grounded_acc"]) then
+    if kh1_lua_library.contains(acc_equipped, aug_acc["aug_grounded_acc"]) then
         local currSpeed = haste_mod
         local currAnim = kh1_lua_library.get_current_animation()
         local i = kh1_lua_library.get_index(ground_buffed_animations, currAnim)
@@ -278,7 +360,7 @@ local function handle_grounded(acc_equipped, haste_mod)
 end
 
 local function handle_finishing_plus(acc_equipped, ground_combo_length)
-    if kh1_lua_library.contains(acc_equipped, seed_vars.aug_acc["aug_finishing_plus_acc"]) then
+    if kh1_lua_library.contains(acc_equipped, aug_acc["aug_finishing_plus_acc"]) then
         local current_hits = kh1_lua_library.get_current_hits()
         local currAnim = kh1_lua_library.get_current_animation()
         
@@ -300,7 +382,7 @@ local function handle_finishing_plus(acc_equipped, ground_combo_length)
 end
 
 local function handle_summon_boost(acc_equipped)
-    if kh1_lua_library.contains(acc_equipped, seed_vars.aug_acc["aug_summon_boost_acc"]) then
+    if kh1_lua_library.contains(acc_equipped, aug_acc["aug_summon_boost_acc"]) then
         kh1_lua_library.multiply_summon_time(1.5)
     else
         kh1_lua_library.multiply_summon_time(1.0)

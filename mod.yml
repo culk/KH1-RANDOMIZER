@@ -1230,6 +1230,14 @@ assets:
   method: copy
   source:
   - name: mod/scripts/1fmRandoInteraction_Old.lua
+- name: scripts/1fmRandoItemSortAndPrices.lua
+  method: copy
+  source:
+  - name: mod/scripts/1fmRandoItemSortAndPrices.lua
+- name: scripts/1fmRandoLevelUpRewards.lua
+  method: copy
+  source:
+  - name: mod/scripts/1fmRandoLevelUpRewards.lua
 - name: scripts/1fmRandoQualityOfLife.lua
   method: copy
   source:

@@ -2,37 +2,37 @@ LUAGUI_NAME = "1fmRandoFixRiku2"
 LUAGUI_AUTH = "Gicu"
 LUAGUI_DESC = "Kingdom Hearts 1FM Randomizer Fix Post Riku Ansem World States"
 
-frame_count = 0
-corrected = false
-second_visit = {false,false,false,false}
+local frame_count = 0
+local corrected = false
+local second_visit = {false,false,false,false}
 
-function toBits(num)
+local function toBits(num)
     -- returns a table of bits, least significant first.
     local t={} -- will contain the bits
     while num>0 do
-        rest=math.fmod(num,2)
+        local rest=math.fmod(num,2)
         t[#t+1]=rest
         num=(num-rest)/2
     end
     return t
 end
 
-function read_world_progress_array()
+local function read_world_progress_array()
     --[[Reads an array of world progress bytes that correspond to Sora's progress through
     each world.  The order of worlds are as follows:
     Traverse Town, Deep Jungle, Olympus Coliseum, Wonderland, Agrabah, Monstro,
     Atlantica, Unused, Halloween Town, Neverland, Hollow Bastion, End of the World]]
-    world_progress_array = ReadArray(cutsceneFlagBase - 1, 12)
+    local world_progress_array = ReadArray(cutsceneFlagBase - 1, 12)
     world_progress_array[13] = ReadByte(cutsceneFlagBase - 1 + 0xE)
     return world_progress_array
 end
 
-function write_world_progress_byte(world_index, progress_byte)
+local function write_world_progress_byte(world_index, progress_byte)
     WriteByte(cutsceneFlagBase - 1 + (world_index-1), progress_byte)
 end
 
-function define_world_progress_reset_array()
-    world_progress_reset_array = {}
+local function define_world_progress_reset_array()
+    local world_progress_reset_array = {}
     --Wonderland
     world_progress_reset_array[1] = {
         {0x00, {0x02, 0x00, 0x02, 0x00, 0x00, 0x00, 0x0D, 0x0D, 0x02, 0x01, 0x0D, 0x00, 0x00, 0x00, 0x00, 0x0D}}
@@ -123,26 +123,26 @@ function define_world_progress_reset_array()
     return world_progress_reset_array
 end
 
-world_progress_reset_array = define_world_progress_reset_array()
+local world_progress_reset_array = define_world_progress_reset_array()
 
-function correct_world_flags(world_offset, corrected_world_flag_array)
+local function correct_world_flags(world_offset, corrected_world_flag_array)
     WriteArray(worldFlagBase - 0xE4 + world_offset, corrected_world_flag_array)
 end
 
-function read_world_flags(world_offset)
+local function read_world_flags(world_offset)
     return ReadArray(worldFlagBase - 0xE4 + world_offset, 16)
 end
 
-function turn_on_kurt_zisa()
+local function turn_on_kurt_zisa()
     if ReadByte(cutsceneFlagBase - 5) < 0xF0 then
         WriteByte(cutsceneFlagBase - 5, 0xF0)
     end
 end
 
-function handle_phantom(neverland_progress)
+local function handle_phantom(neverland_progress)
     if (neverland_progress == 0x78 or neverland_progress == 0x6E) and ReadByte(world) ~= 0xD then -- Neverland finished but not post Phantom, and we're not in Neverland
-        clock_tower_doors_opened = false
-        clock_tower_chest_opened = false
+        local clock_tower_doors_opened = false
+        local clock_tower_chest_opened = false
 
         clock_tower_door_byte = ReadByte(cutsceneFlagBase + 0x95D)
         clock_tower_door_bits = toBits(clock_tower_door_byte)
@@ -176,22 +176,22 @@ function handle_phantom(neverland_progress)
 end
 
 function fix_library()
-    library_address = worldFlagBase - 0xE4 + 0xB0 + 0x7
+    local library_address = worldFlagBase - 0xE4 + 0xB0 + 0x7
     if ReadByte(library_address) ~= 0x02 then
         WriteByte(library_address, 0x02)
     end
 end
 
 function main()
-    specific_worlds_progress_array = {}
-    world_progress_array = read_world_progress_array()
-    hollow_bastion_progress = world_progress_array[11]
-    corrected_world_flag_arrays = {}
-    second_visit_test_bytes = {0x30,0x5F,0x82,0x6E}
-    final_bytes = {0x32,0x6E,0x82,0x78}
-    world_progress_indexes = {4,2,5,10}
-    check_byte_num = {8, 3, 3, 6}
-    world_offset = {0x30, 0x40, 0x60, 0xA0}
+    local specific_worlds_progress_array = {}
+    local world_progress_array = read_world_progress_array()
+    local hollow_bastion_progress = world_progress_array[11]
+    local corrected_world_flag_arrays = {}
+    local second_visit_test_bytes = {0x30,0x5F,0x82,0x6E}
+    local final_bytes = {0x32,0x6E,0x82,0x78}
+    local world_progress_indexes = {4,2,5,10}
+    local check_byte_num = {8, 3, 3, 6}
+    local world_offset = {0x30, 0x40, 0x60, 0xA0}
 
 
     if hollow_bastion_progress >= 0x82 then --Riku 2 Defeated
