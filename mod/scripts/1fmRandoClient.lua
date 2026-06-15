@@ -127,7 +127,7 @@ local function connect(server, slot, password)
                 local acc_location_id = item_id - 2641017 + 2659100
                 table.insert(game_state.locations, acc_location_id)
             end
-            if player_id == sender_id and contains(game_state.slot_data.remote_location_ids, location_id) or player_id ~= sender_id then
+            if player_id == sender_id and kh1_lua_library.contains(game_state.slot_data.remote_location_ids, location_id) or player_id ~= sender_id then
                 table.insert(game_state.items_received, item_id)
             end
         end
