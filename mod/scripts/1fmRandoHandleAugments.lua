@@ -78,6 +78,40 @@ local augment_item_to_key = {
     [2644041] = "aug_finishing_plus_acc",
 }
 
+local spell_order = {
+    "Fire", "Fira", "Firaga",
+    "Blizzard", "Blizzara", "Blizzaga",
+    "Thunder", "Thundara", "Thundaga",
+    "Cure", "Cura", "Curaga",
+    "Gravity", "Gravira", "Graviga",
+    "Stop", "Stopra", "Stopga",
+    "Aero", "Aerora", "Aeroga"
+}
+local original_spell_costs = {
+    30, 30, 30,
+    30, 30, 30,
+    100, 100, 100,
+    100, 100, 100,
+    100, 100, 100,
+    200, 200, 200,
+    200, 200, 200
+}
+local base_effectiveness = {
+    20, 28, 36,
+    22, 27, 34,
+    16, 20, 26,
+    15, 27, 36,
+    40, 55, 70,
+    2, 2, 2,
+    18, 18, 18
+}
+
+local effectiveness_values = {}
+for i, spell in ipairs(spell_order) do
+    local multiplier = seed_vars["mp_costs"][i] / original_spell_costs[i]
+    effectiveness_values[spell] = math.max(math.floor(base_effectiveness[i] * multiplier + 0.5), 1)
+end
+
 local aug_acc = {}
 for loc_id_str, aug_val in pairs(seed_vars["item_location_map"]) do
     local loc_id = tonumber(loc_id_str)
@@ -295,11 +329,11 @@ local function handle_magic_boosts(acc_equipped)
     local new_effectiveness_values = {}
     for spell, mod in pairs(mag_mods) do
         if mod > 1.0 then
-            new_effectiveness_values[spell] = math.ceil(seed_vars.effectiveness_values[spell] * mod)
+            new_effectiveness_values[spell] = math.ceil(effectiveness_values[spell] * mod)
         elseif mod < 1.0 then
-            new_effectiveness_values[spell] = math.floor(seed_vars.effectiveness_values[spell] * mod)
+            new_effectiveness_values[spell] = math.floor(effectiveness_values[spell] * mod)
         else
-            new_effectiveness_values[spell] = seed_vars.effectiveness_values[spell]
+            new_effectiveness_values[spell] = effectiveness_values[spell]
         end
     end
     for spell, effectiveness_value in pairs(new_effectiveness_values) do
