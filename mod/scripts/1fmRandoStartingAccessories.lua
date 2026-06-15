@@ -43,7 +43,9 @@ local function apply_starting_accessories()
         local base_addr  = maxHP + 0x17 + char_id * 0x74
         for slot_idx, loc_id in ipairs(loc_ids) do
             if slot_idx <= slot_count then
-                WriteByte(base_addr + slot_idx - 1, get_accessory_item_id(loc_id))
+                local item_id = get_accessory_item_id(loc_id)
+                kh1_lua_library.set_stock_at_index(item_id, kh1_lua_library.get_stock_at_index(item_id) + 1)
+                WriteByte(base_addr + slot_idx - 1, item_id)
             end
         end
     end
