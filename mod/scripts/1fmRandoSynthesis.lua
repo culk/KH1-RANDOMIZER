@@ -9,7 +9,7 @@ local synth_written = false
 local synth_items = {}
 
 local function get_synth_items()
-    for i = 0, 32 do
+    for i = 1, 33 do
         local synth_item_id = seed_vars["item_location_map"][tostring(2656400 + i)] % 2641000
         if synth_item_id > 255 then -- If not a regular item
             synth_item_id = 230 -- Make it an AP Item
