@@ -237,7 +237,6 @@ function _OnFrame()
     if canExecute then
         local status, err = pcall(function()
             CheckForGUIData()
-            item_location_handlers.handle_start_inventory()
             if kh1_lua_library.get_world() ~= 0x00 and kh1_lua_library.get_world() ~= 0xFF then
                 frame_count = (frame_count + 1) % 60
                 game_state = send_locations.add_locations_to_locations_checked(location_map, game_state, frame_count)
