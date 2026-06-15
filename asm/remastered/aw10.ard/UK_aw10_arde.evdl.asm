@@ -16,14 +16,21 @@
 
 ; What's changed:
 ; - KGR[0] Script 14:
-;   - Left Cushioned Chair reward code changed to use gift table idx 22
+;   - New Left Cushioned Chair reward code
+;   - Below code should be uncommented if we want the window centered
+;   - Old Left Cushioned Chair reward code
 ; - KGR[0] Script 15:
-;   - Left Pink Chair reward code changed to use gift table idx 23
-;   - Right Yellow Chair reward code changed to use gift table idx 24
+;   - New Left Pink Chair reward code
+;   - Below code should be uncommented if we want the window centered
+;   - Old Left Pink Chair Reward Code
+;   - New Right Yellow Chair reward code
+;   - Old Right Yellow Chair Reward Code
 ; - KGR[0] Script 16:
-;   - Left Gray Chair reward code changed to use gift table idx 26
-;   - Right Brown Chair reward code changed to use gift table idx 27
-
+;   - New Left Gray Chair reward code
+;   - Below code should be uncommented if we want the window centered
+;   - Old Left Gray Chair Reward Code
+;   - New Right Brown Chair reward code
+;   - Old Right Brown Chair Reward Code
 
 ; ────────────────────────────────────────────────────────────────────────
 ; Script 0  |  11 subscript(s)  |  PC 0  |  file 0x4DA9  |  KGR 0
@@ -3993,7 +4000,7 @@
   08000018  syscall         8                 ; Set_wait_timer
 
 ; New Left Cushioned Chair reward code
-  0E000009  push            0x16              ; 22
+  16000009  push            0x16              ; 22
   04110011  write_dword     [0x1104]          ; save_data2[0x3C4]  (GIFT_TABLE_ITEM)
   04110010  read_dword      [0x1104]          ; save_data2[0x3C4]  (GIFT_TABLE_ITEM)
   47020018  syscall         583               ; Get_item_from_gift_table
@@ -4126,7 +4133,7 @@
   08000018  syscall         8                 ; Set_wait_timer
 
 ; New Left Pink Chair reward code
-  0E000009  push            0x17              ; 23
+  17000009  push            0x17              ; 23
   04110011  write_dword     [0x1104]          ; save_data2[0x3C4]  (GIFT_TABLE_ITEM)
   04110010  read_dword      [0x1104]          ; save_data2[0x3C4]  (GIFT_TABLE_ITEM)
   47020018  syscall         583               ; Get_item_from_gift_table
@@ -4238,7 +4245,7 @@
   08000018  syscall         8                 ; Set_wait_timer
 
 ; New Right Yellow Chair reward code
-  0E000009  push            0x18              ; 24
+  18000009  push            0x18              ; 24
   04110011  write_dword     [0x1104]          ; save_data2[0x3C4]  (GIFT_TABLE_ITEM)
   04110010  read_dword      [0x1104]          ; save_data2[0x3C4]  (GIFT_TABLE_ITEM)
   47020018  syscall         583               ; Get_item_from_gift_table
@@ -4384,7 +4391,7 @@
   08000018  syscall         8                 ; Set_wait_timer
 
 ; New Left Gray Chair reward code
-  0E000009  push            0x19              ; 25
+  19000009  push            0x19              ; 25
   04110011  write_dword     [0x1104]          ; save_data2[0x3C4]  (GIFT_TABLE_ITEM)
   04110010  read_dword      [0x1104]          ; save_data2[0x3C4]  (GIFT_TABLE_ITEM)
   47020018  syscall         583               ; Get_item_from_gift_table
@@ -4513,7 +4520,7 @@
   08000018  syscall         8                 ; Set_wait_timer
 
 ; New Right Brown Chair reward code
-  0E000009  push            0x1A              ; 26
+  1A000009  push            0x1A              ; 26
   04110011  write_dword     [0x1104]          ; save_data2[0x3C4]  (GIFT_TABLE_ITEM)
   04110010  read_dword      [0x1104]          ; save_data2[0x3C4]  (GIFT_TABLE_ITEM)
   47020018  syscall         583               ; Get_item_from_gift_table
