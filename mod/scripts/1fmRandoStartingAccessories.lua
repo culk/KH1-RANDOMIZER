@@ -7,8 +7,6 @@ LUAGUI_DESC = "Kingdom Hearts 1FM Randomizer Party Member Starting Accessories"
 local seed_vars       = require("seed_vars")
 local kh1_lua_library = require("kh1_lua_library")
 
-local AP_ITEM_ID = 230
-
 -- Gummi slot 0x79 used as a persistent save-data flag:
 -- 0 = starting accessories not yet applied, 1 = done
 local APPLIED_FLAG_IDX = 0x79
@@ -25,14 +23,16 @@ local char_accessory_locations = {
     [9] = {2656814},                    -- Beast         (1 slot)
 }
 
+-- Returns the KH1 item byte for accessories (regular items in 1001-1999 range),
+-- or nil for abilities / AP items from other games that shouldn't be equipped.
 local function get_accessory_item_id(loc_id)
     local item_id = seed_vars["item_location_map"][tostring(loc_id)]
-    if item_id == nil then return AP_ITEM_ID end
+    if item_id == nil then return nil end
     item_id = item_id % 264000
     if item_id > 1000 and item_id < 2000 then
         return item_id % 1000
     end
-    return AP_ITEM_ID
+    return nil
 end
 
 -- Accessory slots live at: maxHP + 0x16 + char_id*0x74 (count)
@@ -44,8 +44,10 @@ local function apply_starting_accessories()
         for slot_idx, loc_id in ipairs(loc_ids) do
             if slot_idx <= slot_count then
                 local item_id = get_accessory_item_id(loc_id)
-                kh1_lua_library.set_stock_at_index(item_id, kh1_lua_library.get_stock_at_index(item_id) + 1)
-                WriteByte(base_addr + slot_idx - 1, item_id)
+                if item_id then
+                    kh1_lua_library.set_stock_at_index(item_id, kh1_lua_library.get_stock_at_index(item_id) + 1)
+                    WriteByte(base_addr + slot_idx - 1, item_id)
+                end
             end
         end
     end
