@@ -10,7 +10,7 @@ local send_locations         = require("client.send_locations")
 local receive_items          = require("client.receive_items")
 local death_link             = require("death_link")
 local synth_hints            = require("client.synth_hints")
-local item_location_handlers = require("item_locations_handlers")
+local item_location_handlers = require("item_location_handlers")
 local ArchGUI                = require("ArchipelagoGUI")
 
 -- AP globals
