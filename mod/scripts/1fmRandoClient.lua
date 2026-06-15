@@ -166,18 +166,25 @@ end
 local function CheckForGUIData()
     -- This calls the C++ 'l_get_data' function via the dynamic loading we set up
     local data = ArchGUI.get_data()
-    
+
     if data then
         ConsolePrint("C++ GUI triggered connection for: " .. tostring(data.slot))
-        
+
         local server = data.host or ""
         local slot = data.slot or ""
         local password = data.password or ""
-        
+
         if slot ~= "" then
             connect(server, slot, password)
         else
             ConsolePrint("GUI Error: Slot name cannot be empty!")
+        end
+    elseif not ap then
+        -- _OnInit may have missed stored data due to timing; recover on first frame
+        local stored = ArchGUI.peek_data()
+        if stored and stored.slot and stored.slot ~= "" then
+            ConsolePrint("Auto-reconnecting from stored data: " .. tostring(stored.slot))
+            connect(stored.host or "", stored.slot, stored.password or "")
         end
     end
 end
