@@ -1178,6 +1178,10 @@ assets:
   method: copy
   source:
   - name: mod/scripts/1fmRandoChests.lua
+- name: scripts/1fmRandoClient.lua
+  method: copy
+  source:
+  - name: mod/scripts/1fmRandoClient.lua
 - name: scripts/1fmRandoClockTowerDoors.lua
   method: copy
   source:
@@ -1302,6 +1306,22 @@ assets:
   method: copy
   source:
   - name: mod/scripts/1fmUnskippable.lua
+- name: scripts/io_packages/ArchipelagoGUI.dll
+  method: copy
+  source:
+  - name: mod/scripts/io_packages/ArchipelagoGUI.dll
+- name: scripts/io_packages/client/receive_items.lua
+  method: copy
+  source:
+  - name: mod/scripts/io_packages/client/receive_items.lua
+- name: scripts/io_packages/client/send_locations.lua
+  method: copy
+  source:
+  - name: mod/scripts/io_packages/client/send_locations.lua
+- name: scripts/io_packages/client/synth_hints.lua
+  method: copy
+  source:
+  - name: mod/scripts/io_packages/client/synth_hints.lua
 - name: scripts/io_packages/death_link.lua
   method: copy
   source:
@@ -1310,10 +1330,30 @@ assets:
   method: copy
   source:
   - name: mod/scripts/io_packages/item_location_handlers.lua
+- name: scripts/io_packages/lua-apclientpp.dll
+  method: copy
+  source:
+  - name: mod/scripts/io_packages/lua-apclientpp.dll
 - name: scripts/io_packages/seed_vars.lua
   method: copy
   source:
   - name: mod/scripts/io_packages/seed_vars.lua
+- name: to_copy/libgcc_s_seh-1.dll
+  method: copy
+  source:
+  - name: mod/to_copy/libgcc_s_seh-1.dll
+- name: to_copy/libstdc++-6.dll
+  method: copy
+  source:
+  - name: mod/to_copy/libstdc++-6.dll
+- name: to_copy/libwinpthread-1.dll
+  method: copy
+  source:
+  - name: mod/to_copy/libwinpthread-1.dll
+- name: to_copy/zlib1.dll
+  method: copy
+  source:
+  - name: mod/to_copy/zlib1.dll
 - name: tw12.ard
   method: copy
   source:
