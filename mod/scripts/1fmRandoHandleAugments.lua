@@ -134,7 +134,7 @@ local function handle_abilities(acc_equipped)
     }
 
     for ability_name, acc_value in pairs(ability_names) do
-        if contains(acc_equipped, acc_value) then
+        if kh1_lua_library.contains(acc_equipped, acc_value) then
             kh1_lua_library.enable_ability(ability_name)
         end
     end
@@ -143,7 +143,7 @@ end
 
 local function handle_ground_combo_length(acc_equipped)
     local ground_combo_length = calculate_ground_combo_limit()
-    if contains(acc_equipped, aug_acc["aug_finisher_lock_acc"]) then
+    if kh1_lua_library.contains(acc_equipped, aug_acc["aug_finisher_lock_acc"]) then
         ground_combo_length = 1
     end
     kh1_lua_library.set_ground_combo_length_limit(ground_combo_length)
@@ -173,18 +173,18 @@ local function handle_walk_and_animation_speed(acc_equipped)
     
     local haste_mod = 1.0
     
-    if contains(acc_equipped, haste_acc[3]) then
+    if kh1_lua_library.contains(acc_equipped, haste_acc[3]) then
         haste_mod = haste_mod + 0.3
-    elseif contains(acc_equipped, haste_acc[2]) then
+    elseif kh1_lua_library.contains(acc_equipped, haste_acc[2]) then
         haste_mod = haste_mod + 0.2
-    elseif contains(acc_equipped, haste_acc[1]) then
+    elseif kh1_lua_library.contains(acc_equipped, haste_acc[1]) then
         haste_mod = haste_mod + 0.1
     end
-    if contains(acc_equipped, slow_acc[3]) then
+    if kh1_lua_library.contains(acc_equipped, slow_acc[3]) then
         haste_mod = haste_mod - 0.3
-    elseif contains(acc_equipped, slow_acc[2]) then
+    elseif kh1_lua_library.contains(acc_equipped, slow_acc[2]) then
         haste_mod = haste_mod - 0.2
-    elseif contains(acc_equipped, slow_acc[1]) then
+    elseif kh1_lua_library.contains(acc_equipped, slow_acc[1]) then
         haste_mod = haste_mod - 0.1
     end
     
