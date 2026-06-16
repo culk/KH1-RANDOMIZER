@@ -850,6 +850,10 @@ assets:
   method: copy
   source:
   - name: mod/remastered/po08.ard/UK_po08_ardc.evdl
+- name: remastered/po08.ard/UK_po08a.ev
+  method: copy
+  source:
+  - name: mod/remastered/po08.ard/UK_po08a.ev
 - name: remastered/po11.ard/UK_po11_ard0.evdl
   method: copy
   source:
