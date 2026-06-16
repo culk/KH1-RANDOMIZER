@@ -526,6 +526,10 @@ assets:
   method: copy
   source:
   - name: mod/remastered/lm14.ard/UK_lm14_ardc.evdl
+- name: remastered/lm14.ard/UK_lm14a.ev
+  method: copy
+  source:
+  - name: mod/remastered/lm14.ard/UK_lm14a.ev
 - name: remastered/lm15.ard/UK_lm15_ard11.evdl
   method: copy
   source:
