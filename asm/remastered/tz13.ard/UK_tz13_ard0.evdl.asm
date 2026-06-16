@@ -15,18 +15,6 @@
 ; ────────────────────────────────────────────────────────────────────────
 
 ; What's changed:
-; - KGR[0] Script 8:
-;   - Make Slide 1 never appear
-; - KGR[0] Script 9:
-;   - Make Slide 2 never appear
-; - KGR[0] Script 10:
-;   - Make Slide 3 never appear
-; - KGR[0] Script 11:
-;   - Make Slide 4 never appear
-; - KGR[0] Script 12:
-;   - Make Slide 5 never appear
-; - KGR[0] Script 13:
-;   - Make Slide 6 never appear
 ; - KGR[0] Script 19:
 ;   - New Hi-Potion Experiment reward code
 ;   - Below code should be uncommented if we want the window centered
@@ -1403,48 +1391,47 @@
 ; Script 8  |  11 subscript(s)  |  PC 1173  |  file 0x514D  |  KGR 0
 ; ────────────────────────────────────────────────────────────────────────
 
-; Make Slide 1 never appear
-;   0706000C  read_byte       [0x607]           ; save_data[0x607]  (SLIDE_1_TURNED_IN)
-;   00000009  push            0x0             
-;   06000001  alu             eq              
-;   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_8_0  ; → PC 1191
-;   18000409  push            0x40018           ; 262168
-;   B7000018  syscall         183               ; Display_model
-;   18000409  push            0x40018           ; 262168
-;   0A000018  syscall         10                ; Set_char_ID
-;   0F050009  push            0x50F             ; 1295
-;   05000001  alu             negate          
-;   51010009  push            0x151             ; 337
-;   05000001  alu             negate          
-;   C5030009  push            0x3C5             ; 965
-;   13000018  syscall         19                ; Set_char_position
-;   00000009  push            0x0             
-;   00000009  push            0x0             
-;   45000018  syscall         69                ; Turn_char
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_8_0:
-;   10000005  yield           0x10            
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_8_1:
-;   01000009  push            0x1             
-;   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_8_2  ; → PC 1195
-;   ????????  jmp             @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_8_1  ; → PC 1192
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_8_2:
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   0706000C  read_byte       [0x607]           ; save_data[0x607]  (SLIDE_1_TURNED_IN)
-;   00000009  push            0x0             
-;   06000001  alu             eq              
-;   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_8_3  ; → PC 1211
-;   03000015  push_cond       0x3             
-;   7A010018  syscall         378               ; Make_operable
-;   01000009  push            0x1             
-;   0706000D  write_byte      [0x607]           ; save_data[0x607]  (SLIDE_1_TURNED_IN)
-;   06000009  push            0x6             
-;   01000015  push_cond       0x1             
-;   0B000016  init_call       0xB               ; → Script 11 (0x4001F)  PC 1302
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_8_3:
+  0706000C  read_byte       [0x607]           ; save_data[0x607]  (SLIDE_1_TURNED_IN)
+  00000009  push            0x0             
+  06000001  alu             eq              
+  ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_8_0  ; → PC 1191
+  18000409  push            0x40018           ; 262168
+  B7000018  syscall         183               ; Display_model
+  18000409  push            0x40018           ; 262168
+  0A000018  syscall         10                ; Set_char_ID
+  0F050009  push            0x50F             ; 1295
+  05000001  alu             negate          
+  51010009  push            0x151             ; 337
+  05000001  alu             negate          
+  C5030009  push            0x3C5             ; 965
+  13000018  syscall         19                ; Set_char_position
+  00000009  push            0x0             
+  00000009  push            0x0             
+  45000018  syscall         69                ; Turn_char
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_8_0:
+  10000005  yield           0x10            
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_8_1:
+  01000009  push            0x1             
+  ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_8_2  ; → PC 1195
+  ????????  jmp             @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_8_1  ; → PC 1192
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_8_2:
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  0706000C  read_byte       [0x607]           ; save_data[0x607]  (SLIDE_1_TURNED_IN)
+  00000009  push            0x0             
+  06000001  alu             eq              
+  ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_8_3  ; → PC 1211
+  03000015  push_cond       0x3             
+  7A010018  syscall         378               ; Make_operable
+  01000009  push            0x1             
+  0706000D  write_byte      [0x607]           ; save_data[0x607]  (SLIDE_1_TURNED_IN)
+  06000009  push            0x6             
+  01000015  push_cond       0x1             
+  0B000016  init_call       0xB               ; → Script 11 (0x4001F)  PC 1302
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_8_3:
   10000005  yield           0x10            
   10000005  yield           0x10            
   10000005  yield           0x10            
@@ -1455,49 +1442,48 @@
 ; Script 9  |  11 subscript(s)  |  PC 1216  |  file 0x51F9  |  KGR 0
 ; ────────────────────────────────────────────────────────────────────────
 
-; Make Slide 2 never appear
-;   0806000C  read_byte       [0x608]           ; save_data[0x608]  (SLIDE_2_TURNED_IN)
-;   00000009  push            0x0             
-;   06000001  alu             eq              
-;   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_9_0  ; → PC 1235
-;   19000409  push            0x40019           ; 262169
-;   B7000018  syscall         183               ; Display_model
-;   19000409  push            0x40019           ; 262169
-;   0A000018  syscall         10                ; Set_char_ID
-;   12070009  push            0x712             ; 1810
-;   05000001  alu             negate          
-;   78000009  push            0x78              ; 120
-;   05000001  alu             negate          
-;   C5030009  push            0x3C5             ; 965
-;   05000001  alu             negate          
-;   13000018  syscall         19                ; Set_char_position
-;   00000009  push            0x0             
-;   00000009  push            0x0             
-;   45000018  syscall         69                ; Turn_char
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_9_0:
-;   10000005  yield           0x10            
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_9_1:
-;   01000009  push            0x1             
-;   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_9_2  ; → PC 1239
-;   ????????  jmp             @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_9_1  ; → PC 1236
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_9_2:
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   0806000C  read_byte       [0x608]           ; save_data[0x608]  (SLIDE_2_TURNED_IN)
-;   00000009  push            0x0             
-;   06000001  alu             eq              
-;   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_9_3  ; → PC 1255
-;   03000015  push_cond       0x3             
-;   7A010018  syscall         378               ; Make_operable
-;   01000009  push            0x1             
-;   0806000D  write_byte      [0x608]           ; save_data[0x608]  (SLIDE_2_TURNED_IN)
-;   06000009  push            0x6             
-;   01000015  push_cond       0x1             
-;   0C000016  init_call       0xC               ; → Script 12 (0x40020)  PC 1345
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_9_3:
+  0806000C  read_byte       [0x608]           ; save_data[0x608]  (SLIDE_2_TURNED_IN)
+  00000009  push            0x0             
+  06000001  alu             eq              
+  ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_9_0  ; → PC 1235
+  19000409  push            0x40019           ; 262169
+  B7000018  syscall         183               ; Display_model
+  19000409  push            0x40019           ; 262169
+  0A000018  syscall         10                ; Set_char_ID
+  12070009  push            0x712             ; 1810
+  05000001  alu             negate          
+  78000009  push            0x78              ; 120
+  05000001  alu             negate          
+  C5030009  push            0x3C5             ; 965
+  05000001  alu             negate          
+  13000018  syscall         19                ; Set_char_position
+  00000009  push            0x0             
+  00000009  push            0x0             
+  45000018  syscall         69                ; Turn_char
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_9_0:
+  10000005  yield           0x10            
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_9_1:
+  01000009  push            0x1             
+  ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_9_2  ; → PC 1239
+  ????????  jmp             @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_9_1  ; → PC 1236
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_9_2:
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  0806000C  read_byte       [0x608]           ; save_data[0x608]  (SLIDE_2_TURNED_IN)
+  00000009  push            0x0             
+  06000001  alu             eq              
+  ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_9_3  ; → PC 1255
+  03000015  push_cond       0x3             
+  7A010018  syscall         378               ; Make_operable
+  01000009  push            0x1             
+  0806000D  write_byte      [0x608]           ; save_data[0x608]  (SLIDE_2_TURNED_IN)
+  06000009  push            0x6             
+  01000015  push_cond       0x1             
+  0C000016  init_call       0xC               ; → Script 12 (0x40020)  PC 1345
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_9_3:
   10000005  yield           0x10            
   10000005  yield           0x10            
   10000005  yield           0x10            
@@ -1508,47 +1494,46 @@
 ; Script 10  |  11 subscript(s)  |  PC 1260  |  file 0x52A9  |  KGR 0
 ; ────────────────────────────────────────────────────────────────────────
 
-; Make Slide 3 never appear
-;   0906000C  read_byte       [0x609]           ; save_data[0x609]  (SLIDE_3_TURNED_IN)
-;   00000009  push            0x0             
-;   06000001  alu             eq              
-;   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_10_0  ; → PC 1277
-;   1E000409  push            0x4001E           ; 262174
-;   B7000018  syscall         183               ; Display_model
-;   1E000409  push            0x4001E           ; 262174
-;   0A000018  syscall         10                ; Set_char_ID
-;   03020009  push            0x203             ; 515
-;   05000001  alu             negate          
-;   00000009  push            0x0             
-;   1C070009  push            0x71C             ; 1820
-;   13000018  syscall         19                ; Set_char_position
-;   00000009  push            0x0             
-;   00000009  push            0x0             
-;   45000018  syscall         69                ; Turn_char
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_10_0:
-;   10000005  yield           0x10            
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_10_1:
-;   01000009  push            0x1             
-;   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_10_2  ; → PC 1281
-;   ????????  jmp             @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_10_1  ; → PC 1278
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_10_2:
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   0906000C  read_byte       [0x609]           ; save_data[0x609]  (SLIDE_3_TURNED_IN)
-;   00000009  push            0x0             
-;   06000001  alu             eq              
-;   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_10_3  ; → PC 1297
-;   03000015  push_cond       0x3             
-;   7A010018  syscall         378               ; Make_operable
-;   01000009  push            0x1             
-;   0906000D  write_byte      [0x609]           ; save_data[0x609]  (SLIDE_3_TURNED_IN)
-;   06000009  push            0x6             
-;   01000015  push_cond       0x1             
-;   0D000016  init_call       0xD               ; → Script 13 (0x40021)  PC 1389
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_10_3:
+  0906000C  read_byte       [0x609]           ; save_data[0x609]  (SLIDE_3_TURNED_IN)
+  00000009  push            0x0             
+  06000001  alu             eq              
+  ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_10_0  ; → PC 1277
+  1E000409  push            0x4001E           ; 262174
+  B7000018  syscall         183               ; Display_model
+  1E000409  push            0x4001E           ; 262174
+  0A000018  syscall         10                ; Set_char_ID
+  03020009  push            0x203             ; 515
+  05000001  alu             negate          
+  00000009  push            0x0             
+  1C070009  push            0x71C             ; 1820
+  13000018  syscall         19                ; Set_char_position
+  00000009  push            0x0             
+  00000009  push            0x0             
+  45000018  syscall         69                ; Turn_char
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_10_0:
+  10000005  yield           0x10            
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_10_1:
+  01000009  push            0x1             
+  ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_10_2  ; → PC 1281
+  ????????  jmp             @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_10_1  ; → PC 1278
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_10_2:
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  0906000C  read_byte       [0x609]           ; save_data[0x609]  (SLIDE_3_TURNED_IN)
+  00000009  push            0x0             
+  06000001  alu             eq              
+  ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_10_3  ; → PC 1297
+  03000015  push_cond       0x3             
+  7A010018  syscall         378               ; Make_operable
+  01000009  push            0x1             
+  0906000D  write_byte      [0x609]           ; save_data[0x609]  (SLIDE_3_TURNED_IN)
+  06000009  push            0x6             
+  01000015  push_cond       0x1             
+  0D000016  init_call       0xD               ; → Script 13 (0x40021)  PC 1389
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_10_3:
   10000005  yield           0x10            
   10000005  yield           0x10            
   10000005  yield           0x10            
@@ -1559,49 +1544,47 @@
 ; Script 11  |  11 subscript(s)  |  PC 1302  |  file 0x5351  |  KGR 0
 ; ────────────────────────────────────────────────────────────────────────
 
-; Make Slide 4 never appear
-;   0A06000C  read_byte       [0x60A]           ; save_data[0x60A]  (SLIDE_4_TURNED_IN)
-;   00000009  push            0x0             
-;   06000001  alu             eq              
-;   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_11_0  ; → PC 1320
-;   1F000409  push            0x4001F           ; 262175
-;   B7000018  syscall         183               ; Display_model
-;   1F000409  push            0x4001F           ; 262175
-;   0A000018  syscall         10                ; Set_char_ID
-;   0F000009  push            0xF               ; 15
-;   05000001  alu             negate          
-;   2E010009  push            0x12E             ; 302
-;   05000001  alu             negate          
-;   F4010009  push            0x1F4             ; 500
-;   13000018  syscall         19                ; Set_char_position
-;   00000009  push            0x0             
-;   00000009  push            0x0             
-;   45000018  syscall         69                ; Turn_char
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_11_0:
-;   10000005  yield           0x10            
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_11_1:
-;   01000009  push            0x1             
-;   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_11_2  ; → PC 1324
-;   ????????  jmp             @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_11_1  ; → PC 1321
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_11_2:
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   0A06000C  read_byte       [0x60A]           ; save_data[0x60A]  (SLIDE_4_TURNED_IN)
-;   00000009  push            0x0             
-;   06000001  alu             eq              
-;   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_11_3  ; → PC 1340
-;   03000015  push_cond       0x3             
-;   7A010018  syscall         378               ; Make_operable
-;   01000009  push            0x1             
-;   0A06000D  write_byte      [0x60A]           ; save_data[0x60A]  (SLIDE_4_TURNED_IN)
-;   06000009  push            0x6             
-;   01000015  push_cond       0x1             
-;   0E000016  init_call       0xE               ; → Script 14  PC 1432
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_11_3:
-
+  0A06000C  read_byte       [0x60A]           ; save_data[0x60A]  (SLIDE_4_TURNED_IN)
+  00000009  push            0x0             
+  06000001  alu             eq              
+  ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_11_0  ; → PC 1320
+  1F000409  push            0x4001F           ; 262175
+  B7000018  syscall         183               ; Display_model
+  1F000409  push            0x4001F           ; 262175
+  0A000018  syscall         10                ; Set_char_ID
+  0F000009  push            0xF               ; 15
+  05000001  alu             negate          
+  2E010009  push            0x12E             ; 302
+  05000001  alu             negate          
+  F4010009  push            0x1F4             ; 500
+  13000018  syscall         19                ; Set_char_position
+  00000009  push            0x0             
+  00000009  push            0x0             
+  45000018  syscall         69                ; Turn_char
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_11_0:
+  10000005  yield           0x10            
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_11_1:
+  01000009  push            0x1             
+  ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_11_2  ; → PC 1324
+  ????????  jmp             @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_11_1  ; → PC 1321
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_11_2:
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  0A06000C  read_byte       [0x60A]           ; save_data[0x60A]  (SLIDE_4_TURNED_IN)
+  00000009  push            0x0             
+  06000001  alu             eq              
+  ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_11_3  ; → PC 1340
+  03000015  push_cond       0x3             
+  7A010018  syscall         378               ; Make_operable
+  01000009  push            0x1             
+  0A06000D  write_byte      [0x60A]           ; save_data[0x60A]  (SLIDE_4_TURNED_IN)
+  06000009  push            0x6             
+  01000015  push_cond       0x1             
+  0E000016  init_call       0xE               ; → Script 14  PC 1432
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_11_3:
   10000005  yield           0x10            
   10000005  yield           0x10            
   10000005  yield           0x10            
@@ -1612,50 +1595,48 @@
 ; Script 12  |  11 subscript(s)  |  PC 1345  |  file 0x53FD  |  KGR 0
 ; ────────────────────────────────────────────────────────────────────────
 
-; Make Slide 5 never appear
-;   0B06000C  read_byte       [0x60B]           ; save_data[0x60B]  (SLIDE_5_TURNED_IN)
-;   00000009  push            0x0             
-;   06000001  alu             eq              
-;   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_12_0  ; → PC 1364
-;   20000409  push            0x40020           ; 262176
-;   B7000018  syscall         183               ; Display_model
-;   20000409  push            0x40020           ; 262176
-;   0A000018  syscall         10                ; Set_char_ID
-;   7D050009  push            0x57D             ; 1405
-;   05000001  alu             negate          
-;   90010009  push            0x190             ; 400
-;   05000001  alu             negate          
-;   70030009  push            0x370             ; 880
-;   05000001  alu             negate          
-;   13000018  syscall         19                ; Set_char_position
-;   00000009  push            0x0             
-;   00000009  push            0x0             
-;   45000018  syscall         69                ; Turn_char
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_12_0:
-;   10000005  yield           0x10            
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_12_1:
-;   01000009  push            0x1             
-;   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_12_2  ; → PC 1368
-;   ????????  jmp             @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_12_1  ; → PC 1365
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_12_2:
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   0B06000C  read_byte       [0x60B]           ; save_data[0x60B]  (SLIDE_5_TURNED_IN)
-;   00000009  push            0x0             
-;   06000001  alu             eq              
-;   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_12_3  ; → PC 1384
-;   03000015  push_cond       0x3             
-;   7A010018  syscall         378               ; Make_operable
-;   01000009  push            0x1             
-;   0B06000D  write_byte      [0x60B]           ; save_data[0x60B]  (SLIDE_5_TURNED_IN)
-;   06000009  push            0x6             
-;   01000015  push_cond       0x1             
-;   0F000016  init_call       0xF               ; → Script 15  PC 1447
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_12_3:
-
+  0B06000C  read_byte       [0x60B]           ; save_data[0x60B]  (SLIDE_5_TURNED_IN)
+  00000009  push            0x0             
+  06000001  alu             eq              
+  ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_12_0  ; → PC 1364
+  20000409  push            0x40020           ; 262176
+  B7000018  syscall         183               ; Display_model
+  20000409  push            0x40020           ; 262176
+  0A000018  syscall         10                ; Set_char_ID
+  7D050009  push            0x57D             ; 1405
+  05000001  alu             negate          
+  90010009  push            0x190             ; 400
+  05000001  alu             negate          
+  70030009  push            0x370             ; 880
+  05000001  alu             negate          
+  13000018  syscall         19                ; Set_char_position
+  00000009  push            0x0             
+  00000009  push            0x0             
+  45000018  syscall         69                ; Turn_char
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_12_0:
+  10000005  yield           0x10            
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_12_1:
+  01000009  push            0x1             
+  ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_12_2  ; → PC 1368
+  ????????  jmp             @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_12_1  ; → PC 1365
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_12_2:
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  0B06000C  read_byte       [0x60B]           ; save_data[0x60B]  (SLIDE_5_TURNED_IN)
+  00000009  push            0x0             
+  06000001  alu             eq              
+  ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_12_3  ; → PC 1384
+  03000015  push_cond       0x3             
+  7A010018  syscall         378               ; Make_operable
+  01000009  push            0x1             
+  0B06000D  write_byte      [0x60B]           ; save_data[0x60B]  (SLIDE_5_TURNED_IN)
+  06000009  push            0x6             
+  01000015  push_cond       0x1             
+  0F000016  init_call       0xF               ; → Script 15  PC 1447
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_12_3:
   10000005  yield           0x10            
   10000005  yield           0x10            
   10000005  yield           0x10            
@@ -1666,49 +1647,48 @@
 ; Script 13  |  11 subscript(s)  |  PC 1389  |  file 0x54AD  |  KGR 0
 ; ────────────────────────────────────────────────────────────────────────
 
-; Make Slide 6 never appear
-;   0C06000C  read_byte       [0x60C]           ; save_data[0x60C]  (SLIDE_6_TURNED_IN)
-;   00000009  push            0x0             
-;   06000001  alu             eq              
-;   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_13_0  ; → PC 1407
-;   21000409  push            0x40021           ; 262177
-;   B7000018  syscall         183               ; Display_model
-;   21000409  push            0x40021           ; 262177
-;   0A000018  syscall         10                ; Set_char_ID
-;   CF030009  push            0x3CF             ; 975
-;   05000001  alu             negate          
-;   F2000009  push            0xF2              ; 242
-;   05000001  alu             negate          
-;   00050009  push            0x500             ; 1280
-;   13000018  syscall         19                ; Set_char_position
-;   00000009  push            0x0             
-;   00000009  push            0x0             
-;   45000018  syscall         69                ; Turn_char
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_13_0:
-;   10000005  yield           0x10            
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_13_1:
-;   01000009  push            0x1             
-;   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_13_2  ; → PC 1411
-;   ????????  jmp             @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_13_1  ; → PC 1408
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_13_2:
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   10000005  yield           0x10            
-;   0C06000C  read_byte       [0x60C]           ; save_data[0x60C]  (SLIDE_6_TURNED_IN)
-;   00000009  push            0x0             
-;   06000001  alu             eq              
-;   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_13_3  ; → PC 1427
-;   03000015  push_cond       0x3             
-;   7A010018  syscall         378               ; Make_operable
-;   01000009  push            0x1             
-;   0C06000D  write_byte      [0x60C]           ; save_data[0x60C]  (SLIDE_6_TURNED_IN)
-;   06000009  push            0x6             
-;   01000015  push_cond       0x1             
-;   10000016  init_call       0x10              ; → Script 16  PC 1462
-; @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_13_3:
-
+Make Slide 6 never appear
+  0C06000C  read_byte       [0x60C]           ; save_data[0x60C]  (SLIDE_6_TURNED_IN)
+  00000009  push            0x0             
+  06000001  alu             eq              
+  ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_13_0  ; → PC 1407
+  21000409  push            0x40021           ; 262177
+  B7000018  syscall         183               ; Display_model
+  21000409  push            0x40021           ; 262177
+  0A000018  syscall         10                ; Set_char_ID
+  CF030009  push            0x3CF             ; 975
+  05000001  alu             negate          
+  F2000009  push            0xF2              ; 242
+  05000001  alu             negate          
+  00050009  push            0x500             ; 1280
+  13000018  syscall         19                ; Set_char_position
+  00000009  push            0x0             
+  00000009  push            0x0             
+  45000018  syscall         69                ; Turn_char
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_13_0:
+  10000005  yield           0x10            
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_13_1:
+  01000009  push            0x1             
+  ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_13_2  ; → PC 1411
+  ????????  jmp             @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_13_1  ; → PC 1408
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_13_2:
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  10000005  yield           0x10            
+  0C06000C  read_byte       [0x60C]           ; save_data[0x60C]  (SLIDE_6_TURNED_IN)
+  00000009  push            0x0             
+  06000001  alu             eq              
+  ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_13_3  ; → PC 1427
+  03000015  push_cond       0x3             
+  7A010018  syscall         378               ; Make_operable
+  01000009  push            0x1             
+  0C06000D  write_byte      [0x60C]           ; save_data[0x60C]  (SLIDE_6_TURNED_IN)
+  06000009  push            0x6             
+  01000015  push_cond       0x1             
+  10000016  init_call       0x10              ; → Script 16  PC 1462
+@UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_13_3:
   10000005  yield           0x10            
   10000005  yield           0x10            
   10000005  yield           0x10            
