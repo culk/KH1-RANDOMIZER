@@ -674,6 +674,30 @@ assets:
   method: copy
   source:
   - name: mod/remastered/pc06.ard/UK_pc06_ardc.evdl
+- name: remastered/pc07.ard/UK_pc07_ard0.evdl
+  method: copy
+  source:
+  - name: mod/remastered/pc07.ard/UK_pc07_ard0.evdl
+- name: remastered/pc07.ard/UK_pc07_ard19.evdl
+  method: copy
+  source:
+  - name: mod/remastered/pc07.ard/UK_pc07_ard19.evdl
+- name: remastered/pc07.ard/UK_pc07_arda.evdl
+  method: copy
+  source:
+  - name: mod/remastered/pc07.ard/UK_pc07_arda.evdl
+- name: remastered/pc07.ard/UK_pc07_ardc.evdl
+  method: copy
+  source:
+  - name: mod/remastered/pc07.ard/UK_pc07_ardc.evdl
+- name: remastered/pc07.ard/UK_pc07_ardd.evdl
+  method: copy
+  source:
+  - name: mod/remastered/pc07.ard/UK_pc07_ardd.evdl
+- name: remastered/pc07.ard/UK_pc07_arde.evdl
+  method: copy
+  source:
+  - name: mod/remastered/pc07.ard/UK_pc07_arde.evdl
 - name: remastered/pc11.ard/UK_pc11_ard0.evdl
   method: copy
   source:
