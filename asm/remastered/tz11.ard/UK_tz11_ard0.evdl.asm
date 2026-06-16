@@ -240,62 +240,6 @@
   02020018  syscall         514               ; Event_camera_off
   A9000018  syscall         169               ; Blur_off2
   00020018  syscall         512               ; Exit_event_mode
-  A7010018  syscall         423               ; Char_request_on
-  01000009  push            0x1             
-  08000018  syscall         8                 ; Set_wait_timer
-  03000015  push_cond       0x3             
-  7A010018  syscall         378               ; Make_operable
-  51020018  syscall         593               ; Make_party_invincible
-  FF010018  syscall         511               ; Enter_event_mode
-  73000018  syscall         115               ; Command_display_off
-  71000018  syscall         113               ; Gauge_off
-  01000009  push            0x1             
-  08000018  syscall         8                 ; Set_wait_timer
-  A2010018  syscall         418               ; Pad_ctrl_off
-  FF010018  syscall         511               ; Enter_event_mode
-  7F000018  syscall         127               ; Get_world_number
-  400D000D  write_byte      [0xD40]           ; save_data2[0x0]
-  410D000C  read_byte       [0xD41]           ; save_data2[0x1]
-  040D000D  write_byte      [0xD04]           ; runtime?[0xD04]
-  80000018  syscall         128               ; Get_area_number
-  410D000D  write_byte      [0xD41]           ; save_data2[0x1]
-  81000018  syscall         129               ; Get_set_number
-  420D000D  write_byte      [0xD42]           ; save_data2[0x2]
-  02000009  push            0x2             
-  430D000D  write_byte      [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
-  07000009  push            0x7             
-  02000018  syscall         2                 ; Close_window
-  01000009  push            0x1             
-  08000018  syscall         8                 ; Set_wait_timer
-  03000009  push            0x3             
-  430D000D  write_byte      [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
-  01000009  push            0x1             
-  2F6B001F  write_bit       [0x6B2F]          ; save_data2[0x5DEF]
-  01000009  push            0x1             
-  2E6B001F  write_bit       [0x6B2E]          ; save_data2[0x5DEE]
-  07000009  push            0x7             
-  02000018  syscall         2                 ; Close_window
-  02020018  syscall         514               ; Event_camera_off
-  0F000009  push            0xF               ; 15
-  10000009  push            0x10              ; 16
-  01000009  push            0x1             
-  3D000009  push            0x3D              ; 61
-  64020018  syscall         612               ; Start_map_change_rewrite_set
-  ????????  jmp             @UK_tz11_ard0_evdl_asm_KGR_0_SCRIPT_0_10  ; → PC 265
-@UK_tz11_ard0_evdl_asm_KGR_0_SCRIPT_0_9:
-  8B010018  syscall         395               ; Get_camera_info
-  04000009  push            0x4             
-  08000018  syscall         8                 ; Set_wait_timer
-  08000009  push            0x8             
-  1B000018  syscall         27                ; Fade_in
-  06000009  push            0x6             
-  08000018  syscall         8                 ; Set_wait_timer
-  72000018  syscall         114               ; Command_display_on
-  70000018  syscall         112               ; Gauge_on
-  A1010018  syscall         417               ; Pad_ctrl_on
-  96000018  syscall         150               ; All_char_ctrl_on
-  50020018  syscall         592               ; Remove_invincibility
-  00020018  syscall         512               ; Exit_event_mode
 
 ; New Navi-G Piece Reward Code
   430D000C  read_byte       [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
@@ -361,6 +305,62 @@
   430D000D  write_byte      [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
 @NaviGPiecePromptEnd:
 
+  A7010018  syscall         423               ; Char_request_on
+  01000009  push            0x1             
+  08000018  syscall         8                 ; Set_wait_timer
+  03000015  push_cond       0x3             
+  7A010018  syscall         378               ; Make_operable
+  51020018  syscall         593               ; Make_party_invincible
+  FF010018  syscall         511               ; Enter_event_mode
+  73000018  syscall         115               ; Command_display_off
+  71000018  syscall         113               ; Gauge_off
+  01000009  push            0x1             
+  08000018  syscall         8                 ; Set_wait_timer
+  A2010018  syscall         418               ; Pad_ctrl_off
+  FF010018  syscall         511               ; Enter_event_mode
+  7F000018  syscall         127               ; Get_world_number
+  400D000D  write_byte      [0xD40]           ; save_data2[0x0]
+  410D000C  read_byte       [0xD41]           ; save_data2[0x1]
+  040D000D  write_byte      [0xD04]           ; runtime?[0xD04]
+  80000018  syscall         128               ; Get_area_number
+  410D000D  write_byte      [0xD41]           ; save_data2[0x1]
+  81000018  syscall         129               ; Get_set_number
+  420D000D  write_byte      [0xD42]           ; save_data2[0x2]
+  02000009  push            0x2             
+  430D000D  write_byte      [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
+  07000009  push            0x7             
+  02000018  syscall         2                 ; Close_window
+  01000009  push            0x1             
+  08000018  syscall         8                 ; Set_wait_timer
+  03000009  push            0x3             
+  430D000D  write_byte      [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
+  01000009  push            0x1             
+  2F6B001F  write_bit       [0x6B2F]          ; save_data2[0x5DEF]
+  01000009  push            0x1             
+  2E6B001F  write_bit       [0x6B2E]          ; save_data2[0x5DEE]
+  07000009  push            0x7             
+  02000018  syscall         2                 ; Close_window
+  02020018  syscall         514               ; Event_camera_off
+  0F000009  push            0xF               ; 15
+  10000009  push            0x10              ; 16
+  01000009  push            0x1             
+  3D000009  push            0x3D              ; 61
+  64020018  syscall         612               ; Start_map_change_rewrite_set
+  ????????  jmp             @UK_tz11_ard0_evdl_asm_KGR_0_SCRIPT_0_10  ; → PC 265
+@UK_tz11_ard0_evdl_asm_KGR_0_SCRIPT_0_9:
+  8B010018  syscall         395               ; Get_camera_info
+  04000009  push            0x4             
+  08000018  syscall         8                 ; Set_wait_timer
+  08000009  push            0x8             
+  1B000018  syscall         27                ; Fade_in
+  06000009  push            0x6             
+  08000018  syscall         8                 ; Set_wait_timer
+  72000018  syscall         114               ; Command_display_on
+  70000018  syscall         112               ; Gauge_on
+  A1010018  syscall         417               ; Pad_ctrl_on
+  96000018  syscall         150               ; All_char_ctrl_on
+  50020018  syscall         592               ; Remove_invincibility
+  00020018  syscall         512               ; Exit_event_mode
   00000009  push            0x0             
   430D000D  write_byte      [0xD43]           ; save_data2[0x3]  (DIALOG_CHOICE_STATE)
   6B010018  syscall         363               ; Enable_all_battle_event_boxes
