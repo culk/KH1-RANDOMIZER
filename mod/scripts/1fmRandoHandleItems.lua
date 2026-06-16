@@ -108,7 +108,7 @@ local function handle_worlds(stock)
                 WriteByte(inventory + 227-1, 1) -- Give forget-me-not
             end
         end
-        if worlds_unlocked_items[6] > 2 then
+        if worlds_unlocked_items[6] > 2 or (seed_vars["settings"]["halloween_town_key_item_bundle"] and worlds_unlocked_items[6] > 1) then
             if stock[228] == 0 then -- If not jack-in-the-box
                 WriteByte(inventory + 228-1, 1) -- Give jack-in-the-box
             end
