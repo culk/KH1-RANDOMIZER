@@ -4,13 +4,15 @@
 local kh1_lua_library = require("kh1_lua_library")
 
 local function set_check_number(check_number)
-    --[[Writes the correct number of "check" unused gummi items. Used for syncing game with server]]
-    kh1_lua_library.set_gummi_qty_at_index(0x74, check_number)
+    --[[Writes the current check number directly as a 4-byte int across 4 unused gummi item slots
+    (0x74-0x77), since set_gummi_qty_at_index would clamp this to 99 and a full seed can easily
+    have more checks than that. Used for syncing game with server]]
+    WriteInt(gummiInventory + 0x74 - 1, check_number)
 end
 
 local function get_check_number()
     --[[Reads the current check number]]
-    return kh1_lua_library.get_gummi_qty_at_index(0x74)
+    return ReadInt(gummiInventory + 0x74 - 1)
 end
 
 local function set_start_inv_written_gummi()
