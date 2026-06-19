@@ -127,8 +127,17 @@ local function build_line(item_id)
     return "{0x84} Archipelago Item"
 end
 
-local function is_handled_elsewhere(item_id)
-    return stat_item_ids[item_id] == true or sora_ability_item_ids[item_id] == true
+-- Slot 1 can only hold stat bonuses; Slot 2 can only hold Sora abilities. Each
+-- slot is only "handled elsewhere" (by 1fmRandoLevelUpRewards) if the item
+-- actually matches what that slot's native table can store. Anything else
+-- (e.g. a regular ability placed on a Slot 1 location) falls through to this
+-- script so it still gets delivered instead of silently dropped.
+local function is_handled_elsewhere(item_id, is_slot2)
+    if is_slot2 then
+        return sora_ability_item_ids[item_id] == true
+    else
+        return stat_item_ids[item_id] == true
+    end
 end
 
 local function get_last_processed_level()
@@ -144,8 +153,8 @@ local function process_level(level)
     local slot1_item = loc_map[tostring(2658000 + level)]
     local slot2_item = loc_map[tostring(2658100 + level)]
 
-    if slot1_item and is_handled_elsewhere(slot1_item) then slot1_item = nil end
-    if slot2_item and is_handled_elsewhere(slot2_item) then slot2_item = nil end
+    if slot1_item and is_handled_elsewhere(slot1_item, false) then slot1_item = nil end
+    if slot2_item and is_handled_elsewhere(slot2_item, true) then slot2_item = nil end
 
     local line1, line2 = nil, nil
     if slot1_item then
