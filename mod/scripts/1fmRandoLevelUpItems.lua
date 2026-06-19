@@ -81,9 +81,9 @@ local item_names = {
     [168]="Hollow Bastion", [169]="End of the World",
     [170]="Blue Trinity", [171]="Red Trinity", [172]="Green Trinity",
     [173]="Yellow Trinity", [174]="White Trinity",
-    [175]="Progressive Fire", [176]="Progressive Blizzard", [177]="Progressive Thunder",
-    [178]="Progressive Cure", [179]="Progressive Gravity", [180]="Progressive Stop",
-    [181]="Progressive Aero",
+    [175]="Fire", [176]="Blizzard", [177]="Thunder",
+    [178]="Cure", [179]="Gravity", [180]="Stop",
+    [181]="Aero",
     [182]="Phil Cup", [183]="Theon Vol. 6", [184]="Pegasus Cup", [185]="Hercules Cup",
     [188]="Emblem Piece (Flame)", [189]="Emblem Piece (Chest)",
     [190]="Emblem Piece (Statue)", [191]="Emblem Piece (Fountain)",
@@ -92,6 +92,9 @@ local item_names = {
     [228]="Jack-In-The-Box", [229]="Entry Pass",
     [231]="Dumbo", [233]="Bambi", [234]="Genie", [235]="Tinker Bell",
     [236]="Mushu", [237]="Simba", [238]="Lucky Emblem",
+    [239]="Max HP {0x7C}", [240]="Max MP {0x7C}", [241]="Max AP {0x7C}",
+    [242]="Strength {0x7C}", [243]="Defense {0x7C}", [244]="Item Slot {0x7C}",
+    [245]="Accessory Slot {0x7C}",
     [254]="Mythril", [255]="Orichalcum",
 }
 
@@ -109,6 +112,7 @@ local function icon_for_item_number(n)
     if n >= 175 and n <= 181 then return "{0x8A} " end
     if n >= 231 and n <= 237 then return "{0x8A} " end
     if n == 238 then return "{0x8B} " end
+    if n >= 239 and n <= 244 then return "" end
     if n >= 2001 and n <= 2003 then return "{0x85} " end
     return "{0x84}"
 end
@@ -119,25 +123,12 @@ local function build_line(item_id)
     end
     if item_id >= 2641000 and item_id < 2642000 then
         local n = item_id - 2641000
-        return icon_for_item_number(n) .. (item_names[n] or "Unknown Item") .. "!"
+        return icon_for_item_number(n) .. (item_names[n] or "Unknown Item")
     end
     if item_id >= 2642000 and item_id < 2643000 then
-        return "{0x84} " .. (shared_ability_names[item_id] or "Unknown Ability") .. "!"
+        return "{0x84} " .. (shared_ability_names[item_id] or "Unknown Ability")
     end
     return "{0x84} Archipelago Item"
-end
-
--- Mirrors item_byte() in 1fmRandoLevelUpRewards.lua: Slot 1's native table can
--- only express stat values, but Slot 2's native table can express stat values
--- *or* abilities (it shares the same 1-7 stat encoding plus 0x80+ for
--- abilities). So a stat item is always handled natively regardless of slot,
--- while an ability is only handled natively in Slot 2 -- a regular ability
--- placed on a Slot 1 location (which can't hold it) falls through to this
--- script so it still gets delivered instead of silently dropped.
-local function is_handled_elsewhere(item_id, is_slot2)
-    if stat_item_ids[item_id] then return true end
-    if is_slot2 and sora_ability_item_ids[item_id] then return true end
-    return false
 end
 
 local function get_last_processed_level()
@@ -152,9 +143,6 @@ local function process_level(level)
     local loc_map = seed_vars["item_location_map"]
     local slot1_item = loc_map[tostring(2658000 + level)]
     local slot2_item = loc_map[tostring(2658100 + level)]
-
-    if slot1_item and is_handled_elsewhere(slot1_item, false) then slot1_item = nil end
-    if slot2_item and is_handled_elsewhere(slot2_item, true) then slot2_item = nil end
 
     local line1, line2 = nil, nil
     if slot1_item then

@@ -56,18 +56,18 @@ local function apply_level_up_rewards()
     end
 end
 
-function _OnInit()
-    if GAME_ID == 0xAF71841E and ENGINE_TYPE == "BACKEND" then
-        require("VersionCheck")
-    else
-        ConsolePrint("KH1 not detected, not running script")
-    end
-end
-
-function _OnFrame()
-    if not canExecute then return end
-    if applied then return end
-    if ReadByte(jumpHeights - 0xAC) == 0x0 then return end -- btltbl.bin not loaded yet
-    apply_level_up_rewards()
-    applied = true
-end
+--function _OnInit()
+--    if GAME_ID == 0xAF71841E and ENGINE_TYPE == "BACKEND" then
+--        require("VersionCheck")
+--    else
+--        ConsolePrint("KH1 not detected, not running script")
+--    end
+--end
+--
+--function _OnFrame()
+--    if not canExecute then return end
+--    if applied then return end
+--    if ReadByte(jumpHeights - 0xAC) == 0x0 then return end -- btltbl.bin not loaded yet
+--    apply_level_up_rewards()
+--    applied = true
+--end
