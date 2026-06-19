@@ -1302,6 +1302,10 @@ assets:
   method: copy
   source:
   - name: mod/scripts/1fmRandoItemSortAndPrices.lua
+- name: scripts/1fmRandoLevelUpItems.lua
+  method: copy
+  source:
+  - name: mod/scripts/1fmRandoLevelUpItems.lua
 - name: scripts/1fmRandoLevelUpRewards.lua
   method: copy
   source:
