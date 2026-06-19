@@ -65,7 +65,7 @@ local item_names = {
     [155]="Agrabah", [156]="Monstro", [157]="Atlantica",
     [158]="Fire Arts", [159]="Blizzard Arts", [160]="Thunder Arts",
     [161]="Cure Arts", [162]="Gravity Arts", [163]="Stop Arts", [164]="Aero Arts",
-    [165]="Neverland", [166]="Halloween Town", [167]="Puppy",
+    [165]="Neverland", [166]="Halloween Town", [167]= tostring(seed_vars["settings"]["puppy_value"]) .. " Puppies",
     [168]="Hollow Bastion", [169]="End of the World",
     [170]="Blue Trinity", [171]="Red Trinity", [172]="Green Trinity",
     [173]="Yellow Trinity", [174]="White Trinity",
@@ -122,7 +122,7 @@ local function icon_for_item_number(n)
     if n >= 239 and n <= 244 then return "" end
     if n >= 2642001 and n <= 2642003 then return "{0x85} " end
     if n >= 2643000 then return "{0x85} " end
-    return "{0x84}"
+    return "{0x84} "
 end
 
 local function build_line(item_id)
