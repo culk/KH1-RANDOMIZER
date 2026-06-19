@@ -120,8 +120,6 @@ local function icon_for_item_number(n)
     if n >= 231 and n <= 237 then return "{0x8A} " end
     if n == 238 then return "{0x8B} " end
     if n >= 239 and n <= 244 then return "" end
-    if n >= 2642001 and n <= 2642003 then return "{0x85} " end
-    if n >= 2643000 then return "{0x85} " end
     return "{0x84} "
 end
 
@@ -134,10 +132,10 @@ local function build_line(item_id)
         return icon_for_item_number(n) .. (item_names[n] or "Unknown Item")
     end
     if item_id >= 2642000 and item_id < 2643000 then
-        return "{0x84} " .. (shared_ability_names[item_id] or "Unknown Ability")
+        return "{0x85} " .. (shared_ability_names[item_id] or "Unknown Ability")
     end
     if item_id >= 2643000 and item_id < 2644000 then
-        return "{0x84} " .. (sora_ability_names[item_id] or "Unknown Ability")
+        return "{0x85} " .. (sora_ability_names[item_id] or "Unknown Ability")
     end
     return "{0x84} Archipelago Item"
 end
