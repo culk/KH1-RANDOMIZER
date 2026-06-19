@@ -127,17 +127,17 @@ local function build_line(item_id)
     return "{0x84} Archipelago Item"
 end
 
--- Slot 1 can only hold stat bonuses; Slot 2 can only hold Sora abilities. Each
--- slot is only "handled elsewhere" (by 1fmRandoLevelUpRewards) if the item
--- actually matches what that slot's native table can store. Anything else
--- (e.g. a regular ability placed on a Slot 1 location) falls through to this
+-- Mirrors item_byte() in 1fmRandoLevelUpRewards.lua: Slot 1's native table can
+-- only express stat values, but Slot 2's native table can express stat values
+-- *or* abilities (it shares the same 1-7 stat encoding plus 0x80+ for
+-- abilities). So a stat item is always handled natively regardless of slot,
+-- while an ability is only handled natively in Slot 2 -- a regular ability
+-- placed on a Slot 1 location (which can't hold it) falls through to this
 -- script so it still gets delivered instead of silently dropped.
 local function is_handled_elsewhere(item_id, is_slot2)
-    if is_slot2 then
-        return sora_ability_item_ids[item_id] == true
-    else
-        return stat_item_ids[item_id] == true
-    end
+    if stat_item_ids[item_id] then return true end
+    if is_slot2 and sora_ability_item_ids[item_id] then return true end
+    return false
 end
 
 local function get_last_processed_level()
