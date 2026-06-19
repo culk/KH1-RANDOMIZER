@@ -90,6 +90,25 @@ local shared_ability_names = {
     [2642001]="High Jump", [2642002]="Mermaid Kick", [2642003]="Glide",
 }
 
+-- Display names for Sora abilities (264_3xxx), matching the names used in
+-- ap_costs.json / kh1_lua_library's enable_ability.
+local sora_ability_names = {
+    [2643005]="Treasure Magnet", [2643006]="Combo Plus", [2643007]="Air Combo Plus",
+    [2643008]="Critical Plus",
+    [2643010]="Scan", [2643011]="Sonic Blade", [2643012]="Ars Arcanum",
+    [2643013]="Strike Raid", [2643014]="Ragnarok", [2643015]="Trinity Limit",
+    [2643016]="Cheer", [2643017]="Vortex", [2643018]="Aerial Sweep",
+    [2643019]="Counterattack", [2643020]="Blitz", [2643021]="Guard",
+    [2643022]="Dodge Roll", [2643023]="MP Haste", [2643024]="MP Rage",
+    [2643025]="Second Chance", [2643026]="Berserk", [2643027]="Jackpot",
+    [2643028]="Lucky Strike",
+    [2643053]="Slapshot", [2643054]="Sliding Dash", [2643055]="Hurricane Blast",
+    [2643056]="Ripple Drive", [2643057]="Stun Impact", [2643058]="Gravity Break",
+    [2643059]="Zantetsuken", [2643060]="Tech Boost", [2643061]="Encounter Plus",
+    [2643062]="Leaf Bracer",
+    [2643064]="EXP Zero", [2643065]="Combo Master",
+}
+
 local function icon_for_item_number(n)
     if n >= 1 and n <= 8 then return "{0x82} " end
     if n >= 17 and n <= 71 then return "{0x89} " end
@@ -115,6 +134,9 @@ local function build_line(item_id)
     end
     if item_id >= 2642000 and item_id < 2643000 then
         return "{0x84} " .. (shared_ability_names[item_id] or "Unknown Ability")
+    end
+    if item_id >= 2643000 and item_id < 2644000 then
+        return "{0x84} " .. (sora_ability_names[item_id] or "Unknown Ability")
     end
     return "{0x84} Archipelago Item"
 end
