@@ -21,7 +21,7 @@ local connect_failures = 0
 local is_connected = false
 local last_reported_items_count = 0
 local last_reported_locations_count = 0
-local last_reported_chat_count = 0
+local last_reported_chat_version = 0
 
 -- AP globals
 local game_name = "Kingdom Hearts"
@@ -47,12 +47,14 @@ local location_map = {}
 
 local chat_log = {}
 local MAX_CHAT_LOG = 300
+local chat_log_version = 0
 
 local function push_chat_message(text)
     table.insert(chat_log, text)
     if #chat_log > MAX_CHAT_LOG then
         table.remove(chat_log, 1)
     end
+    chat_log_version = chat_log_version + 1
 end
 
 local function reset_game_state()
@@ -317,9 +319,9 @@ function _OnFrame()
                     last_reported_locations_count = #game_state.locations
                 end
 
-                if #chat_log ~= last_reported_chat_count then
+                if chat_log_version ~= last_reported_chat_version then
                     kh1_overlay.set_messages(chat_log)
-                    last_reported_chat_count = #chat_log
+                    last_reported_chat_version = chat_log_version
                 end
 
                 local outgoing = kh1_overlay.poll_send_message()
