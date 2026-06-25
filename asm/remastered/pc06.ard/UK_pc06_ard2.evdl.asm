@@ -10827,9 +10827,12 @@
   1A020018  syscall         538               ; Erase_OBJ_effect
   01000009  push            0x1             
   6C000018  syscall         108               ; Motion_change_no_loop
-  1E000009  push            0x1E              ; 30
-  00000009  push            0x0             
-  61010018  syscall         353               ; Play_SE2
+
+; Handle SE in below code
+;  1E000009  push            0x1E              ; 30
+;  00000009  push            0x0             
+;  61010018  syscall         353               ; Play_SE2
+
   06000009  push            0x6             
   08000018  syscall         8                 ; Set_wait_timer
   01000009  push            0x1             
@@ -11397,9 +11400,12 @@
   1A020018  syscall         538               ; Erase_OBJ_effect
   01000009  push            0x1             
   6C000018  syscall         108               ; Motion_change_no_loop
-  1E000009  push            0x1E              ; 30
-  00000009  push            0x0             
-  61010018  syscall         353               ; Play_SE2
+
+; Handle SE in below code
+;  1E000009  push            0x1E              ; 30
+;  00000009  push            0x0             
+;  61010018  syscall         353               ; Play_SE2
+
   06000009  push            0x6             
   08000018  syscall         8                 ; Set_wait_timer
   01000009  push            0x1             
@@ -11967,9 +11973,12 @@
   1A020018  syscall         538               ; Erase_OBJ_effect
   01000009  push            0x1             
   6C000018  syscall         108               ; Motion_change_no_loop
-  1E000009  push            0x1E              ; 30
-  00000009  push            0x0             
-  61010018  syscall         353               ; Play_SE2
+
+; Handle SE in below code
+;  1E000009  push            0x1E              ; 30
+;  00000009  push            0x0             
+;  61010018  syscall         353               ; Play_SE2
+
   06000009  push            0x6             
   08000018  syscall         8                 ; Set_wait_timer
   01000009  push            0x1             
@@ -12537,9 +12546,12 @@
   1A020018  syscall         538               ; Erase_OBJ_effect
   01000009  push            0x1             
   6C000018  syscall         108               ; Motion_change_no_loop
-  1E000009  push            0x1E              ; 30
-  00000009  push            0x0             
-  61010018  syscall         353               ; Play_SE2
+
+; Handle SE in below code
+;  1E000009  push            0x1E              ; 30
+;  00000009  push            0x0             
+;  61010018  syscall         353               ; Play_SE2
+
   06000009  push            0x6             
   08000018  syscall         8                 ; Set_wait_timer
   01000009  push            0x1             
