@@ -5,7 +5,7 @@ LUAGUI_DESC = "Kingdom Hearts 1FM Randomizer Gifts"
 local seed_vars       = require("seed_vars")
 local kh1_lua_library = require("kh1_lua_library")
 
-local AP_ITEM_ID = 230
+local AP_ITEM_ID = 1
 
 local last_world = nil
 local gift_location_ids = {
