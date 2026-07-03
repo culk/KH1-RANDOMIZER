@@ -348,7 +348,13 @@
   06000001  alu             eq              
   ????????  beqz            @UK_lm05_ard19_evdl_asm_KGR_0_SCRIPT_6_12  ; → PC 369
   52010018  syscall         338               ; Make_non_pressable
-  36010018  syscall         310               ; Check_battle_or_normal_mode
+
+; Push false always
+  00000009  push            0
+
+; Don't check for battle/normal mode
+;  36010018  syscall         310               ; Check_battle_or_normal_mode
+
   0100000B  store_local     [1]             
   180A0010  read_dword      [0xA18]           ; runtime?[0xA18]
   03000009  push            0x3             
@@ -473,7 +479,13 @@
 @UK_lm05_ard19_evdl_asm_KGR_0_SCRIPT_7_0:
   01000009  push            0x1             
   ????????  beqz            @UK_lm05_ard19_evdl_asm_KGR_0_SCRIPT_7_13  ; → PC 667
-  36010018  syscall         310               ; Check_battle_or_normal_mode
+
+; Push false always
+  00000009  push            0
+
+; Don't check for battle/normal mode
+;  36010018  syscall         310               ; Check_battle_or_normal_mode
+
   0100000B  store_local     [1]             
   180A0010  read_dword      [0xA18]           ; runtime?[0xA18]
   01000009  push            0x1             

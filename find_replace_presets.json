@@ -11,7 +11,7 @@
       "backup": false
     }
   ],
-  "globs": "asm/remastered/lm*.ard/*.*",
+  "globs": "asm/lm*.ard.asm",
   "root": "C:\\Users\\gaith\\Documents\\GitHub\\KH1-RANDOMIZER",
   "active_tab": 0
 }

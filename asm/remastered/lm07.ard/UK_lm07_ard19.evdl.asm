@@ -314,7 +314,13 @@
   01000009  push            0x1             
   0200000B  store_local     [2]             
 @UK_lm07_ard19_evdl_asm_KGR_0_SCRIPT_6_3:
-  36010018  syscall         310               ; Check_battle_or_normal_mode
+
+; Push false always
+  00000009  push            0
+
+; Don't check for battle/normal mode
+;  36010018  syscall         310               ; Check_battle_or_normal_mode
+
   1300000B  store_local     [19]            
   1300000A  load_local      [19]            
   00000009  push            0x0             
