@@ -2,8 +2,8 @@
   "tabs": [
     {
       "name": "Prompt",
-      "find": "  00000009  push            0x0             \n  660D000D  write_byte      [0xD66]           ; save_data2[0x26]\n  00000009  push            0x0             \n  1A020018  syscall         538               ; Erase_OBJ_effect\n  01000009  push            0x1             \n  6C000018  syscall         108               ; Motion_change_no_loop\n  1E000009  push            0x1E              ; 30\n  00000009  push            0x0             \n  61010018  syscall         353               ; Play_SE2\n  06000009  push            0x6             \n  08000018  syscall         8                 ; Set_wait_timer\n  01000009  push            0x1             \n  17020018  syscall         535               ; Play_OBJ_effect\n\n; Handle AP Up get in below code",
-      "replace": "  00000009  push            0x0             \n  660D000D  write_byte      [0xD66]           ; save_data2[0x26]\n  00000009  push            0x0             \n  1A020018  syscall         538               ; Erase_OBJ_effect\n  01000009  push            0x1             \n  6C000018  syscall         108               ; Motion_change_no_loop\n\n; Handle SE in below code\n;  1E000009  push            0x1E              ; 30\n;  00000009  push            0x0             \n;  61010018  syscall         353               ; Play_SE2\n\n  06000009  push            0x6             \n  08000018  syscall         8                 ; Set_wait_timer\n  01000009  push            0x1             \n  17020018  syscall         535               ; Play_OBJ_effect\n\n; Handle AP Up get in below code",
+      "find": "  36010018  syscall         310               ; Check_battle_or_normal_mode",
+      "replace": "\n; Push false always\n  00000009  push            0\n\n; Don't check for battle/normal mode\n{comment}\n",
       "regex": false,
       "ignorecase": false,
       "dotall": true,
@@ -11,7 +11,7 @@
       "backup": false
     }
   ],
-  "globs": "asm/remastered/pc06.ard/*.evdl.asm",
+  "globs": "asm/remastered/lm*.ard/*.*",
   "root": "C:\\Users\\gaith\\Documents\\GitHub\\KH1-RANDOMIZER",
   "active_tab": 0
 }
