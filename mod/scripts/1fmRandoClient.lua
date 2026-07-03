@@ -15,10 +15,16 @@ local item_location_handlers = require("item_location_handlers")
 local map_update             = require("client.map_update")
 
 local MAX_CONNECT_FAILURES = 3
+local CONNECT_TIMEOUT_SECONDS = 15
 
 local last_attempted_slot = nil
 local connect_failures = 0
 local is_connected = false
+-- Set when a connect attempt is sent and cleared as soon as we hear anything
+-- back from the host (room info, refusal, socket error/disconnect) or the slot
+-- connects. If it's still set after CONNECT_TIMEOUT_SECONDS, the host never
+-- responded at all.
+local connect_attempt_time = nil
 local last_reported_items_count = 0
 local last_reported_locations_count = 0
 local last_reported_chat_version = 0
@@ -57,6 +63,14 @@ local function push_chat_message(text)
     chat_log_version = chat_log_version + 1
 end
 
+-- Pushes a connection-failure message to the F4 overlay's Connect tab (pass
+-- nil/"" to clear it, e.g. on a fresh attempt or a successful connection).
+local function set_overlay_error(msg)
+    if kh1_overlay then
+        kh1_overlay.set_connect_error(msg or "")
+    end
+end
+
 local function reset_game_state()
     game_state.items_received = {}
     game_state.slot_data = {}
@@ -73,10 +87,13 @@ local function connect(server, slot, password)
         ConsolePrint("Socket error: " .. msg)
         connect_failures = connect_failures + 1
         is_connected = false
+        connect_attempt_time = nil
         if connect_failures >= MAX_CONNECT_FAILURES then
             ap = nil
+            set_overlay_error("3 connection failures, stopping: " .. tostring(msg))
             kh1_lua_library.show_prompt({[1]=""},{[1]={"3 failures, stopping.", nil}},nil,142)
         else
+            set_overlay_error("Failed to connect: " .. tostring(msg))
             kh1_lua_library.show_prompt({[1]=""},{[1]={"Failed to connect...", nil}},nil,142)
         end
     end
@@ -84,18 +101,23 @@ local function connect(server, slot, password)
     local function on_socket_disconnected()
         ConsolePrint("Socket disconnected")
         is_connected = false
+        connect_attempt_time = nil
+        set_overlay_error("Disconnected from host")
         kh1_lua_library.show_prompt({[1]=""},{[1]={"Disconnected...", nil}},nil,142)
         reset_game_state()
     end
 
     local function on_room_info()
         ConsolePrint("Room info received, attempting to connect slot...")
+        connect_attempt_time = nil
         ap:ConnectSlot(slot, password, items_handling, {"Lua-APClientPP"}, client_version)
     end
 
     local function on_slot_connected(slot_data)
         ConsolePrint("Slot connected successfully!")
         is_connected = true
+        connect_attempt_time = nil
+        set_overlay_error(nil)
         kh1_lua_library.show_prompt({[1]=""},{[1]={"Connected!", nil}},nil,142)
         reset_game_state()
         game_state.slot_data = slot_data
@@ -108,7 +130,12 @@ local function connect(server, slot, password)
     end
 
     local function on_slot_refused(reasons)
-        ConsolePrint("Slot refused: " .. table.concat(reasons, ", "))
+        local reason_text = table.concat(reasons, ", ")
+        ConsolePrint("Slot refused: " .. reason_text)
+        is_connected = false
+        connect_attempt_time = nil
+        set_overlay_error("Slot refused: " .. reason_text)
+        kh1_lua_library.show_prompt({[1]=""},{[1]={"Slot refused:", reason_text}},nil,142)
     end
 
     local function on_items_received(items)
@@ -342,11 +369,26 @@ function _OnFrame()
                         ConsolePrint("Connecting to: " .. pending.slot)
                         connect_failures = 0
                         last_attempted_slot = pending.slot
+                        set_overlay_error(nil)
+                        connect_attempt_time = os.clock()
                         connect(pending.host, pending.slot, pending.password)
                         kh1_lua_library.show_prompt({[1]=""},{[1]={"Attempting to connect...", nil}},nil,142)
                     else
+                        set_overlay_error("No slot name entered")
                         kh1_lua_library.show_prompt({[1]=""},{[1]={"No slot name!", nil}},nil,142)
                     end
+                end
+
+                -- apclientpp has no connect-timeout callback of its own: if the host
+                -- never responds (unreachable address, firewalled port, etc.) none of
+                -- on_room_info/on_socket_error/on_socket_disconnected ever fire and the
+                -- player would otherwise be stuck on "Attempting to connect..." forever.
+                if connect_attempt_time and not is_connected
+                    and (os.clock() - connect_attempt_time) > CONNECT_TIMEOUT_SECONDS then
+                    connect_attempt_time = nil
+                    ap = nil
+                    set_overlay_error("Host did not respond (connection timed out)")
+                    kh1_lua_library.show_prompt({[1]=""},{[1]={"Connection timed out.", nil}},nil,142)
                 end
             end
 
