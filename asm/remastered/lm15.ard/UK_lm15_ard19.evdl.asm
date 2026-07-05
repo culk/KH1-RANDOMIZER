@@ -302,7 +302,13 @@
   01000009  push            0x1             
   0200000B  store_local     [2]             
 @UK_lm15_ard19_evdl_asm_KGR_0_SCRIPT_5_2:
-  36010018  syscall         310               ; Check_battle_or_normal_mode
+
+; Push false always
+  00000009  push            0
+
+; Don't check for battle/normal mode
+;  36010018  syscall         310               ; Check_battle_or_normal_mode
+
   1300000B  store_local     [19]            
   1300000A  load_local      [19]            
   00000009  push            0x0             
@@ -346,7 +352,13 @@
 @UK_lm15_ard19_evdl_asm_KGR_0_SCRIPT_6_0:
   01000009  push            0x1             
   ????????  beqz            @UK_lm15_ard19_evdl_asm_KGR_0_SCRIPT_6_12  ; → PC 532
-  36010018  syscall         310               ; Check_battle_or_normal_mode
+
+; Push false always
+  00000009  push            0
+
+; Don't check for battle/normal mode
+;  36010018  syscall         310               ; Check_battle_or_normal_mode
+
   0100000B  store_local     [1]             
   DE000009  push            0xDE              ; 222
   05000001  alu             negate          
@@ -742,7 +754,13 @@
   52010018  syscall         338               ; Make_non_pressable
   0000000A  load_local      [0]             
   09000018  syscall         9                 ; Display_register_value
-  36010018  syscall         310               ; Check_battle_or_normal_mode
+
+; Push false always
+  00000009  push            0
+
+; Don't check for battle/normal mode
+;  36010018  syscall         310               ; Check_battle_or_normal_mode
+
   0100000B  store_local     [1]             
   0000000A  load_local      [0]             
   03000009  push            0x3             
@@ -869,7 +887,13 @@
 @UK_lm15_ard19_evdl_asm_KGR_0_SCRIPT_7_0:
   01000009  push            0x1             
   ????????  beqz            @UK_lm15_ard19_evdl_asm_KGR_0_SCRIPT_7_12  ; → PC 1009
-  36010018  syscall         310               ; Check_battle_or_normal_mode
+
+; Push false always
+  00000009  push            0
+
+; Don't check for battle/normal mode
+;  36010018  syscall         310               ; Check_battle_or_normal_mode
+
   0100000B  store_local     [1]             
   7A000009  push            0x7A              ; 122
   33010018  syscall         307               ; Call_sin
@@ -1258,7 +1282,13 @@
   52010018  syscall         338               ; Make_non_pressable
   0000000A  load_local      [0]             
   09000018  syscall         9                 ; Display_register_value
-  36010018  syscall         310               ; Check_battle_or_normal_mode
+
+; Push false always
+  00000009  push            0
+
+; Don't check for battle/normal mode
+;  36010018  syscall         310               ; Check_battle_or_normal_mode
+
   0100000B  store_local     [1]             
   0000000A  load_local      [0]             
   03000009  push            0x3             
@@ -1385,7 +1415,13 @@
 @UK_lm15_ard19_evdl_asm_KGR_0_SCRIPT_8_0:
   01000009  push            0x1             
   ????????  beqz            @UK_lm15_ard19_evdl_asm_KGR_0_SCRIPT_8_12  ; → PC 1486
-  36010018  syscall         310               ; Check_battle_or_normal_mode
+
+; Push false always
+  00000009  push            0
+
+; Don't check for battle/normal mode
+;  36010018  syscall         310               ; Check_battle_or_normal_mode
+
   0100000B  store_local     [1]             
   A9000009  push            0xA9              ; 169
   33010018  syscall         307               ; Call_sin
@@ -1774,7 +1810,13 @@
   52010018  syscall         338               ; Make_non_pressable
   0000000A  load_local      [0]             
   09000018  syscall         9                 ; Display_register_value
-  36010018  syscall         310               ; Check_battle_or_normal_mode
+
+; Push false always
+  00000009  push            0
+
+; Don't check for battle/normal mode
+;  36010018  syscall         310               ; Check_battle_or_normal_mode
+
   0100000B  store_local     [1]             
   0000000A  load_local      [0]             
   03000009  push            0x3             
@@ -1901,7 +1943,13 @@
 @UK_lm15_ard19_evdl_asm_KGR_0_SCRIPT_9_0:
   01000009  push            0x1             
   ????????  beqz            @UK_lm15_ard19_evdl_asm_KGR_0_SCRIPT_9_14  ; → PC 2009
-  36010018  syscall         310               ; Check_battle_or_normal_mode
+
+; Push false always
+  00000009  push            0
+
+; Don't check for battle/normal mode
+;  36010018  syscall         310               ; Check_battle_or_normal_mode
+
   0100000B  store_local     [1]             
   20000009  push            0x20              ; 32
   33010018  syscall         307               ; Call_sin
@@ -2348,7 +2396,13 @@
   52010018  syscall         338               ; Make_non_pressable
   0000000A  load_local      [0]             
   09000018  syscall         9                 ; Display_register_value
-  36010018  syscall         310               ; Check_battle_or_normal_mode
+
+; Push false always
+  00000009  push            0
+
+; Don't check for battle/normal mode
+;  36010018  syscall         310               ; Check_battle_or_normal_mode
+
   0100000B  store_local     [1]             
   0000000A  load_local      [0]             
   03000009  push            0x3             

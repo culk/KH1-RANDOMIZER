@@ -142,6 +142,10 @@ assets:
   method: copy
   source:
   - name: mod/remastered/aw05.ard/UK_aw05_ard10.evdl
+- name: remastered/aw05.ard/UK_aw05_ard13.evdl
+  method: copy
+  source:
+  - name: mod/remastered/aw05.ard/UK_aw05_ard13.evdl
 - name: remastered/aw05.ard/UK_aw05_ard19.evdl
   method: copy
   source:
@@ -622,6 +626,34 @@ assets:
   method: copy
   source:
   - name: mod/remastered/nm11.ard/UK_nm11_ardc.evdl
+- name: remastered/pc03.ard/UK_pc03_ard0.evdl
+  method: copy
+  source:
+  - name: mod/remastered/pc03.ard/UK_pc03_ard0.evdl
+- name: remastered/pc03.ard/UK_pc03_ard19.evdl
+  method: copy
+  source:
+  - name: mod/remastered/pc03.ard/UK_pc03_ard19.evdl
+- name: remastered/pc03.ard/UK_pc03_ard2.evdl
+  method: copy
+  source:
+  - name: mod/remastered/pc03.ard/UK_pc03_ard2.evdl
+- name: remastered/pc03.ard/UK_pc03_arda.evdl
+  method: copy
+  source:
+  - name: mod/remastered/pc03.ard/UK_pc03_arda.evdl
+- name: remastered/pc03.ard/UK_pc03_ardc.evdl
+  method: copy
+  source:
+  - name: mod/remastered/pc03.ard/UK_pc03_ardc.evdl
+- name: remastered/pc03.ard/UK_pc03_ardd.evdl
+  method: copy
+  source:
+  - name: mod/remastered/pc03.ard/UK_pc03_ardd.evdl
+- name: remastered/pc03.ard/UK_pc03_arde.evdl
+  method: copy
+  source:
+  - name: mod/remastered/pc03.ard/UK_pc03_arde.evdl
 - name: remastered/pc05.ard/UK_pc05_ard0.evdl
   method: copy
   source:
@@ -1358,6 +1390,10 @@ assets:
   method: copy
   source:
   - name: mod/scripts/1fmUnskippable.lua
+- name: scripts/io_packages/client/map_update.lua
+  method: copy
+  source:
+  - name: mod/scripts/io_packages/client/map_update.lua
 - name: scripts/io_packages/client/receive_items.lua
   method: copy
   source:
@@ -1370,10 +1406,6 @@ assets:
   method: copy
   source:
   - name: mod/scripts/io_packages/client/synth_hints.lua
-- name: scripts/io_packages/client/map_update.lua
-  method: copy
-  source:
-  - name: mod/scripts/io_packages/client/map_update.lua
 - name: scripts/io_packages/d3dcompiler_47.dll
   method: copy
   source:

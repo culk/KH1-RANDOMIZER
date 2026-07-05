@@ -340,7 +340,13 @@
   01000009  push            0x1             
   0200000B  store_local     [2]             
 @UK_lm13_ard3_evdl_asm_KGR_0_SCRIPT_4_2:
-  36010018  syscall         310               ; Check_battle_or_normal_mode
+
+; Push false always
+  00000009  push            0
+
+; Don't check for battle/normal mode
+;  36010018  syscall         310               ; Check_battle_or_normal_mode
+
   1300000B  store_local     [19]            
   1300000A  load_local      [19]            
   00000009  push            0x0             
@@ -1449,7 +1455,13 @@
   00000009  push            0x0             
   06000001  alu             eq              
   ????????  beqz            @UK_lm13_ard3_evdl_asm_KGR_0_SCRIPT_8_5  ; → PC 1290
-  36010018  syscall         310               ; Check_battle_or_normal_mode
+
+; Push false always
+  00000009  push            0
+
+; Don't check for battle/normal mode
+;  36010018  syscall         310               ; Check_battle_or_normal_mode
+
   0100000B  store_local     [1]             
   0100000A  load_local      [1]             
   01000009  push            0x1             

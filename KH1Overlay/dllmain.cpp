@@ -65,6 +65,9 @@ static SRWLOCK g_lock = SRWLOCK_INIT;
 static bool g_connected = false;
 static char g_statusSlot[256] = "";
 static int g_itemsReceived = 0;
+// Last connection failure (wrong slot name, refused, socket error, timeout, etc).
+// Cleared by Lua on a fresh connect attempt or a successful slot connection.
+static char g_connectError[256] = "";
 static std::vector<std::string> g_itemNames;
 static std::vector<std::string> g_locationNames;
 static std::vector<std::string> g_messages;
@@ -145,6 +148,7 @@ static void DrawForm() {
     bool connected;
     char slot[256];
     int items;
+    char connectError[256];
     std::vector<std::string> itemNames;
     std::vector<std::string> locationNames;
     std::vector<std::string> messages;
@@ -153,6 +157,7 @@ static void DrawForm() {
     connected = g_connected;
     strncpy_s(slot, g_statusSlot, _TRUNCATE);
     items = g_itemsReceived;
+    strncpy_s(connectError, g_connectError, _TRUNCATE);
     itemNames = g_itemNames;
     locationNames = g_locationNames;
     messages = g_messages;
@@ -173,6 +178,12 @@ static void DrawForm() {
                 ImGui::Text("Items received: %d", items);
             } else {
                 ImGui::TextColored(ImVec4(1.0f, 0.4f, 0.4f, 1.0f), "Not connected");
+            }
+
+            if (connectError[0] != '\0') {
+                ImGui::TextColored(ImVec4(1.0f, 0.75f, 0.2f, 1.0f), "Error:");
+                ImGui::SameLine();
+                ImGui::TextWrapped("%s", connectError);
             }
 
             ImGui::Separator();
@@ -400,6 +411,17 @@ extern "C" int l_set_status(void* L) {
     return 0;
 }
 
+// Called on a connection failure (wrong slot name, socket error, disconnect,
+// timeout) with a human-readable message to show on the Connect tab. Called
+// with an empty string to clear the error (fresh attempt / successful connect).
+extern "C" int l_set_connect_error(void* L) {
+    const char* msg = p_lua_tolstring(L, 1, nullptr);
+    AcquireSRWLockExclusive(&g_lock);
+    strncpy_s(g_connectError, msg ? msg : "", _TRUNCATE);
+    ReleaseSRWLockExclusive(&g_lock);
+    return 0;
+}
+
 // Reads the array of strings at Lua stack argument argIdx into out.
 static const unsigned long long MAX_LIST_ENTRIES = 5000;
 static void ReadStringArray(void* L, int argIdx, std::vector<std::string>& out) {
@@ -522,6 +544,7 @@ extern "C" int l_poll_connect_request(void* L) {
 
 static const luaL_Reg kh1_overlay_lib[] = {
     {"set_status", reinterpret_cast<void*>(l_set_status)},
+    {"set_connect_error", reinterpret_cast<void*>(l_set_connect_error)},
     {"set_items", reinterpret_cast<void*>(l_set_items)},
     {"set_locations", reinterpret_cast<void*>(l_set_locations)},
     {"set_messages", reinterpret_cast<void*>(l_set_messages)},
