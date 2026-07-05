@@ -311,13 +311,20 @@ static DWORD WINAPI FormThread(LPVOID) {
     ImGuiIO& io = ImGui::GetIO();
     io.IniFilename = nullptr;
 
-    // Default ImGui font is a tiny 13px bitmap font that reads as cramped on
-    // today's high-resolution monitors. Rasterize it bigger; this works
-    // identically on Windows and under Proton/Wine since it's compiled into
-    // imgui itself rather than loaded from an OS font path.
-    ImFontConfig cfg;
-    cfg.SizePixels = 18.0f;
-    io.Fonts->AddFontDefault(&cfg);
+    // Default ImGui font is a tiny 13px bitmap font that reads as cramped and
+    // blurry on today's high-resolution monitors. Load Roboto (Apache 2.0,
+    // see kh1_overlay_font_LICENSE.txt) shipped next to this DLL -- a real
+    // path on disk works identically on Windows and under Proton/Wine, unlike
+    // reaching into an OS font store. Fall back to the built-in font if the
+    // file is ever missing (e.g. an older install).
+    char fontPath[MAX_PATH];
+    snprintf(fontPath, MAX_PATH, "%skh1_overlay_font.ttf", g_dllDir);
+    ImFont* font = io.Fonts->AddFontFromFileTTF(fontPath, 20.0f);
+    if (!font) {
+        ImFontConfig cfg;
+        cfg.SizePixels = 18.0f;
+        io.Fonts->AddFontDefault(&cfg);
+    }
 
     ImGuiStyle& style = ImGui::GetStyle();
     style.ScaleAllSizes(1.4f);

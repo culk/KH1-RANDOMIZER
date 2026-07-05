@@ -1422,6 +1422,14 @@ assets:
   method: copy
   source:
   - name: mod/scripts/io_packages/kh1_overlay.dll
+- name: scripts/io_packages/kh1_overlay_font.ttf
+  method: copy
+  source:
+  - name: mod/scripts/io_packages/kh1_overlay_font.ttf
+- name: scripts/io_packages/kh1_overlay_font_LICENSE.txt
+  method: copy
+  source:
+  - name: mod/scripts/io_packages/kh1_overlay_font_LICENSE.txt
 - name: scripts/io_packages/libcrypto-3-x64.dll
   method: copy
   source:
