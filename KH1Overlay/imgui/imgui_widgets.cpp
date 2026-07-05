@@ -3971,6 +3971,7 @@ static bool ImCharIsSeparatorW(unsigned int c)
     {
         ',', 0x3001, '.', 0x3002, ';', 0xFF1B, '(', 0xFF08, ')', 0xFF09, '{', 0xFF5B, '}', 0xFF5D,
         '[', 0x300C, ']', 0x300D, '|', 0xFF5C, '!', 0xFF01, '\\', 0xFFE5, '/', 0x30FB, 0xFF0F,
+        ':', // so double-click word-select stops at "host:port" boundaries (e.g. the Connect tab's Host field)
         '\n', '\r',
     };
     for (unsigned int separator : separator_list)

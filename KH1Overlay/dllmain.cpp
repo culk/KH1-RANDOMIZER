@@ -3,6 +3,7 @@
 #include <tlhelp32.h>
 #include <cstring>
 #include <cstdio>
+#include <cstdlib>
 #include <string>
 #include <vector>
 
@@ -130,6 +131,111 @@ static LRESULT CALLBACK FormWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM l
     return DefWindowProcA(hwnd, msg, wParam, lParam);
 }
 
+// Lua's message_format is AP.RenderFormat.ANSI, so apclientpp's render_json
+// (apclient.hpp's color2ansi) embeds these exact escape codes for item
+// classification (plum/slateblue/salmon/cyan), locations, players
+// (magenta/yellow), etc. right in the chat text. We map each code back to
+// the real UI hex from Archipelago's NetUtils.py color_codes table (the ANSI
+// codes are just close-enough terminal approximations of those) -- except
+// where apclientpp's own color choice diverges from the canonical client,
+// see the location_id case below.
+static bool AnsiCodeToColor(const std::string& code, ImVec4& outColor) {
+    if (code.rfind("38:5:", 0) == 0 || code.rfind("38;5;", 0) == 0) {
+        int n = atoi(code.c_str() + 5);
+        switch (n) {
+        case 219: outColor = ImVec4(0.686f, 0.600f, 0.937f, 1.0f); return true; // plum      #AF99EF
+        case 62:  outColor = ImVec4(0.427f, 0.545f, 0.910f, 1.0f); return true; // slateblue #6D8BE8
+        case 210: outColor = ImVec4(0.980f, 0.502f, 0.447f, 1.0f); return true; // salmon    #FA8072
+        default:  return false;
+        }
+    }
+    switch (atoi(code.c_str())) {
+    case 31: outColor = ImVec4(0.933f, 0.0f,   0.0f,   1.0f); return true; // red     #EE0000
+    case 32: outColor = ImVec4(0.0f,   1.0f,   0.498f, 1.0f); return true; // green   #00FF7F
+    case 33: outColor = ImVec4(0.980f, 0.980f, 0.824f, 1.0f); return true; // yellow  #FAFAD2
+    // apclientpp's render_json hardcodes "blue" (ansi 34) for location_id, but the
+    // canonical Python client (NetUtils.py's _handle_location_name) colors locations
+    // green (#00FF7F) instead -- apclientpp doesn't use "blue" for anything else
+    // (it has no entrance_name handler at all), so remapping this code is safe and
+    // matches what players see in the real Archipelago client.
+    case 34: outColor = ImVec4(0.0f,   1.0f,   0.498f, 1.0f); return true; // location -> green #00FF7F
+    case 35: outColor = ImVec4(0.933f, 0.0f,   0.933f, 1.0f); return true; // magenta #EE00EE
+    case 36: outColor = ImVec4(0.0f,   0.933f, 0.933f, 1.0f); return true; // cyan    #00EEEE
+    case 90: outColor = ImVec4(0.6f,   0.6f,   0.6f,   1.0f); return true; // gray (hint: unspecified)
+    default: return false; // 0 (reset) and anything unrecognized -> default text color
+    }
+}
+
+struct AnsiSegment {
+    ImVec4 color;
+    bool hasColor;
+    std::string text;
+};
+
+// Splits a possibly ANSI-colored line into (color, text) runs, stripping the
+// escape codes themselves out of the visible text.
+static std::vector<AnsiSegment> ParseAnsiLine(const std::string& line) {
+    std::vector<AnsiSegment> segments;
+    ImVec4 currentColor(1, 1, 1, 1);
+    bool hasColor = false;
+    std::string buf;
+    size_t i = 0;
+    while (i < line.size()) {
+        if (line[i] == '\x1b' && i + 1 < line.size() && line[i + 1] == '[') {
+            size_t end = line.find('m', i);
+            if (end == std::string::npos) break;
+            if (!buf.empty()) {
+                segments.push_back({ currentColor, hasColor, buf });
+                buf.clear();
+            }
+            std::string code = line.substr(i + 2, end - (i + 2));
+            hasColor = AnsiCodeToColor(code, currentColor);
+            i = end + 1;
+        } else {
+            buf.push_back(line[i]);
+            ++i;
+        }
+    }
+    if (!buf.empty()) segments.push_back({ currentColor, hasColor, buf });
+    return segments;
+}
+
+// ImGui has no built-in multi-color rich text, so word-wrapping across
+// differently-colored segments has to be done by hand: walk every word in
+// order (regardless of which segment it came from), track how much width is
+// left on the current line, and manually break to a new line when a word
+// would overflow -- mirroring what ImGui::TextWrapped does for a single color.
+static void DrawWrappedColoredLine(const std::vector<AnsiSegment>& segments, const ImVec4& defaultColor) {
+    float wrapWidth = ImGui::GetContentRegionAvail().x;
+    float spaceWidth = ImGui::CalcTextSize(" ").x;
+    float cursorX = 0.0f;
+    bool firstWordOnLine = true;
+
+    for (const auto& seg : segments) {
+        const ImVec4& color = seg.hasColor ? seg.color : defaultColor;
+        size_t start = 0;
+        while (start <= seg.text.size()) {
+            size_t sp = seg.text.find(' ', start);
+            std::string word = seg.text.substr(start, sp == std::string::npos ? std::string::npos : sp - start);
+            if (!word.empty()) {
+                float wordWidth = ImGui::CalcTextSize(word.c_str()).x;
+                if (!firstWordOnLine && cursorX + spaceWidth + wordWidth > wrapWidth) {
+                    cursorX = 0.0f;
+                    firstWordOnLine = true;
+                } else if (!firstWordOnLine) {
+                    ImGui::SameLine(0.0f, spaceWidth);
+                    cursorX += spaceWidth;
+                }
+                ImGui::TextColored(color, "%s", word.c_str());
+                cursorX += wordWidth;
+                firstWordOnLine = false;
+            }
+            if (sp == std::string::npos) break;
+            start = sp + 1;
+        }
+    }
+}
+
 static void DrawForm() {
     static char host_buf[256] = "archipelago.gg:38281";
     static char slot_buf[256] = "";
@@ -206,8 +312,15 @@ static void DrawForm() {
 
         if (ImGui::BeginTabItem("Messages")) {
             ImGui::BeginChild("MessagesLogChild", ImVec2(0, -ImGui::GetFrameHeightWithSpacing()), true);
-            for (const auto& m : messages) {
-                ImGui::TextWrapped("%s", m.c_str());
+            {
+                ImVec4 defaultColor = ImGui::GetStyleColorVec4(ImGuiCol_Text);
+                for (const auto& m : messages) {
+                    if (m.find('\x1b') == std::string::npos) {
+                        ImGui::TextWrapped("%s", m.c_str());
+                    } else {
+                        DrawWrappedColoredLine(ParseAnsiLine(m), defaultColor);
+                    }
+                }
             }
             if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY() - 1.0f) {
                 ImGui::SetScrollHereY(1.0f);
@@ -283,7 +396,7 @@ static DWORD WINAPI FormThread(LPVOID) {
 
     g_hwnd = CreateWindowExA(WS_EX_TOPMOST, wc.lpszClassName, "Archipelago Connection",
         WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT, 480, 520, nullptr, nullptr, wc.hInstance, nullptr);
+        CW_USEDEFAULT, CW_USEDEFAULT, 720, 780, nullptr, nullptr, wc.hInstance, nullptr);
 
     DXGI_SWAP_CHAIN_DESC scd = {};
     scd.BufferCount = 2;
@@ -308,7 +421,29 @@ static DWORD WINAPI FormThread(LPVOID) {
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGui::GetIO().IniFilename = nullptr;
+    ImGuiIO& io = ImGui::GetIO();
+    io.IniFilename = nullptr;
+
+    // Default ImGui font is a tiny 13px bitmap font that reads as cramped and
+    // blurry on today's high-resolution monitors. Load Roboto (Apache 2.0,
+    // see kh1_overlay_font_LICENSE.txt) shipped next to this DLL -- a real
+    // path on disk works identically on Windows and under Proton/Wine, unlike
+    // reaching into an OS font store. Fall back to the built-in font if the
+    // file is ever missing (e.g. an older install).
+    char fontPath[MAX_PATH];
+    snprintf(fontPath, MAX_PATH, "%skh1_overlay_font.ttf", g_dllDir);
+    ImFont* font = io.Fonts->AddFontFromFileTTF(fontPath, 20.0f);
+    if (!font) {
+        ImFontConfig cfg;
+        cfg.SizePixels = 18.0f;
+        io.Fonts->AddFontDefault(&cfg);
+    }
+
+    ImGuiStyle& style = ImGui::GetStyle();
+    style.ScaleAllSizes(1.4f);
+    style.WindowRounding = 4.0f;
+    style.FrameRounding = 3.0f;
+
     ImGui_ImplWin32_Init(g_hwnd);
     ImGui_ImplDX11_Init(g_device, g_context);
 

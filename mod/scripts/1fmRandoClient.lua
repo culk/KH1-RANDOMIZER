@@ -307,7 +307,11 @@ function _OnInit()
 
     if GAME_ID == 0xAF71841E and ENGINE_TYPE == "BACKEND" then
         require("VersionCheck")
-        message_format = AP.RenderFormat.TEXT
+        -- ANSI embeds the same classification colors CommonClient.py's console
+        -- shows (plum/slateblue/salmon/cyan for progression/useful/trap/filler,
+        -- etc.) as escape codes right in the rendered string -- the F4 overlay
+        -- parses them back out in DrawForm's Messages tab.
+        message_format = AP.RenderFormat.ANSI
         location_map = item_location_handlers.fill_location_map()
     else
         ConsolePrint("KH1 not detected, not running script")
