@@ -283,7 +283,7 @@ static DWORD WINAPI FormThread(LPVOID) {
 
     g_hwnd = CreateWindowExA(WS_EX_TOPMOST, wc.lpszClassName, "Archipelago Connection",
         WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT, 480, 520, nullptr, nullptr, wc.hInstance, nullptr);
+        CW_USEDEFAULT, CW_USEDEFAULT, 720, 780, nullptr, nullptr, wc.hInstance, nullptr);
 
     DXGI_SWAP_CHAIN_DESC scd = {};
     scd.BufferCount = 2;
@@ -308,7 +308,22 @@ static DWORD WINAPI FormThread(LPVOID) {
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGui::GetIO().IniFilename = nullptr;
+    ImGuiIO& io = ImGui::GetIO();
+    io.IniFilename = nullptr;
+
+    // Default ImGui font is a tiny 13px bitmap font that reads as cramped on
+    // today's high-resolution monitors. Rasterize it bigger; this works
+    // identically on Windows and under Proton/Wine since it's compiled into
+    // imgui itself rather than loaded from an OS font path.
+    ImFontConfig cfg;
+    cfg.SizePixels = 18.0f;
+    io.Fonts->AddFontDefault(&cfg);
+
+    ImGuiStyle& style = ImGui::GetStyle();
+    style.ScaleAllSizes(1.4f);
+    style.WindowRounding = 4.0f;
+    style.FrameRounding = 3.0f;
+
     ImGui_ImplWin32_Init(g_hwnd);
     ImGui_ImplDX11_Init(g_device, g_context);
 
