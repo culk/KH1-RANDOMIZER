@@ -133,10 +133,12 @@ static LRESULT CALLBACK FormWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM l
 
 // Lua's message_format is AP.RenderFormat.ANSI, so apclientpp's render_json
 // (apclient.hpp's color2ansi) embeds these exact escape codes for item
-// classification (plum/slateblue/salmon/cyan), locations (blue), players
+// classification (plum/slateblue/salmon/cyan), locations, players
 // (magenta/yellow), etc. right in the chat text. We map each code back to
 // the real UI hex from Archipelago's NetUtils.py color_codes table (the ANSI
-// codes are just close-enough terminal approximations of those).
+// codes are just close-enough terminal approximations of those) -- except
+// where apclientpp's own color choice diverges from the canonical client,
+// see the location_id case below.
 static bool AnsiCodeToColor(const std::string& code, ImVec4& outColor) {
     if (code.rfind("38:5:", 0) == 0 || code.rfind("38;5;", 0) == 0) {
         int n = atoi(code.c_str() + 5);
@@ -151,7 +153,12 @@ static bool AnsiCodeToColor(const std::string& code, ImVec4& outColor) {
     case 31: outColor = ImVec4(0.933f, 0.0f,   0.0f,   1.0f); return true; // red     #EE0000
     case 32: outColor = ImVec4(0.0f,   1.0f,   0.498f, 1.0f); return true; // green   #00FF7F
     case 33: outColor = ImVec4(0.980f, 0.980f, 0.824f, 1.0f); return true; // yellow  #FAFAD2
-    case 34: outColor = ImVec4(0.392f, 0.584f, 0.929f, 1.0f); return true; // blue    #6495ED
+    // apclientpp's render_json hardcodes "blue" (ansi 34) for location_id, but the
+    // canonical Python client (NetUtils.py's _handle_location_name) colors locations
+    // green (#00FF7F) instead -- apclientpp doesn't use "blue" for anything else
+    // (it has no entrance_name handler at all), so remapping this code is safe and
+    // matches what players see in the real Archipelago client.
+    case 34: outColor = ImVec4(0.0f,   1.0f,   0.498f, 1.0f); return true; // location -> green #00FF7F
     case 35: outColor = ImVec4(0.933f, 0.0f,   0.933f, 1.0f); return true; // magenta #EE00EE
     case 36: outColor = ImVec4(0.0f,   0.933f, 0.933f, 1.0f); return true; // cyan    #00EEEE
     case 90: outColor = ImVec4(0.6f,   0.6f,   0.6f,   1.0f); return true; // gray (hint: unspecified)
