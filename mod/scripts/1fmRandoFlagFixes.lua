@@ -279,23 +279,24 @@ function FlagFixes()
         if ReadByte(room) > 0xF then
             WriteByte(collectedFruits, math.max(ReadByte(collectedFruits), (ReadByte(room)-0xF)*10))
         end
-
-        if ReadByte(cutsceneFlags + 5) <= 0x1A then
-            if ReadByte(room) == 0xC then
-                local o = 0
-                while ReadInt(slideActive+o*0x4B0+4) ~= 0x40018 and ReadInt(slideActive+o*0x4B0+4) ~= 0 and o > -5 do
-                    o = o-1
-                end
-                if ReadInt(slideActive+o*0x4B0+4) == 0x40018 then
-                    for i=0,5 do
-                        if ReadInt(slideActive+(i+o)*0x4B0+4) == 0x40018+(i>1 and i+4 or i) then
-                            WriteLong(slideActive+(i+o)*0x4B0, 0)
-                        end
-                    end
-                end
-                --end
-            end
-        end
+        
+        -- Handled in EVDL now
+        -- if ReadByte(cutsceneFlags + 5) <= 0x1A then
+        --     if ReadByte(room) == 0xC then
+        --         local o = 0
+        --         while ReadInt(slideActive+o*0x4B0+4) ~= 0x40018 and ReadInt(slideActive+o*0x4B0+4) ~= 0 and o > -5 do
+        --             o = o-1
+        --         end
+        --         if ReadInt(slideActive+o*0x4B0+4) == 0x40018 then
+        --             for i=0,5 do
+        --                 if ReadInt(slideActive+(i+o)*0x4B0+4) == 0x40018+(i>1 and i+4 or i) then
+        --                     WriteLong(slideActive+(i+o)*0x4B0, 0)
+        --                 end
+        --             end
+        --         end
+        --         --end
+        --     end
+        -- end
     end
 
     if ReadByte(world) == 6 then
