@@ -1391,9 +1391,15 @@
 ; Script 8  |  11 subscript(s)  |  PC 1173  |  file 0x514D  |  KGR 0
 ; ────────────────────────────────────────────────────────────────────────
 
-  0706000C  read_byte       [0x607]           ; save_data[0x607]  (SLIDE_1_TURNED_IN)
-  00000009  push            0x0             
-  06000001  alu             eq              
+
+; New: force Slide 1 to never appear
+  01000009  push            0x1
+
+; Old Slide 1 spawn check
+;  0706000C  read_byte       [0x607]           ; save_data[0x607]  (SLIDE_1_TURNED_IN)
+
+  00000009  push            0x0
+  06000001  alu             eq
   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_8_0  ; → PC 1191
   18000409  push            0x40018           ; 262168
   B7000018  syscall         183               ; Display_model
@@ -1442,9 +1448,15 @@
 ; Script 9  |  11 subscript(s)  |  PC 1216  |  file 0x51F9  |  KGR 0
 ; ────────────────────────────────────────────────────────────────────────
 
-  0806000C  read_byte       [0x608]           ; save_data[0x608]  (SLIDE_2_TURNED_IN)
-  00000009  push            0x0             
-  06000001  alu             eq              
+
+; New: force Slide 2 to never appear
+  01000009  push            0x1
+
+; Old Slide 2 spawn check
+;  0806000C  read_byte       [0x608]           ; save_data[0x608]  (SLIDE_2_TURNED_IN)
+
+  00000009  push            0x0
+  06000001  alu             eq
   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_9_0  ; → PC 1235
   19000409  push            0x40019           ; 262169
   B7000018  syscall         183               ; Display_model
@@ -1494,9 +1506,15 @@
 ; Script 10  |  11 subscript(s)  |  PC 1260  |  file 0x52A9  |  KGR 0
 ; ────────────────────────────────────────────────────────────────────────
 
-  0906000C  read_byte       [0x609]           ; save_data[0x609]  (SLIDE_3_TURNED_IN)
-  00000009  push            0x0             
-  06000001  alu             eq              
+
+; New: force Slide 3 to never appear
+  01000009  push            0x1
+
+; Old Slide 3 spawn check
+;  0906000C  read_byte       [0x609]           ; save_data[0x609]  (SLIDE_3_TURNED_IN)
+
+  00000009  push            0x0
+  06000001  alu             eq
   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_10_0  ; → PC 1277
   1E000409  push            0x4001E           ; 262174
   B7000018  syscall         183               ; Display_model
@@ -1544,9 +1562,15 @@
 ; Script 11  |  11 subscript(s)  |  PC 1302  |  file 0x5351  |  KGR 0
 ; ────────────────────────────────────────────────────────────────────────
 
-  0A06000C  read_byte       [0x60A]           ; save_data[0x60A]  (SLIDE_4_TURNED_IN)
-  00000009  push            0x0             
-  06000001  alu             eq              
+
+; New: force Slide 4 to never appear
+  01000009  push            0x1
+
+; Old Slide 4 spawn check
+;  0A06000C  read_byte       [0x60A]           ; save_data[0x60A]  (SLIDE_4_TURNED_IN)
+
+  00000009  push            0x0
+  06000001  alu             eq
   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_11_0  ; → PC 1320
   1F000409  push            0x4001F           ; 262175
   B7000018  syscall         183               ; Display_model
@@ -1595,9 +1619,15 @@
 ; Script 12  |  11 subscript(s)  |  PC 1345  |  file 0x53FD  |  KGR 0
 ; ────────────────────────────────────────────────────────────────────────
 
-  0B06000C  read_byte       [0x60B]           ; save_data[0x60B]  (SLIDE_5_TURNED_IN)
-  00000009  push            0x0             
-  06000001  alu             eq              
+
+; New: force Slide 5 to never appear
+  01000009  push            0x1
+
+; Old Slide 5 spawn check
+;  0B06000C  read_byte       [0x60B]           ; save_data[0x60B]  (SLIDE_5_TURNED_IN)
+
+  00000009  push            0x0
+  06000001  alu             eq
   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_12_0  ; → PC 1364
   20000409  push            0x40020           ; 262176
   B7000018  syscall         183               ; Display_model
@@ -1647,10 +1677,15 @@
 ; Script 13  |  11 subscript(s)  |  PC 1389  |  file 0x54AD  |  KGR 0
 ; ────────────────────────────────────────────────────────────────────────
 
-Make Slide 6 never appear
-  0C06000C  read_byte       [0x60C]           ; save_data[0x60C]  (SLIDE_6_TURNED_IN)
-  00000009  push            0x0             
-  06000001  alu             eq              
+; Make Slide 6 never appear
+; New: force Slide 6 to never appear
+  01000009  push            0x1
+
+; Old Slide 6 spawn check
+;  0C06000C  read_byte       [0x60C]           ; save_data[0x60C]  (SLIDE_6_TURNED_IN)
+
+  00000009  push            0x0
+  06000001  alu             eq
   ????????  beqz            @UK_tz13_ard0_evdl_asm_KGR_0_SCRIPT_13_0  ; → PC 1407
   21000409  push            0x40021           ; 262177
   B7000018  syscall         183               ; Display_model
