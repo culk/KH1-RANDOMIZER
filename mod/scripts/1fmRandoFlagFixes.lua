@@ -58,17 +58,7 @@ function FlagFixes()
     if ReadByte(cutsceneFlags + 4) == 0x3E then
         debugPrint("Section 5")
         WriteByte(cutsceneFlags + 4, 0x4E)
-        WriteByte(worldFlagBase - 0xC7, 5)
-    end
-
-    -- Force Kairi Waterway
-    if ReadByte(cutsceneFlags + 4) >= 0x3E -- Post Leon
-        and ReadByte(cutsceneFlagBase + 9) >= 0x82 -- Riku Ansem defeated
-        and ReadByte(cutsceneFlags - 0x7EE) >= 1 -- Another post Leon check
-        and (ReadByte(world) ~= 0x03 or ReadByte(room) ~= 0x16) -- Not already in Waterway
-        and ReadByte(worldFlagBase - 0xB2) <= 2
-        then
-        WriteByte(worldFlagBase - 0xB2, 3)
+        WriteByte(worldFlagBase - 0xC8, 5)
     end
 
     -- Revert HB1 effect on TT story
