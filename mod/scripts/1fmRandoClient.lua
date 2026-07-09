@@ -289,20 +289,6 @@ local function preload_dependency(filename)
     end
 end
 
-local function preload_system_or_bundled(filename)
-    -- Prefer whichever copy Windows can already resolve (System32, or one the
-    -- game itself already loaded) over our bundled copy. The bundled DLL can
-    -- carry runtime dependencies (e.g. a newer msvcp140.dll export) that
-    -- aren't present on every machine and would otherwise turn into an
-    -- unrecoverable "Entry Point Not Found" loader error. Only fall back to
-    -- the bundled copy when no system copy can be found at all.
-    if package.loadlib(filename, "*") then
-        ConsolePrint("Using system " .. filename)
-        return
-    end
-    preload_dependency(filename)
-end
-
 function _OnInit()
     -- lua-apclientpp.dll needs these on disk next to it, but some players' machines
     -- can't resolve them via the normal dependency search. Pre-loading them by full
@@ -318,7 +304,7 @@ function _OnInit()
 
     -- kh1_overlay.dll's ImGui DX11 backend compiles its shaders at runtime via
     -- D3DCompiler_47.dll, which isn't guaranteed present on every machine.
-    preload_system_or_bundled("d3dcompiler_47.dll")
+    preload_dependency("d3dcompiler_47.dll")
     local overlay_ok, overlay = pcall(require, "kh1_overlay")
     if overlay_ok and type(overlay) == "table" then
         kh1_overlay = overlay
