@@ -114,6 +114,18 @@ local function connect(server, slot, password)
     end
 
     local function on_slot_connected(slot_data)
+        local expected_seed = seed_vars["settings"] and seed_vars["settings"]["seed"]
+        if expected_seed and slot_data.seed and tostring(slot_data.seed) ~= tostring(expected_seed) then
+            ConsolePrint("Slot connected, but seed mismatch: expected " .. tostring(expected_seed) .. ", got " .. tostring(slot_data.seed))
+            is_connected = false
+            connect_attempt_time = nil
+            ap:reset()
+            ap = nil
+            set_overlay_error("Seed mismatch: the installed mod's seed does not match the connected slot's seed")
+            kh1_lua_library.show_prompt({[1]=""},{[1]={"Seed mismatch!", nil}},nil,142)
+            return
+        end
+
         ConsolePrint("Slot connected successfully!")
         is_connected = true
         connect_attempt_time = nil
