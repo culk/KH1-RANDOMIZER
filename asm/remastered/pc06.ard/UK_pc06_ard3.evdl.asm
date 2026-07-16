@@ -3965,90 +3965,6 @@
   07000009  push            0x7             
   02000018  syscall         2                 ; Close_window
 @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_21:
-  03000009  push            0x3             
-  1900000B  store_local     [25]            
-  1900000A  load_local      [25]            
-  01000006  store_reg       0x1             
-  00000007  cmp_reg_imm                     
-  ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_22  ; → PC 3429
-  5E0D000C  read_byte       [0xD5E]           ; save_data2[0x1E]
-  01000009  push            0x1             
-  00000001  alu             add             
-  5E0D000D  write_byte      [0xD5E]           ; save_data2[0x1E]
-  5E0D000C  read_byte       [0xD5E]           ; save_data2[0x1E]
-  1800000B  store_local     [24]            
-  ????????  jmp             @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_28  ; → PC 3483
-@UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_22:
-  01000007  cmp_reg_imm     0x1             
-  ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_23  ; → PC 3438
-  5F0D000C  read_byte       [0xD5F]           ; save_data2[0x1F]
-  01000009  push            0x1             
-  00000001  alu             add             
-  5F0D000D  write_byte      [0xD5F]           ; save_data2[0x1F]
-  5F0D000C  read_byte       [0xD5F]           ; save_data2[0x1F]
-  1800000B  store_local     [24]            
-  ????????  jmp             @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_28  ; → PC 3483
-@UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_23:
-  02000007  cmp_reg_imm     0x2             
-  ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_24  ; → PC 3447
-  600D000C  read_byte       [0xD60]           ; save_data2[0x20]
-  01000009  push            0x1             
-  00000001  alu             add             
-  600D000D  write_byte      [0xD60]           ; save_data2[0x20]
-  600D000C  read_byte       [0xD60]           ; save_data2[0x20]
-  1800000B  store_local     [24]            
-  ????????  jmp             @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_28  ; → PC 3483
-@UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_24:
-  03000007  cmp_reg_imm     0x3             
-  ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_25  ; → PC 3456
-  610D000C  read_byte       [0xD61]           ; save_data2[0x21]
-  01000009  push            0x1             
-  00000001  alu             add             
-  610D000D  write_byte      [0xD61]           ; save_data2[0x21]
-  610D000C  read_byte       [0xD61]           ; save_data2[0x21]
-  1800000B  store_local     [24]            
-  ????????  jmp             @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_28  ; → PC 3483
-@UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_25:
-  04000007  cmp_reg_imm     0x4             
-  ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_26  ; → PC 3465
-  620D000C  read_byte       [0xD62]           ; save_data2[0x22]
-  01000009  push            0x1             
-  00000001  alu             add             
-  620D000D  write_byte      [0xD62]           ; save_data2[0x22]
-  620D000C  read_byte       [0xD62]           ; save_data2[0x22]
-  1800000B  store_local     [24]            
-  ????????  jmp             @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_28  ; → PC 3483
-@UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_26:
-  05000007  cmp_reg_imm     0x5             
-  ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_27  ; → PC 3474
-  630D000C  read_byte       [0xD63]           ; save_data2[0x23]
-  01000009  push            0x1             
-  00000001  alu             add             
-  630D000D  write_byte      [0xD63]           ; save_data2[0x23]
-  630D000C  read_byte       [0xD63]           ; save_data2[0x23]
-  1800000B  store_local     [24]            
-  ????????  jmp             @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_28  ; → PC 3483
-@UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_27:
-  06000007  cmp_reg_imm     0x6             
-  ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_28  ; → PC 3483
-  640D000C  read_byte       [0xD64]           ; save_data2[0x24]
-  01000009  push            0x1             
-  00000001  alu             add             
-  640D000D  write_byte      [0xD64]           ; save_data2[0x24]
-  640D000C  read_byte       [0xD64]           ; save_data2[0x24]
-  1800000B  store_local     [24]            
-  ????????  jmp             @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_28  ; → PC 3483
-@UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_28:
-  00000008  dec_reg_idx                     
-  1800000A  load_local      [24]            
-  03000009  push            0x3             
-  0A000001  alu             le              
-  ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_42  ; → PC 3639
-  01000009  push            0x1             
-  5A0D000D  write_byte      [0xD5A]           ; save_data2[0x1A]
-  5A0D000C  read_byte       [0xD5A]           ; save_data2[0x1A]
-  01000006  store_reg       0x1             
-  00000007  cmp_reg_imm                     
 
 ; New Aerith Curaga reward code
   23000009  push            0x23              ; 35
@@ -4099,6 +4015,90 @@
   02000018  syscall         2                 ; Close_window
 
 ; Old Aerith Curaga reward code
+;   03000009  push            0x3             
+;   1900000B  store_local     [25]            
+;   1900000A  load_local      [25]            
+;   01000006  store_reg       0x1             
+;   00000007  cmp_reg_imm                     
+;   ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_22  ; → PC 3429
+;   5E0D000C  read_byte       [0xD5E]           ; save_data2[0x1E]
+;   01000009  push            0x1             
+;   00000001  alu             add             
+;   5E0D000D  write_byte      [0xD5E]           ; save_data2[0x1E]
+;   5E0D000C  read_byte       [0xD5E]           ; save_data2[0x1E]
+;   1800000B  store_local     [24]            
+;   ????????  jmp             @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_28  ; → PC 3483
+; @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_22:
+;   01000007  cmp_reg_imm     0x1             
+;   ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_23  ; → PC 3438
+;   5F0D000C  read_byte       [0xD5F]           ; save_data2[0x1F]
+;   01000009  push            0x1             
+;   00000001  alu             add             
+;   5F0D000D  write_byte      [0xD5F]           ; save_data2[0x1F]
+;   5F0D000C  read_byte       [0xD5F]           ; save_data2[0x1F]
+;   1800000B  store_local     [24]            
+;   ????????  jmp             @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_28  ; → PC 3483
+; @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_23:
+;   02000007  cmp_reg_imm     0x2             
+;   ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_24  ; → PC 3447
+;   600D000C  read_byte       [0xD60]           ; save_data2[0x20]
+;   01000009  push            0x1             
+;   00000001  alu             add             
+;   600D000D  write_byte      [0xD60]           ; save_data2[0x20]
+;   600D000C  read_byte       [0xD60]           ; save_data2[0x20]
+;   1800000B  store_local     [24]            
+;   ????????  jmp             @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_28  ; → PC 3483
+; @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_24:
+;   03000007  cmp_reg_imm     0x3             
+;   ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_25  ; → PC 3456
+;   610D000C  read_byte       [0xD61]           ; save_data2[0x21]
+;   01000009  push            0x1             
+;   00000001  alu             add             
+;   610D000D  write_byte      [0xD61]           ; save_data2[0x21]
+;   610D000C  read_byte       [0xD61]           ; save_data2[0x21]
+;   1800000B  store_local     [24]            
+;   ????????  jmp             @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_28  ; → PC 3483
+; @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_25:
+;   04000007  cmp_reg_imm     0x4             
+;   ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_26  ; → PC 3465
+;   620D000C  read_byte       [0xD62]           ; save_data2[0x22]
+;   01000009  push            0x1             
+;   00000001  alu             add             
+;   620D000D  write_byte      [0xD62]           ; save_data2[0x22]
+;   620D000C  read_byte       [0xD62]           ; save_data2[0x22]
+;   1800000B  store_local     [24]            
+;   ????????  jmp             @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_28  ; → PC 3483
+; @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_26:
+;   05000007  cmp_reg_imm     0x5             
+;   ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_27  ; → PC 3474
+;   630D000C  read_byte       [0xD63]           ; save_data2[0x23]
+;   01000009  push            0x1             
+;   00000001  alu             add             
+;   630D000D  write_byte      [0xD63]           ; save_data2[0x23]
+;   630D000C  read_byte       [0xD63]           ; save_data2[0x23]
+;   1800000B  store_local     [24]            
+;   ????????  jmp             @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_28  ; → PC 3483
+; @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_27:
+;   06000007  cmp_reg_imm     0x6             
+;   ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_28  ; → PC 3483
+;   640D000C  read_byte       [0xD64]           ; save_data2[0x24]
+;   01000009  push            0x1             
+;   00000001  alu             add             
+;   640D000D  write_byte      [0xD64]           ; save_data2[0x24]
+;   640D000C  read_byte       [0xD64]           ; save_data2[0x24]
+;   1800000B  store_local     [24]            
+;   ????????  jmp             @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_28  ; → PC 3483
+; @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_28:
+;   00000008  dec_reg_idx                     
+;   1800000A  load_local      [24]            
+;   03000009  push            0x3             
+;   0A000001  alu             le              
+;   ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_42  ; → PC 3639
+;   01000009  push            0x1             
+;   5A0D000D  write_byte      [0xD5A]           ; save_data2[0x1A]
+;   5A0D000C  read_byte       [0xD5A]           ; save_data2[0x1A]
+;   01000006  store_reg       0x1             
+;   00000007  cmp_reg_imm                     
 ;   ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_29  ; → PC 3504
 ;   03000009  push            0x3             
 ;   1800000A  load_local      [24]     
