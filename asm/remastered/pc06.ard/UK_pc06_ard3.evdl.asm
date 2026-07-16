@@ -4049,7 +4049,6 @@
   5A0D000C  read_byte       [0xD5A]           ; save_data2[0x1A]
   01000006  store_reg       0x1             
   00000007  cmp_reg_imm                     
-  ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_29  ; → PC 3504
 
 ; New Aerith Curaga reward code
   23000009  push            0x23              ; 35
@@ -4100,8 +4099,9 @@
   02000018  syscall         2                 ; Close_window
 
 ; Old Aerith Curaga reward code
-;  03000009  push            0x3             
-;  1800000A  load_local      [24]     
+;   ????????  beqz            @UK_pc06_ard3_evdl_asm_KGR_0_SCRIPT_8_29  ; → PC 3504
+;   03000009  push            0x3             
+;   1800000A  load_local      [24]     
 ;   CA010018  syscall         458               ; Load_magic
 ;   01000009  push            0x1             
 ;   08000018  syscall         8                 ; Set_wait_timer
