@@ -1,32 +1,10 @@
 ---@diagnostic disable: undefined-global
 local seed_vars = require("seed_vars")
+local kh1_lua_library = require("kh1_lua_library")
 
 local revertCode = false
 local removeWhite = 0
 local lastDeathPointer = 0
-
-local function sora_koed()
-    return ReadByte(maxHP - 0x1) == 0
-end
-
-local function ko_sora()
-    if not sora_koed() then
-        WriteByte(soraHP, 0)
-        WriteByte(maxHP - 0x1, 0)
-        WriteByte(stateFlag, 1)
-        WriteShort(deathCheck, 0x9090)
-        revertCode = true
-    end
-end
-
-local function heartless_angel_sora()
-    if not sora_koed() then
-        WriteByte(soraHP, 1)
-        WriteByte(maxHP - 0x1, 1)
-        WriteByte(soraHP + 0x8, 0)
-        WriteByte(maxHP - 0x1 + 2, 0)
-    end
-end
 
 local function death_link_init()
     lastDeathPointer = ReadLong(deathPointer)
@@ -53,21 +31,18 @@ local function death_link_frame()
     if seed_vars["settings"]["goofy_death_link"] then
         if ReadByte(goofys_hp_address) == 0 and ReadByte(maxHP - 0x1) > 0 then
             ConsolePrint("Goofy was defeated!")
-            ko_sora()
+            kh1_lua_library.ko_sora()
         end
     end
     if seed_vars["settings"]["donald_death_link"] then
         if ReadByte(donalds_hp_address) == 0 and ReadByte(maxHP - 0x1) > 0 then
             ConsolePrint("Donald was defeated!")
-            ko_sora()
+            kh1_lua_library.ko_sora()
         end
     end
 end
 
 return {
-    ko_sora = ko_sora,
-    heartless_angel_sora = heartless_angel_sora,
-    sora_koed = sora_koed,
     death_link_init = death_link_init,
     death_link_frame = death_link_frame
 }

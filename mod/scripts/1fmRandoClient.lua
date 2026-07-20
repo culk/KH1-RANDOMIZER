@@ -218,8 +218,8 @@ local function connect(server, slot, password)
     
     local function on_bounced(msg)
         ConsolePrint(json.encode(msg))
-        if msg.tags and kh1_lua_library.contains(msg.tags, "DeathLink") and not death_link.sora_koed() then
-            death_link.ko_sora()
+        if msg.tags and kh1_lua_library.contains(msg.tags, "DeathLink") and not kh1_lua_library.sora_koed() then
+            kh1_lua_library.ko_sora()
             game_state.sora_koed = true
         end
     end
@@ -428,7 +428,7 @@ function _OnFrame()
                 game_state.victory = item_location_handlers.final_ansem_defeated()
                 game_state.world = kh1_lua_library.get_world()
                 game_state = synth_hints.check_for_synth_shop_hints(game_state)
-                if death_link.sora_koed() and not game_state.sora_koed and ap and (game_state.slot_data.death_link == "on" or game_state.slot_data.death_link == "toggle") then
+                if kh1_lua_library.sora_koed() and not game_state.sora_koed and ap and (game_state.slot_data.death_link == "on" or game_state.slot_data.death_link == "toggle") then
                     ap:Bounce(
                         {
                             cause="Sora was defeated!",
@@ -440,7 +440,7 @@ function _OnFrame()
                     ap:StatusUpdate(AP.ClientStatus.GOAL)
                     game_state.goal_sent = true
                 end
-                game_state.sora_koed = death_link.sora_koed()
+                game_state.sora_koed = kh1_lua_library.sora_koed()
                 death_link.death_link_frame()
                 if not kh1_lua_library.is_in_gummi_garage() then
                     receive_items.receive_items_from_client(game_state.items_received)
